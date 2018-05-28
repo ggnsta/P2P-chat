@@ -1,3 +1,4 @@
+/*
 
 import sun.misc.IOUtils;
 import sun.nio.ch.IOUtil;
@@ -16,8 +17,8 @@ public class FileTransmit extends Worker {
 
     public FileTransmit(Worker worker) {
         this.fileList = worker.fileList;
-        this.oos=worker.oos;
-        this.oin=worker.oin;
+        this.fis=worker.fis;
+        this.fos=worker.fos;
     }
 
     ;
@@ -60,7 +61,8 @@ public class FileTransmit extends Worker {
         }
     }
 
-   /* public void getFile() {
+   */
+/* public void getFile() {
         try {
             MessageObject buf= (MessageObject) oin.readObject();//считываем первый объект с размерои и именем файла
 
@@ -100,5 +102,7 @@ public class FileTransmit extends Worker {
             e.printStackTrace();
         }
 
-    }*/
+    }*//*
+
 }
+*/

@@ -8,11 +8,10 @@ import static java.lang.Math.toIntExact;
 public class Worker extends Thread implements Runnable {
 
     protected Socket clientSocket = null;
-    //  protected DataInputStream in;
-    // protected DataOutputStream out;
-    protected ObjectOutputStream oos;
-    protected ObjectInputStream oin;
+    protected FileInputStream fis;
+    protected FileOutputStream fos;
     protected ArrayList<String> fileList = new ArrayList<String>();
+    protected File history;
 
     protected MyGUI gui;
 
@@ -26,12 +25,19 @@ public class Worker extends Thread implements Runnable {
     @Override
     public void run() {
         try {
-            InputStream input = clientSocket.getInputStream();
-            OutputStream output = clientSocket.getOutputStream();
-            oin = new ObjectInputStream(input);
-            oos = new ObjectOutputStream(output);
-            //  in = new DataInputStream(input);
-            // out = new DataOutputStream(output);
+
+
+            String patch = System.getProperty("user.home");
+            patch += File.separator + "p2p-chat" + File.separator + "temp.in";
+            history = new File(patch);
+            history.getParentFile().mkdirs();
+            history.createNewFile();
+
+            fis = new FileInputStream(history);
+            fos = new FileOutputStream(history);
+           // oin = new ObjectInputStream(fis);
+            //oos = new ObjectOutputStream(fos);
+
             String str = this.getName();
             System.out.println("Есть контакт : " + str);
             while (true) {
@@ -48,22 +54,26 @@ public class Worker extends Thread implements Runnable {
     public void get() {
         System.out.println("проверочка");
 
-        try {
-            MessageObject buf= (MessageObject) oin.readObject();
 
-            System.out.println(buf.senderName+":"+buf.message);
+        try {
+            ObjectInputStream oin = new ObjectInputStream(fis);
+            MessageObject buf = (MessageObject) oin.readObject();
+
+            System.out.println(buf.senderName + ":" + buf.message);
             gui.jtaTextAreaMessage.append(buf.message + "\n");
+            oin.close();
 
         } catch (Exception x) {
-            x.printStackTrace();
+
         }
     }
 
     public void send() {
         try {
 
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
             MessageObject mesObject = new MessageObject();
-            mesObject.message=gui.jtfMessage.getText();// заносим сообщения из gui в объект
+            mesObject.message = gui.jtfMessage.getText();// заносим сообщения из gui в объект
             System.out.println("send class worker");
             oos.writeObject(mesObject);
             oos.flush();
@@ -77,8 +87,7 @@ public class Worker extends Thread implements Runnable {
     }
 
 
-    public Worker()
-    {
+    public Worker() {
 
     }
 }

@@ -12,6 +12,7 @@ import java.io.File;
 public class MyGUI extends JFrame {
 
     //объекты gui'a
+    protected JLabel myIP;
     protected JTextArea jtfMessage;
     protected JTextField jtfName;
     protected JTextArea jtaTextAreaMessage;// поле чата
@@ -40,6 +41,10 @@ public class MyGUI extends JFrame {
         setBounds(20, 20, 500, 600);
         my_panel.setLayout(null);
 
+
+        myIP= new JLabel("IP:"+Utility.getCurrentIP());
+        myIP.setBounds(350,300,100,20);
+        my_panel.add(myIP);
 
         transmitProgress = new JProgressBar( model );
         transmitProgress.setBounds( 350, 170, 100, 15 );
