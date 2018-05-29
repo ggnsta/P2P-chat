@@ -1,3 +1,5 @@
+import sun.net.www.protocol.http.AuthCacheValue;
+
 import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +16,7 @@ public class MultiServer implements Runnable {
     protected MyGUI gui;
     private List<Worker> contacts = new ArrayList<Worker>();
     protected Socket socket;
-
+    protected Utility.TypeConection type;
 
 
     @Override
@@ -35,7 +37,8 @@ public class MultiServer implements Runnable {
                 throw new RuntimeException("Error accepting client connection", e);
             }
             System.out.println("Как сервер.");
-            Worker worker = new Worker(clientSocket, this.gui);
+            type = Utility.TypeConection.Server;
+            Worker worker = new Worker(clientSocket, this.gui, type);
             contacts.add(worker);
             worker.run();
         }
@@ -45,8 +48,9 @@ public class MultiServer implements Runnable {
     public void runClient() {
         try {
             System.out.println("Как клиент.");
+            type = Utility.TypeConection.Client;
             this.socket = new Socket(gui.jtfIP.getText(), 49005); // конектимся к серверу
-            Worker worker = new Worker(socket, this.gui);
+            Worker worker = new Worker(socket, this.gui, type);
             contacts.add(worker);
             worker.start();
 
@@ -81,12 +85,10 @@ public class MultiServer implements Runnable {
         try {
             this.serverSocket = new ServerSocket(this.serverPort);
 
-        }
-        catch(ConnectException e) {
+        } catch (ConnectException e) {
             Error error = new Error();
             error.eOS();
-        }
-        catch (IOException e)// (включает в себя SocketTimeoutException )
+        } catch (IOException e)// (включает в себя SocketTimeoutException )
         {
 
             Error error = new Error();
@@ -102,8 +104,6 @@ public class MultiServer implements Runnable {
     public void setContacts(List<Worker> contacts) {
         this.contacts = contacts;
     }
-
-
 
 
     public MultiServer(int port, MyGUI gui) {

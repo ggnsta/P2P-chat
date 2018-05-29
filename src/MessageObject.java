@@ -15,12 +15,15 @@ public class MessageObject implements Serializable {
 
     //System.out.printf("%1$s %2$td %2$tB %2$tY", "Дата:", date);
 
+    public void set(String message) {
+        this.message = message;
+        this.senderName=Utility.getCurrentIP();
+        this.date=new Date();
+        this.isFile=false;
+    }
+
     public MessageObject()
     {
-        message=null;
-        senderName=Utility.getCurrentIP();
-        System.out.print(senderName);
-        date = new Date();
 
     }
 

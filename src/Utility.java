@@ -7,6 +7,7 @@ import java.io.IOException;
 
 //вспомагательный класс, для получения внешнего IP
 public class Utility {
+    protected enum TypeConection{Server,Client}
 
     public static String getCurrentIP() {
         String ip=null;
