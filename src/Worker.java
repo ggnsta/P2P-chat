@@ -8,15 +8,11 @@ import static java.lang.Math.toIntExact;
 public class Worker extends Thread implements Runnable {
 
     protected Socket clientSocket = null;
-    protected FileInputStream fis;
-    protected FileOutputStream fos;
     protected ArrayList<String> fileList = new ArrayList<String>();
-
     protected File history;
-    protected File bufFile;
     protected ObjectOutputStream oos = null;
     protected ObjectInputStream ois = null;
-    protected Utility.TypeConection type;
+    protected Utility.TypeConection type; // отвечает за правильный порядок создания oos и ois
 
 
     protected MyGUI gui;
@@ -33,7 +29,6 @@ public class Worker extends Thread implements Runnable {
     public void run() {
         try {
 
-
             String patch = System.getProperty("user.home");
             patch += File.separator + "p2p-chat" + File.separator + "history.txt";
 
@@ -41,11 +36,14 @@ public class Worker extends Thread implements Runnable {
             history.getParentFile().mkdirs();
             history.createNewFile();
 
-            patch = File.separator + "p2p-chat" + File.separator + "in.txt";
-            bufFile = new File(patch);
-            bufFile.getParentFile().mkdir();
-            bufFile.createNewFile();
-
+            /*ObjectInputStream, читает из указанного InputStream. Заголовок
+            потока сериализации считывается из потока и проверяется.
+            Этот конструктор будет блокироваться до тех пор, пока соответствующий
+            objectOutputStream не запишет и не сбросит заголовок.
+            В итоге, если и у клиента и у сервера будет одинаковый порядок создания
+            OOS и OIS, они оба будут ждать друг от друга заголовка потока и заблокируют
+            друг друга.
+            */
             if (type == Utility.TypeConection.Server) {
 
                 oos = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -53,7 +51,6 @@ public class Worker extends Thread implements Runnable {
                 ois = new ObjectInputStream(clientSocket.getInputStream());
 
             } else {
-                System.out.println("client");
                 ois = new ObjectInputStream(clientSocket.getInputStream());
                 oos = new ObjectOutputStream(clientSocket.getOutputStream());
             }

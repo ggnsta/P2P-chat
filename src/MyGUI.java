@@ -23,6 +23,7 @@ public class MyGUI extends JFrame {
     protected JScrollPane chatScroll;
     protected JScrollPane messageScroll;
     protected JLabel readyLabel;
+    protected JLabel labelIP;
     protected JButton bAddFile;
     protected JProgressBar transmitProgress;
     protected BoundedRangeModel model=new DefaultBoundedRangeModel(0, 0, 0, 100);
@@ -41,6 +42,9 @@ public class MyGUI extends JFrame {
         setBounds(20, 20, 500, 600);
         my_panel.setLayout(null);
 
+        labelIP= new JLabel("Введите IP:");
+        labelIP.setBounds(280,75,150,20);
+        my_panel.add(labelIP);
 
         myIP= new JLabel("IP:"+Utility.getCurrentIP());
         myIP.setBounds(350,300,100,20);
@@ -67,7 +71,7 @@ public class MyGUI extends JFrame {
         messageScroll.setBounds(20, 420, 250, 50);
         my_panel.add(messageScroll);
 
-        jtfIP = new JTextField("IP: ");
+        jtfIP = new JTextField("");
         jtfIP.setBounds(350, 60, 100, 50);
         my_panel.add(jtfIP);
 

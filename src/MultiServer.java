@@ -10,19 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MultiServer implements Runnable {
-    protected int serverPort = 9000;
+    protected int serverPort ;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
     private List<Worker> contacts = new ArrayList<Worker>();
     protected Socket socket;
     protected Utility.TypeConection type;
+    protected List<ServerSocket> ssList=new ArrayList<>();
 
 
     @Override
     public void run() {
-        openServerSocket();
+
         while (!isStopped()) {
+            openServerSocket();
             Socket clientSocket = null;
             try {
 

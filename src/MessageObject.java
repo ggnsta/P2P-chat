@@ -19,7 +19,7 @@ public class MessageObject implements Serializable {
         this.message = message;
         this.senderName=Utility.getCurrentIP();
         this.date=new Date();
-        this.isFile=false;
+
     }
 
     public MessageObject()
