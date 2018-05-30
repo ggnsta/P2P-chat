@@ -8,9 +8,10 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
+import java.net.InetAddress;
 
 public class MultiServer implements Runnable {
-    protected int serverPort ;
+    protected int serverPort=49005 ;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
@@ -18,7 +19,7 @@ public class MultiServer implements Runnable {
     protected Socket socket;
     protected Utility.TypeConection type;
     protected List<ServerSocket> ssList=new ArrayList<>();
-
+    protected  int i = 0;
 
     @Override
     public void run() {
@@ -42,7 +43,7 @@ public class MultiServer implements Runnable {
             type = Utility.TypeConection.Server;
             Worker worker = new Worker(clientSocket, this.gui, type);
             contacts.add(worker);
-            worker.run();
+            worker.start();
         }
         System.out.println("Server Stopped.");
     }
@@ -51,7 +52,9 @@ public class MultiServer implements Runnable {
         try {
             System.out.println("Как клиент.");
             type = Utility.TypeConection.Client;
-            this.socket = new Socket(gui.jtfIP.getText(), 49005); // конектимся к серверу
+
+
+            this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()),serverPort); // конектимся к серверу
             Worker worker = new Worker(socket, this.gui, type);
             contacts.add(worker);
             worker.start();
@@ -85,16 +88,16 @@ public class MultiServer implements Runnable {
         System.out.println("Opening server socket...");
 
         try {
-            this.serverSocket = new ServerSocket(this.serverPort);
 
+            this.serverSocket = new ServerSocket(this.serverPort+i);
+            i++;
         } catch (ConnectException e) {
             Error error = new Error();
             error.eOS();
         } catch (IOException e)// (включает в себя SocketTimeoutException )
         {
 
-            Error error = new Error();
-            error.eOS2();
+           e.printStackTrace();
         }
 
     }

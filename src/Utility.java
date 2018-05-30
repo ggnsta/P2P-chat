@@ -1,22 +1,22 @@
 import java.io.BufferedReader;
-import java.net.URL;
+import java.net.*;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.io.IOException;
 
 //вспомагательный класс, для получения внешнего IP
 public class Utility {
-    protected enum TypeConection{Server,Client}
+    protected enum TypeConection {Server, Client}
+
 
     public static String getCurrentIP() {
-        String ip=null;
+        String ip = null;
         try {
             URL whatismyip = new URL("http://checkip.amazonaws.com");
             BufferedReader in = new BufferedReader(new InputStreamReader(
                     whatismyip.openStream()));
 
-             ip = in.readLine();
+            ip = in.readLine();
         } catch (MalformedURLException ex) {
             ex.printStackTrace();
         } catch (IOException ex) {
@@ -24,6 +24,21 @@ public class Utility {
         }
         return ip;
     }
+
+    public static String getLocalIP() {
+        String ip = null;
+        try {
+            InetAddress inetAddress = InetAddress.getLocalHost();
+            System.out.println("IP Address:- " + inetAddress.getHostAddress());
+
+            ip = inetAddress.getHostAddress();
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        return ip;
+    }
+
 }
 
 

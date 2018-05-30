@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -74,7 +76,12 @@ public class Worker extends Thread implements Runnable {
 
             MessageObject buf = (MessageObject) ois.readObject();
             System.out.println(buf.senderName + ":" + buf.message);
-            gui.jtaTextAreaMessage.append(buf.message + "\n");
+            ////ниже гуи
+            if(buf.message=="")return;
+            gui.chatArea.append(buf.message + "\n");
+
+
+
 
         } catch (Exception x) {
             x.printStackTrace();
@@ -89,7 +96,7 @@ public class Worker extends Thread implements Runnable {
             System.out.println("send class worker");
             oos.writeObject(mesObject);
             oos.flush();
-            gui.jtaTextAreaMessage.append(mesObject.message + "\n");//отображаем его в своём поле чата
+            gui.chatArea.append(mesObject.message + "\n");//отображаем его в своём поле чата
 
 
         } catch (Exception x) {
