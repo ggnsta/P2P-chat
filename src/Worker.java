@@ -78,8 +78,10 @@ public class Worker extends Thread implements Runnable {
             System.out.println(buf.senderName + ":" + buf.message);
             ////ниже гуи
             if(buf.message=="")return;
-            gui.chatArea.append(buf.message + "\n");
-
+            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 11)); //задаем шрифт и размер шрифта
+            Utility.appendToPane(gui.chatArea,buf.senderName+buf.date,Color.RED, Color.WHITE);
+            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
+            Utility.appendToPane(gui.chatArea,buf.message,Color.RED, Color.black);
 
 
 
@@ -96,7 +98,8 @@ public class Worker extends Thread implements Runnable {
             System.out.println("send class worker");
             oos.writeObject(mesObject);
             oos.flush();
-            gui.chatArea.append(mesObject.message + "\n");//отображаем его в своём поле чата
+            Utility.appendToPane(gui.chatArea,mesObject.message,Color.RED, Color.black);
+
 
 
         } catch (Exception x) {

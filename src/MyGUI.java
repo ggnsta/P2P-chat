@@ -8,8 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import java.io.File;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.DefaultCaret;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 
 public class MyGUI extends JFrame {
 
@@ -18,7 +24,7 @@ public class MyGUI extends JFrame {
     protected JLabel myIP;
     protected JTextArea jtfMessage;
     protected JTextField jtfName;
-    protected JTextArea chatArea;// поле чата
+    protected JTextPane chatArea;// поле чата
     protected JTextField jtfIP = new JTextField("");
     protected JTextField jtfport;
     protected JButton bAdd;
@@ -30,17 +36,18 @@ public class MyGUI extends JFrame {
     protected JButton bAddFile;
     protected JProgressBar transmitProgress;
     protected BoundedRangeModel model = new DefaultBoundedRangeModel(0, 0, 0, 100);
-    protected JPanel jp1;
+    protected JPanel mainPanel;
     protected JLabel lblMain;
     protected JScrollPane contactsScroll;
-
+    protected JList list;
+    protected JPopupMenu editContact=new JPopupMenu();
     protected int k = 0;
     protected JButton confirmConnect = new JButton("Ok");
 
 
 
     protected ArrayList<String> selectedFiles;// лист, в котором хранятся пути к файлам
-    protected ArrayList<JButton> buttonList = new ArrayList<JButton>();
+    protected ArrayList<DefaultListModel> contactList = new ArrayList<DefaultListModel>();
 
 
     public MyGUI() {
@@ -48,61 +55,65 @@ public class MyGUI extends JFrame {
         MultiServer server = new MultiServer(49005, this);
         new Thread(server).start();// сразу создаем поток, ожидающий подключения
 
-        final JSplitPane splitPanel = new JSplitPane();// Главная разделяемая панель
-        splitPanel.setOneTouchExpandable(true);
-        splitPanel.setDividerSize(4);   // Размер разделяемой панели
-        splitPanel.setDividerLocation(260);  // Положение разделяемой панели
+        Container my_panel = getContentPane();
+        my_panel.setLayout(null);
 
 
-        chatArea = new JTextArea();// поле чата
+        chatArea = new JTextPane();// поле чата
         chatArea.setEditable(false);//делаем нередактируемым
-        chatArea.setLineWrap(true);// разрешаем перенос строк
-        chatArea.setWrapStyleWord(true);// и перенос слов
-        chatArea.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
 
+        chatScroll=new JScrollPane(chatArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);//добавляем его к ScrollPane
+        chatScroll.setBounds(215,5,445,555);
+        my_panel.add(chatScroll);
 
-        JPanel rightPanel=new JPanel();
-        rightPanel.setBackground(Color.cyan);//задаем цвет фона
-        rightPanel.setLayout(null);//менеджер компоновки
-        chatArea.setBounds(0,0,616,550);
-        rightPanel.add(chatArea);
-        chatScroll=new JScrollPane(rightPanel);//добавляем его к ScrollPane
 
         jtfMessage = new JTextArea("Введите ваше сообщение: ");
-        messageScroll = new JScrollPane(jtfMessage);
+        messageScroll = new JScrollPane(jtfMessage,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jtfMessage.setEditable(true);
         jtfMessage.setLineWrap(true);
         jtfMessage.setWrapStyleWord(true);
-        messageScroll.setBounds(0, 550, 616, 150);
-        rightPanel.add(messageScroll);
+        messageScroll.setBounds(215,560,445,100);
+        my_panel.add(messageScroll);
 
-        JPanel leftPanel = new JPanel();//создаем левую панель
-        leftPanel.setBackground(Color.cyan);//задаем цвет фона
-        leftPanel.setLayout(null);//менеджер компоновки
-        contactsScroll = new JScrollPane(leftPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        contactsScroll.setPreferredSize(new Dimension(246, 400));//добавляем левую панель к scroll pane
+
+        DefaultListModel listModel = new DefaultListModel();
+        list = new JList(listModel);
+        list.setSelectedIndex(0);
+        list.setFocusable(false);
+        list.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
+        list.setComponentPopupMenu(editContact);//!!!!!!!!!!!!!!!!!!!!!
+
+        JMenuItem deleteItem = new JMenuItem("Удалить");
+        editContact.add(deleteItem);
+
+
+        deleteItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+
+                    //словить тут эксшепшен
+                listModel.remove(list.getSelectedIndex());
+                contactList.remove(list.getSelectedIndex());
+                //worker.close
+            }
+        });
+
+        contactsScroll=(new JScrollPane(list));
+        contactsScroll.setBounds(10,30,201,630);
+        my_panel.add(contactsScroll);
+
+
+
 
         bAdd = new JButton("+");
-        bAdd.setBounds(20, 10, 206, 25);
-        leftPanel.add(bAdd);
+        bAdd.setBounds(10, 5, 200, 25);
+        my_panel.add(bAdd);
         bAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
-                panel2 = new JFrame("Добавление соединения");//новое окно
-                panel2.setLayout(new FlowLayout(FlowLayout.CENTER));
-                panel2.setSize(580, 150);
-                jtfIP.setColumns(16);
-                panel2.add(labelIP);
-                panel2.add(jtfIP);//поля для ip
-                panel2.add(confirmConnect);
-                panel2.setVisible(true);
-
-                JButton contactButton = new JButton();//каждому контакту будет соотвтствовать кнопка
-                contactButton.setBounds(10, 35 + (k * 40), 225, 40);//которая будет расположена ниже предыдущей
-                contactsScroll.setPreferredSize(new Dimension(255, 400 + (k * 40)));//задаем желаемые размеры области для появления scroll bar
-                buttonList.add(contactButton);//добавляем кнопку в список
-                leftPanel.add(contactButton);//добавляем кнопку на панель
+                listModel.addElement("Элемент списка " + k);
+                contactList.add(listModel);//добавляем поле в список
                 k++;
 
 
@@ -118,13 +129,10 @@ public class MyGUI extends JFrame {
             }
         });
 
-        splitPanel.setLeftComponent(new JScrollPane(contactsScroll)); // Настройка левой панели
-        splitPanel.setRightComponent(new JScrollPane(chatScroll)); // Настройка правой панели
 
 
-        getContentPane().add(splitPanel);// Размещение панели в интерфейсе и вывод окна на экран
-        setSize(680, 700);
-        setVisible(true);
+
+
 
         jtfMessage.addKeyListener(new KeyAdapter() {
             @Override
@@ -132,15 +140,17 @@ public class MyGUI extends JFrame {
                 int key = e.getKeyCode();
                 if (key == KeyEvent.VK_ENTER) {
 
-                    List<Worker> contacts = server.getContacts();
-                    Worker a = contacts.get(0);
-                    a.send();
+                  //  List<Worker> contacts = server.getContacts();
+                  //  Worker a = contacts.get(0);
+                   // a.send();
                     jtfMessage.setText("");
 
                 }
             }
         });
 
-
+        setSize(680, 700);
+        setVisible(true);
     }
+
 }

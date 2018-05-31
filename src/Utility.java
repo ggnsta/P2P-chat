@@ -1,3 +1,9 @@
+import javax.swing.*;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.net.*;
 import java.io.InputStream;
@@ -38,7 +44,21 @@ public class Utility {
         }
         return ip;
     }
+    public static void appendToPane(JTextPane tp, String msg, Color f, Color b) {
+        StyleContext sc = StyleContext.getDefaultStyleContext();
+        AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY,
+                StyleConstants.Foreground, f);
+        aset = sc.addAttribute(aset, StyleConstants.Background, b);
 
+        aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
+        aset = sc.addAttribute(aset, StyleConstants.Alignment,
+                StyleConstants.ALIGN_JUSTIFIED);
+
+        int len = tp.getDocument().getLength();
+        tp.setCaretPosition(len);
+        tp.setCharacterAttributes(aset, false);
+        tp.replaceSelection(msg);
+    }
 }
 
 
