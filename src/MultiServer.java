@@ -55,6 +55,7 @@ public class MultiServer implements Runnable {
 
 
             this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()),serverPort); // конектимся к серверу
+           System.out.println(gui.jtfIP.getText());
             Worker worker = new Worker(socket, this.gui, type);
             contacts.add(worker);
             worker.start();

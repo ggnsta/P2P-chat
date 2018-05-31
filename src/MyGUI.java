@@ -24,7 +24,7 @@ public class MyGUI extends JFrame {
     protected JLabel myIP;
     protected JTextArea jtfMessage;
     protected JTextField jtfName;
-    protected JTextPane chatArea;// поле чата
+    protected JTextArea chatArea;// поле чата
     protected JTextField jtfIP = new JTextField("");
     protected JTextField jtfport;
     protected JButton bAdd;
@@ -33,7 +33,7 @@ public class MyGUI extends JFrame {
     protected JScrollPane messageScroll;
     protected JLabel readyLabel;
     protected JLabel labelIP = new JLabel("Введите IP");
-    protected JButton bAddFile;
+    protected JButton bAddFile=new JButton("Ф");
     protected JProgressBar transmitProgress;
     protected BoundedRangeModel model = new DefaultBoundedRangeModel(0, 0, 0, 100);
     protected JPanel mainPanel;
@@ -43,10 +43,9 @@ public class MyGUI extends JFrame {
     protected JPopupMenu editContact=new JPopupMenu();
     protected int k = 0;
     protected JButton confirmConnect = new JButton("Ok");
+    protected boolean firstclick=false;
 
 
-
-    protected ArrayList<String> selectedFiles;// лист, в котором хранятся пути к файлам
     protected ArrayList<DefaultListModel> contactList = new ArrayList<DefaultListModel>();
 
 
@@ -59,8 +58,10 @@ public class MyGUI extends JFrame {
         my_panel.setLayout(null);
 
 
-        chatArea = new JTextPane();// поле чата
+        chatArea = new JTextArea();// поле чата
         chatArea.setEditable(false);//делаем нередактируемым
+        chatArea.setLineWrap(true);// разрешаем перенос строк
+        chatArea.setWrapStyleWord(true);// и перенос слов
 
         chatScroll=new JScrollPane(chatArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);//добавляем его к ScrollPane
         chatScroll.setBounds(215,5,445,555);
@@ -72,7 +73,7 @@ public class MyGUI extends JFrame {
         jtfMessage.setEditable(true);
         jtfMessage.setLineWrap(true);
         jtfMessage.setWrapStyleWord(true);
-        messageScroll.setBounds(215,560,445,100);
+        messageScroll.setBounds(215,560,415,100);
         my_panel.add(messageScroll);
 
 
@@ -85,6 +86,15 @@ public class MyGUI extends JFrame {
 
         JMenuItem deleteItem = new JMenuItem("Удалить");
         editContact.add(deleteItem);
+
+
+        bAddFile.setBounds(630,560,30,100);
+        my_panel.add(bAddFile);
+
+        myIP=new JLabel("Ваш IP:" +Utility.getLocalIP());
+        myIP.setBounds(10,664,120,10);
+        myIP.setFont(new Font("Arial", Font.PLAIN, 11)); //задаем шрифт и размер шрифта
+        my_panel.add(myIP);
 
 
         deleteItem.addActionListener(new ActionListener() {
@@ -112,9 +122,16 @@ public class MyGUI extends JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
-                listModel.addElement("Элемент списка " + k);
-                contactList.add(listModel);//добавляем поле в список
-                k++;
+
+                panel2 = new JFrame("Добавление соединения");//новое окно
+                panel2.setLayout(new FlowLayout(FlowLayout.CENTER));
+                panel2.setSize(580, 150);
+                jtfIP.setColumns(16);
+                panel2.add(labelIP);
+                panel2.add(jtfIP);//поля для ip
+                panel2.add(confirmConnect);
+                panel2.setVisible(true);
+
 
 
             }
@@ -125,13 +142,72 @@ public class MyGUI extends JFrame {
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
                 server.runClient();
-                System.out.println("SUB");
+                listModel.addElement("Элемент списка " + k);
+                contactList.add(listModel);//добавляем поле в список
+                k++;
+                panel2.setVisible(false);
             }
         });
 
 
 
+        jtfMessage.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(firstclick==false) {
+                    firstclick=true;
+                    jtfMessage.setText("");
 
+                }
+                else return;
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //обработка нажатия на кнопку добавление файла
+        bAddFile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                JFileChooser chooser = new JFileChooser();//объект выбора файлов
+                chooser.setMultiSelectionEnabled(true);
+
+                List<Worker> contacts = server.getContacts();//получаем список подключений
+                Worker worker = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
+
+                int returnVal = chooser.showOpenDialog(null);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File[] file = chooser.getSelectedFiles();
+                    for (File directory : file) {// получаем все вложенные объекты в каталоге
+                        //FileTransmit filetransmit=new FileTransmit(directory + "")
+                        //filetramsnit.start();
+                    }
+
+
+                    //  System.out.print(selectedFiles.size());
+                }
+            }
+
+        });
 
 
         jtfMessage.addKeyListener(new KeyAdapter() {
@@ -149,7 +225,7 @@ public class MyGUI extends JFrame {
             }
         });
 
-        setSize(680, 700);
+        setSize(680, 720);
         setVisible(true);
     }
 

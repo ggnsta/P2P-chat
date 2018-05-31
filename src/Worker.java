@@ -10,7 +10,6 @@ import static java.lang.Math.toIntExact;
 public class Worker extends Thread implements Runnable {
 
     protected Socket clientSocket = null;
-    protected ArrayList<String> fileList = new ArrayList<String>();
     protected File history;
     protected ObjectOutputStream oos = null;
     protected ObjectInputStream ois = null;
@@ -77,11 +76,10 @@ public class Worker extends Thread implements Runnable {
             MessageObject buf = (MessageObject) ois.readObject();
             System.out.println(buf.senderName + ":" + buf.message);
             ////ниже гуи
-            if(buf.message=="")return;
-            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 11)); //задаем шрифт и размер шрифта
-            Utility.appendToPane(gui.chatArea,buf.senderName+buf.date,Color.RED, Color.WHITE);
+            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 10)); //задаем шрифт и размер шрифта
+            gui.chatArea.append(buf.senderName+"("+buf.date+")\n");
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
-            Utility.appendToPane(gui.chatArea,buf.message,Color.RED, Color.black);
+            gui.chatArea.append(buf.message+"\n");
 
 
 
@@ -98,7 +96,10 @@ public class Worker extends Thread implements Runnable {
             System.out.println("send class worker");
             oos.writeObject(mesObject);
             oos.flush();
-            Utility.appendToPane(gui.chatArea,mesObject.message,Color.RED, Color.black);
+            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 10)); //задаем шрифт и размер шрифта
+            gui.chatArea.append("Вы"+mesObject.date+")\n");
+            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
+            gui.chatArea.append(mesObject.message+"\n");
 
 
 

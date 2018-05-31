@@ -2,7 +2,6 @@
 
 import sun.misc.IOUtils;
 import sun.nio.ch.IOUtil;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -14,10 +13,14 @@ import static java.lang.Math.toIntExact;
 
 public class FileTransmit extends Worker {
 
-    protected static int numOfFiles = 0;// количество переданных файлов, static, для того чтобы все экземпляры этого класса знали сколько передано файлов
+
+    public FileTransmit()
+    {
+
+    }
 
 
-    public void sendFile(String filename) {
+    public void sendFile() {
 
 
         try {
@@ -93,5 +96,6 @@ public class FileTransmit extends Worker {
     }
 
 }
+
 
 */
