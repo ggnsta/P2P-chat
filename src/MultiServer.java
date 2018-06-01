@@ -44,6 +44,11 @@ public class MultiServer implements Runnable {
             Worker worker = new Worker(clientSocket, this.gui, type);
             contacts.add(worker);
             worker.start();
+
+            ///ниже работа с GUI
+            gui.listModel.addElement("Элемент списка " + gui.k);
+            gui.contactList.add(gui.listModel);//добавляем поле в список
+            gui.k++;
         }
         System.out.println("Server Stopped.");
     }

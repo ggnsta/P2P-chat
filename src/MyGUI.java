@@ -16,6 +16,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
+import java.io.*;
 
 public class MyGUI extends JFrame {
 
@@ -33,17 +34,18 @@ public class MyGUI extends JFrame {
     protected JScrollPane messageScroll;
     protected JLabel readyLabel;
     protected JLabel labelIP = new JLabel("Введите IP");
-    protected JButton bAddFile=new JButton("Ф");
+    protected JButton bAddFile = new JButton("Ф");
     protected JProgressBar transmitProgress;
     protected BoundedRangeModel model = new DefaultBoundedRangeModel(0, 0, 0, 100);
     protected JPanel mainPanel;
     protected JLabel lblMain;
     protected JScrollPane contactsScroll;
     protected JList list;
-    protected JPopupMenu editContact=new JPopupMenu();
+    protected JPopupMenu editContact = new JPopupMenu();
     protected int k = 0;
     protected JButton confirmConnect = new JButton("Ok");
-    protected boolean firstclick=false;
+    protected boolean firstclick = false;
+    DefaultListModel listModel = new DefaultListModel();
 
 
     protected ArrayList<DefaultListModel> contactList = new ArrayList<DefaultListModel>();
@@ -63,21 +65,20 @@ public class MyGUI extends JFrame {
         chatArea.setLineWrap(true);// разрешаем перенос строк
         chatArea.setWrapStyleWord(true);// и перенос слов
 
-        chatScroll=new JScrollPane(chatArea,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);//добавляем его к ScrollPane
-        chatScroll.setBounds(215,5,445,555);
+        chatScroll = new JScrollPane(chatArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);//добавляем его к ScrollPane
+        chatScroll.setBounds(215, 5, 445, 555);
         my_panel.add(chatScroll);
 
 
         jtfMessage = new JTextArea("Введите ваше сообщение: ");
-        messageScroll = new JScrollPane(jtfMessage,ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        messageScroll = new JScrollPane(jtfMessage, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jtfMessage.setEditable(true);
         jtfMessage.setLineWrap(true);
         jtfMessage.setWrapStyleWord(true);
-        messageScroll.setBounds(215,560,415,100);
+        messageScroll.setBounds(215, 560, 415, 100);
         my_panel.add(messageScroll);
 
 
-        DefaultListModel listModel = new DefaultListModel();
         list = new JList(listModel);
         list.setSelectedIndex(0);
         list.setFocusable(false);
@@ -88,33 +89,33 @@ public class MyGUI extends JFrame {
         editContact.add(deleteItem);
 
 
-        bAddFile.setBounds(630,560,30,100);
+        bAddFile.setBounds(630, 560, 30, 100);
         my_panel.add(bAddFile);
 
-        myIP=new JLabel("Ваш IP:" +Utility.getLocalIP());
-        myIP.setBounds(10,664,120,10);
+        myIP = new JLabel("Ваш IP:" + Utility.getLocalIP());
+        myIP.setBounds(10, 664, 120, 10);
         myIP.setFont(new Font("Arial", Font.PLAIN, 11)); //задаем шрифт и размер шрифта
         my_panel.add(myIP);
 
 
+        //Удаление контакта
         deleteItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
-                    //словить тут эксшепшен
+                //словить тут эксшепшен
                 listModel.remove(list.getSelectedIndex());
                 contactList.remove(list.getSelectedIndex());
                 //worker.close
             }
         });
 
-        contactsScroll=(new JScrollPane(list));
-        contactsScroll.setBounds(10,30,201,630);
+        contactsScroll = (new JScrollPane(list));
+        contactsScroll.setBounds(10, 30, 201, 630);
         my_panel.add(contactsScroll);
 
 
-
-
+        //вывод окна для ввода IP
         bAdd = new JButton("+");
         bAdd.setBounds(10, 5, 200, 25);
         my_panel.add(bAdd);
@@ -133,10 +134,10 @@ public class MyGUI extends JFrame {
                 panel2.setVisible(true);
 
 
-
             }
         });
 
+        //создание исходящего подключения
         confirmConnect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -150,16 +151,15 @@ public class MyGUI extends JFrame {
         });
 
 
-
+        //удаление началаьной записи в поле для ввода сообщений
         jtfMessage.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(firstclick==false) {
-                    firstclick=true;
+                if (firstclick == false) {
+                    firstclick = true;
                     jtfMessage.setText("");
 
-                }
-                else return;
+                } else return;
 
             }
 
@@ -209,19 +209,53 @@ public class MyGUI extends JFrame {
 
         });
 
-
+        //обработчик клавиши enter(отпраква сообщений)
         jtfMessage.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
                 if (key == KeyEvent.VK_ENTER) {
 
-                  //  List<Worker> contacts = server.getContacts();
-                  //  Worker a = contacts.get(0);
-                   // a.send();
+
+                    if (k == 0) {// если это первое подключение
+                        System.out.println("abc");
+                        List<Worker> contacts = server.getContacts();//получаем список всех контактов
+                        Worker worker = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
+                    } else {
+                        List<Worker> contacts = server.getContacts();
+                        Worker worker = contacts.get(list.getSelectedIndex());
+                        worker.send();
+                    }
+
+
                     jtfMessage.setText("");
 
                 }
+            }
+        });
+
+        //обработчик выбора контакта
+
+        list.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                chatArea.setText("");//очищаем поле чата
+                List<Worker> contacts = server.getContacts();//получаем список контактов
+                Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный
+
+                try {
+                    FileReader fileReader = new FileReader(worker.pathToHistory);
+                    char[]buf=new char[256];
+                    while(fileReader.read(buf)!=-1)
+                    {
+                        chatArea.append(buf.toString());
+                    }
+                } catch (Exception ex) {
+
+                    System.out.println(ex.getMessage());
+                }
+
+
             }
         });
 

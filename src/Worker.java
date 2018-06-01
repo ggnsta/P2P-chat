@@ -14,7 +14,8 @@ public class Worker extends Thread implements Runnable {
     protected ObjectOutputStream oos = null;
     protected ObjectInputStream ois = null;
     protected Utility.TypeConection type; // отвечает за правильный порядок создания oos и ois
-
+    protected FileWriter fileWriter;//осуществляет запись в файл истории сообщений
+    protected String pathToHistory=null;
 
     protected MyGUI gui;
 
@@ -30,12 +31,12 @@ public class Worker extends Thread implements Runnable {
     public void run() {
         try {
 
-            String patch = System.getProperty("user.home");
-            patch += File.separator + "p2p-chat" + File.separator + "history.txt";
-
-            history = new File(patch);
+            String pathToHistory = System.getProperty("user.home");
+            pathToHistory += File.separator + "p2p-chat" + File.separator + "history.txt";
+            history = new File(pathToHistory);
             history.getParentFile().mkdirs();
             history.createNewFile();
+            fileWriter=new FileWriter(pathToHistory,true);
 
             /*ObjectInputStream, читает из указанного InputStream. Заголовок
             потока сериализации считывается из потока и проверяется.
@@ -73,15 +74,16 @@ public class Worker extends Thread implements Runnable {
 
         try {
 
-            MessageObject buf = (MessageObject) ois.readObject();
-            System.out.println(buf.senderName + ":" + buf.message);
-            ////ниже гуи
-            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 10)); //задаем шрифт и размер шрифта
-            gui.chatArea.append(buf.senderName+"("+buf.date+")\n");
-            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
-            gui.chatArea.append(buf.message+"\n");
+            MessageObject  mesObject = (MessageObject) ois.readObject();
+            System.out.println( mesObject.senderName + ":" +  mesObject.message);
+            ////ниже  работа с Gui
+            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
+            gui.chatArea.append("\n"+ mesObject.senderName+"("+ mesObject.date+")\n");//отображаем информацию о сообщении в поле чата
+            gui.chatArea.append( mesObject.message);//отображаем сообщение
 
-
+            fileWriter.write("\n"+ mesObject.senderName+"("+ mesObject.date+")\n");
+            fileWriter.write( mesObject.message);
+            fileWriter.flush();
 
         } catch (Exception x) {
             x.printStackTrace();
@@ -92,16 +94,18 @@ public class Worker extends Thread implements Runnable {
         try {
 
             MessageObject mesObject = new MessageObject();
-            mesObject.message = gui.jtfMessage.getText();// заносим сообщения из gui в объект
+            mesObject.set(gui.jtfMessage.getText());//инициализируем датой, именем и самим сообщением
+
             System.out.println("send class worker");
             oos.writeObject(mesObject);
             oos.flush();
-            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 10)); //задаем шрифт и размер шрифта
-            gui.chatArea.append("Вы"+mesObject.date+")\n");
-            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
-            gui.chatArea.append(mesObject.message+"\n");
+            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
+            gui.chatArea.append("\nВы "+"("+mesObject.date+"):");
+            gui.chatArea.append(mesObject.message);
 
-
+            fileWriter.write("\n"+ mesObject.senderName+"("+ mesObject.date+")\n");
+            fileWriter.write( mesObject.message);
+            fileWriter.flush();
 
         } catch (Exception x) {
             x.printStackTrace();
