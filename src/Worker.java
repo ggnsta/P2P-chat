@@ -79,7 +79,7 @@ public class Worker extends Thread implements Runnable {
             if(mesObject.message=="File###Transmit###Indeficator")
             {
                 System.out.print("get workera");
-                FileTransmit fileTransmit= new FileTransmit(clientSocket, true);// передаем текущий сокет и true, означающий что будем принимать файл
+                FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
                 fileTransmit.start();
                 System.out.print("get workera close");
             }

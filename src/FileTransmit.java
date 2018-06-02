@@ -19,10 +19,11 @@ protected String fileName;
         this.fileName = fileName;
     }
 
-    public FileTransmit(Socket socket, boolean type) {
+    public FileTransmit(Worker worker, boolean type) {
         try {
             this.type=type;
-            this.clientSocket = new Socket(socket.getInetAddress(), MultiServer.serverPort);//получаем из уже имеющегося сокета, ip и создаем второй сокет по которому будут передаваться только файлы
+            this.clientSocket = new Socket(worker.clientSocket.getInetAddress(), MultiServer.serverPort);//получаем из уже имеющегося сокета, ip и создаем второй сокет по которому будут передаваться только файлы
+            this.oos=worker.oos;
             System.out.println("сокет для передачи файлов");
         } catch (IOException e) {
             e.printStackTrace();
@@ -36,17 +37,20 @@ protected String fileName;
             getFile();
         }
         else{
-            sendFile(fileName);
+            sendFile();
         }
 
     }
 
-    public void sendFile(String filename) {
+    public void sendFile() {
 
 
         try {
 
-            File file = new File(filename);
+            File file = new File(fileName);
+            MessageObject mesObject=new MessageObject();
+            mesObject.set("File###Transmit###Indeficator");//даём понять принимающей стороне что дальше будет файл
+            oos.writeObject(mesObject);//пишем в поток
 
             OutputStream output = clientSocket.getOutputStream();
             DataOutputStream out = new DataOutputStream(output);
@@ -65,11 +69,13 @@ protected String fileName;
 
                 //gui.model.setValue(100 * total / toIntExact(file.length()));//отображаем прогресс передачи
             }
+            System.out.println("му тут");
+          //  gui.chatArea.append(file.getName() + " передан"); короче он не знает в какой чат писать, надо в контактах тыкать на строку
 
-            gui.chatArea.append(file.getName() + " передан");
             out.flush();
             out.close();
             fileIn.close();
+            System.out.println("файд передан");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,19 +85,21 @@ protected String fileName;
 
     public void getFile() {
         try {
-            MessageObject buf = (MessageObject) ois.readObject();//считываем первый объект с размерои и именем файла
+
 
             Properties properties = System.getProperties();
             String userHome = properties.getProperty("user.home");//получаем путь к домашенй папке пользователя
 
-            long fileSize = buf.fileSize; // получаем размер файла
-            String fileName = buf.fileName; //прием имени файла
+            InputStream input = clientSocket.getInputStream();
+            DataInputStream in = new DataInputStream(input);
+
+            long fileSize = in.readLong(); // получаем размер файла
+            String fileName = in.readUTF(); //прием имени файла
             byte[] buffer = new byte[32 * 1024];
 
             int iter = toIntExact(fileSize) / 32 * 1024;
 
-            InputStream input = clientSocket.getInputStream();
-            DataInputStream in = new DataInputStream(input);
+
 
 
             FileOutputStream outFile = new FileOutputStream(userHome + "\\downloads\\" + fileName);
@@ -106,6 +114,7 @@ protected String fileName;
                     break;
                 }
             }
+
             gui.chatArea.append(fileName + " принят");
 
             outFile.flush();

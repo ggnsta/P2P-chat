@@ -142,6 +142,7 @@ public class MyGUI extends JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
+                //пофиксить то что даже если тайм аут строка все равно добавляется
                 server.runClient();
                 listModel.addElement("Элемент списка " + k);
                 contactList.add(listModel);//добавляем поле в список
@@ -199,7 +200,8 @@ public class MyGUI extends JFrame {
                     File[] file = chooser.getSelectedFiles();
                     for (File directory : file) {// получаем все вложенные объекты в каталоге
                         FileTransmit filetransmit=new FileTransmit(worker.clientSocket,false);
-                        filetransmit.sendFile(directory + "");//задаем имя отправляемого файла
+                        filetransmit.setFileName(directory + "");
+                        filetransmit.sendFile();//задаем имя отправляемого файла
                         filetransmit.start();
                     }
 
@@ -242,7 +244,7 @@ public class MyGUI extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 chatArea.setText("");//очищаем поле чата
                 List<Worker> contacts = server.getContacts();//получаем список контактов
-                Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный
+                Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
                 try {
                     File f =new File(worker.pathToHistory);
                     BufferedReader fileReader = new BufferedReader(new FileReader(f));
@@ -254,6 +256,7 @@ public class MyGUI extends JFrame {
                         chatArea.append("\r");
 
                     }
+                    chatArea.append("\r");
                     fileReader.close();
                 } catch (Exception ex) {
 
