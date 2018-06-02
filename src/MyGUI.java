@@ -198,8 +198,9 @@ public class MyGUI extends JFrame {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File[] file = chooser.getSelectedFiles();
                     for (File directory : file) {// получаем все вложенные объекты в каталоге
-                        //FileTransmit filetransmit=new FileTransmit(directory + "")
-                        //filetramsnit.start();
+                        FileTransmit filetransmit=new FileTransmit(worker.clientSocket,false);
+                        filetransmit.sendFile(directory + "");//задаем имя отправляемого файла
+                        filetransmit.start();
                     }
 
 
@@ -246,10 +247,14 @@ public class MyGUI extends JFrame {
                     File f =new File(worker.pathToHistory);
                     BufferedReader fileReader = new BufferedReader(new FileReader(f));
                    String line;
+                   chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
                     while ((line = fileReader.readLine()) != null) {
                         System.out.println(line);
                         chatArea.append(line);
+                        chatArea.append("\r");
+
                     }
+                    fileReader.close();
                 } catch (Exception ex) {
 
                     System.out.println(ex.getMessage());

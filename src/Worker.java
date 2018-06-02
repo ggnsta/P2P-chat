@@ -1,11 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Properties;
-
-import static java.lang.Math.toIntExact;
 
 public class Worker extends Thread implements Runnable {
 
@@ -14,8 +10,8 @@ public class Worker extends Thread implements Runnable {
     protected ObjectOutputStream oos = null;
     protected ObjectInputStream ois = null;
     protected Utility.TypeConection type; // отвечает за правильный порядок создания oos и ois
-    protected FileWriter fileWriter;//осуществляет запись в файл истории сообщений
-    protected String pathToHistory=null;
+    protected String pathToHistory = null;
+
 
     protected MyGUI gui;
 
@@ -31,12 +27,12 @@ public class Worker extends Thread implements Runnable {
     public void run() {
         try {
 
-           pathToHistory = System.getProperty("user.home");
-            pathToHistory += File.separator + "p2p-chat" + File.separator + gui.k+"history.txt";
+            pathToHistory = System.getProperty("user.home");
+            pathToHistory += File.separator + "p2p-chat" + File.separator + gui.k + "history.txt";
             history = new File(pathToHistory);
             history.getParentFile().mkdirs();
             history.createNewFile();
-            fileWriter=new FileWriter(pathToHistory,true);
+
 
             /*ObjectInputStream, читает из указанного InputStream. Заголовок
             потока сериализации считывается из потока и проверяется.
@@ -57,8 +53,12 @@ public class Worker extends Thread implements Runnable {
                 oos = new ObjectOutputStream(clientSocket.getOutputStream());
             }
 
-            String str = this.getName();
-            System.out.println("Есть контакт : " + str);
+            ErrorNotification notification = new ErrorNotification();
+            if (type == Utility.TypeConection.Server) {
+                notification.nInConnect();// выводим сообщение о успешном входящем подключении
+            } else {
+                notification.nOutConnect();// выводим сообщение о успешном исходящем подключении
+            }
             while (true) {
 
                 this.get();// собственно эти потоки создаются только для того, чтобы постоянно ожидать сообщения
@@ -74,24 +74,30 @@ public class Worker extends Thread implements Runnable {
 
         try {
 
-            MessageObject  mesObject = (MessageObject) ois.readObject();
-            System.out.println( mesObject.senderName + ":" +  mesObject.message);
+            MessageObject mesObject = (MessageObject) ois.readObject();
+            System.out.println(mesObject.senderName + ":" + mesObject.message);
+            if(mesObject.message=="File###Transmit###Indeficator")
+            {
+                System.out.print("get workera");
+                FileTransmit fileTransmit= new FileTransmit(clientSocket, true);// передаем текущий сокет и true, означающий что будем принимать файл
+                fileTransmit.start();
+                System.out.print("get workera close");
+            }
             ////ниже  работа с Gui
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-            gui.chatArea.append( mesObject.senderName+"("+ mesObject.date+")");//отображаем информацию о сообщении в поле чата
-            gui.chatArea.append("\n");
-            gui.chatArea.append( mesObject.message);//отображаем сообщение
+            gui.chatArea.append(mesObject.senderName + "(" + mesObject.date + ")");//отображаем информацию о полученном сообщении в поле чата
+
+            gui.chatArea.append(mesObject.message);//отображаем сообщение
             gui.chatArea.append("\n");
 
-            fileWriter.write( mesObject.senderName+"\r\n"+"("+ mesObject.date+")\r\n");
-            fileWriter.write( mesObject.message+"\r\n");
-            fileWriter.flush();
+            writeToHistory(mesObject);//вызов метода записи сообщений в файл
 
         } catch (Exception x) {
             x.printStackTrace();
         }
     }
 
+    ////метод отправки сообщений
     public void send() {
         try {
 
@@ -99,23 +105,34 @@ public class Worker extends Thread implements Runnable {
             mesObject.set(gui.jtfMessage.getText());//инициализируем датой, именем и самим сообщением
 
             System.out.println("send class worker");
-            oos.writeObject(mesObject);
+            oos.writeObject(mesObject);//пишем в поток
             oos.flush();
+
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-            gui.chatArea.append("Вы "+"("+mesObject.date+"):");
-            gui.chatArea.append("\n");
-            gui.chatArea.append(mesObject.message);
+            gui.chatArea.append("Вы " + "(" + mesObject.date + "):");//вывод даты и нашего имени на экран
+            gui.chatArea.append(mesObject.message);//ыввод нашего сообщения на наш экран
             gui.chatArea.append("\n");
 
-            fileWriter.write( mesObject.senderName+"\r\n"+"("+ mesObject.date+")\r\n");
-            fileWriter.write( mesObject.message+"\r\n");
-            fileWriter.flush();
+            writeToHistory(mesObject);
 
         } catch (Exception x) {
             x.printStackTrace();
         }
     }
 
+    //метод записи сообщений в файл
+    public void writeToHistory(MessageObject mesObject) {
+        try {
+            FileWriter fileWriter = new FileWriter(pathToHistory, true);//осуществляет запись в файл истории сообщений c дозаписью
+            fileWriter.write(mesObject.senderName + "(" + mesObject.date + ")\n");
+            fileWriter.write(mesObject.message + "\n");
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception x) {
+            ErrorNotification error = new ErrorNotification();
+            error.eFileWrite(this.pathToHistory);
+        }
+    }
 
     public Worker() {
 

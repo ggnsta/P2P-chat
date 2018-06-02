@@ -1,24 +1,19 @@
-import sun.net.www.protocol.http.AuthCacheValue;
-
 import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.InetAddress;
 
 public class MultiServer implements Runnable {
-    protected int serverPort=49005 ;
+    protected static int serverPort=49005 ;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
     private List<Worker> contacts = new ArrayList<Worker>();
     protected Socket socket;
     protected Utility.TypeConection type;
-    protected List<ServerSocket> ssList=new ArrayList<>();
     protected  int i = 0;
 
     @Override
@@ -59,14 +54,14 @@ public class MultiServer implements Runnable {
             type = Utility.TypeConection.Client;
 
 
-            this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()),serverPort); // конектимся к серверу
+            this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()),serverPort); // подключаемся к серверу
            System.out.println(gui.jtfIP.getText());
             Worker worker = new Worker(socket, this.gui, type);
             contacts.add(worker);
             worker.start();
 
         } catch (Exception x) {
-            Error error = new Error();
+            ErrorNotification error = new ErrorNotification();
             error.eConnect();
             x.printStackTrace();
 
@@ -98,7 +93,7 @@ public class MultiServer implements Runnable {
                 this.serverSocket = new ServerSocket(this.serverPort);
                 i++;
             } catch (ConnectException e) {
-                Error error = new Error();
+                ErrorNotification error = new ErrorNotification();
                 error.eOS();
             } catch (IOException e)// (включает в себя SocketTimeoutException )
             {

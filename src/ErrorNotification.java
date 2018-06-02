@@ -1,6 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
 
-public class Error {
+public class ErrorNotification {
 
     protected JFrame errorFrame;
 
@@ -18,5 +19,17 @@ public class Error {
     public void eConnect()
     {
         JOptionPane.showMessageDialog(errorFrame,"Время ожидания подключения вышло","Ошибка подключения",JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void eFileWrite(String path){
+        JOptionPane.showMessageDialog(errorFrame,"Не удается найти файл"+path,"Файловая ошибка",JOptionPane.ERROR_MESSAGE);
+    }
+    public void nInConnect()
+    {
+        JOptionPane.showMessageDialog(null,"Есть входящее подключение","Уведомление",JOptionPane.PLAIN_MESSAGE );
+    }
+    public void nOutConnect()
+    {
+        JOptionPane.showMessageDialog(null,"Есть подключение","Уведомление",JOptionPane.PLAIN_MESSAGE );
     }
 }
