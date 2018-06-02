@@ -242,13 +242,13 @@ public class MyGUI extends JFrame {
                 chatArea.setText("");//очищаем поле чата
                 List<Worker> contacts = server.getContacts();//получаем список контактов
                 Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный
-
                 try {
-                    FileReader fileReader = new FileReader(worker.pathToHistory);
-                    char[]buf=new char[256];
-                    while(fileReader.read(buf)!=-1)
-                    {
-                        chatArea.append(buf.toString());
+                    File f =new File(worker.pathToHistory);
+                    BufferedReader fileReader = new BufferedReader(new FileReader(f));
+                   String line;
+                    while ((line = fileReader.readLine()) != null) {
+                        System.out.println(line);
+                        chatArea.append(line);
                     }
                 } catch (Exception ex) {
 

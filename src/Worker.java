@@ -31,8 +31,8 @@ public class Worker extends Thread implements Runnable {
     public void run() {
         try {
 
-            String pathToHistory = System.getProperty("user.home");
-            pathToHistory += File.separator + "p2p-chat" + File.separator + "history.txt";
+           pathToHistory = System.getProperty("user.home");
+            pathToHistory += File.separator + "p2p-chat" + File.separator + gui.k+"history.txt";
             history = new File(pathToHistory);
             history.getParentFile().mkdirs();
             history.createNewFile();
@@ -61,7 +61,7 @@ public class Worker extends Thread implements Runnable {
             System.out.println("Есть контакт : " + str);
             while (true) {
 
-                this.get();// собственно эти потоки создаются только для того, чтобы постоянно получать сообщения
+                this.get();// собственно эти потоки создаются только для того, чтобы постоянно ожидать сообщения
 
             }
 
@@ -78,11 +78,13 @@ public class Worker extends Thread implements Runnable {
             System.out.println( mesObject.senderName + ":" +  mesObject.message);
             ////ниже  работа с Gui
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-            gui.chatArea.append("\n"+ mesObject.senderName+"("+ mesObject.date+")\n");//отображаем информацию о сообщении в поле чата
+            gui.chatArea.append( mesObject.senderName+"("+ mesObject.date+")");//отображаем информацию о сообщении в поле чата
+            gui.chatArea.append("\n");
             gui.chatArea.append( mesObject.message);//отображаем сообщение
+            gui.chatArea.append("\n");
 
-            fileWriter.write("\n"+ mesObject.senderName+"("+ mesObject.date+")\n");
-            fileWriter.write( mesObject.message);
+            fileWriter.write( mesObject.senderName+"\r\n"+"("+ mesObject.date+")\r\n");
+            fileWriter.write( mesObject.message+"\r\n");
             fileWriter.flush();
 
         } catch (Exception x) {
@@ -100,11 +102,13 @@ public class Worker extends Thread implements Runnable {
             oos.writeObject(mesObject);
             oos.flush();
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-            gui.chatArea.append("\nВы "+"("+mesObject.date+"):");
+            gui.chatArea.append("Вы "+"("+mesObject.date+"):");
+            gui.chatArea.append("\n");
             gui.chatArea.append(mesObject.message);
+            gui.chatArea.append("\n");
 
-            fileWriter.write("\n"+ mesObject.senderName+"("+ mesObject.date+")\n");
-            fileWriter.write( mesObject.message);
+            fileWriter.write( mesObject.senderName+"\r\n"+"("+ mesObject.date+")\r\n");
+            fileWriter.write( mesObject.message+"\r\n");
             fileWriter.flush();
 
         } catch (Exception x) {

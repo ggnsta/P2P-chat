@@ -92,20 +92,20 @@ public class MultiServer implements Runnable {
 
 
         System.out.println("Opening server socket...");
+        if (i == 0)
+        { try {
 
-        try {
+                this.serverSocket = new ServerSocket(this.serverPort);
+                i++;
+            } catch (ConnectException e) {
+                Error error = new Error();
+                error.eOS();
+            } catch (IOException e)// (включает в себя SocketTimeoutException )
+            {
 
-            this.serverSocket = new ServerSocket(this.serverPort+i);
-            i++;
-        } catch (ConnectException e) {
-            Error error = new Error();
-            error.eOS();
-        } catch (IOException e)// (включает в себя SocketTimeoutException )
-        {
-
-           e.printStackTrace();
-        }
-
+                e.printStackTrace();
+            }
+    }
     }
 
     public List<Worker> getContacts() {
