@@ -37,7 +37,7 @@ public class MyGUI extends JFrame {
     protected boolean firstclick = false;
     DefaultListModel listModel = new DefaultListModel();
 
-
+    protected List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
     protected ArrayList<DefaultListModel> contactList = new ArrayList<DefaultListModel>();
 
 
@@ -75,9 +75,10 @@ public class MyGUI extends JFrame {
         list.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
         list.setComponentPopupMenu(editContact);//!!!!!!!!!!!!!!!!!!!!!
 
-        JMenuItem deleteItem = new JMenuItem("Удалить");
+        JMenuItem deleteItem = new JMenuItem("Удалить");//пункт всплывающего меню
         editContact.add(deleteItem);
-
+        JMenuItem requestContacts = new JMenuItem("Запросить контакты");//пункт всплывающего меню
+        editContact.add(requestContacts);
 
         bAddFile.setBounds(630, 560, 30, 100);
         my_panel.add(bAddFile);
@@ -97,6 +98,12 @@ public class MyGUI extends JFrame {
                 listModel.remove(list.getSelectedIndex());
                 contactList.remove(list.getSelectedIndex());
                 //worker.close
+            }
+        });
+        requestContacts.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
 
@@ -182,7 +189,7 @@ public class MyGUI extends JFrame {
                 JFileChooser chooser = new JFileChooser();//объект выбора файлов
                 chooser.setMultiSelectionEnabled(true);
 
-                List<P2Pconnection> contacts = server.getContacts();//получаем список подключений
+              //  List<P2Pconnection> contacts = server.getContacts();//получаем список подключений
                 P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
 
                 int returnVal = chooser.showOpenDialog(null);
@@ -212,13 +219,13 @@ public class MyGUI extends JFrame {
 
                     if (k == 0) {// если это первое подключение
                         System.out.println("abc");
-                        List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
+                       // List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
                         P2Pconnection p2pConnection = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
-                        p2pConnection.send();
+                        p2pConnection.send(chatArea.getText());
                     } else {
-                        List<P2Pconnection> contacts = server.getContacts();
+                       // List<P2Pconnection> contacts = server.getContacts();
                         P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
-                        p2pConnection.send();
+                        p2pConnection.send(chatArea.getText());
                     }
 
 
@@ -234,7 +241,7 @@ public class MyGUI extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 chatArea.setText("");//очищаем поле чата
-                List<P2Pconnection> contacts = server.getContacts();//получаем список контактов
+               // List<P2Pconnection> contacts = server.getContacts();//получаем список контактов
                 P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
                 try {
                     File f =new File(p2pConnection.pathToHistory);

@@ -5,6 +5,8 @@ public class Main {
     {
 
 
+       // UDPBroadcaster a = new UDPBroadcaster();
+      //  a.main();
         MyGUI app =new MyGUI();
         app.setDefaultCloseOperation(app.EXIT_ON_CLOSE);
         app.setVisible(true);

@@ -2,6 +2,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class P2Pconnection extends Thread implements Runnable {
 
@@ -26,6 +28,10 @@ public class P2Pconnection extends Thread implements Runnable {
     @Override
     public void run() {
         try {
+          //  System.out.println(clientSocket.getInetAddress());//вернет не мой ip
+           // System.out.println(clientSocket.getLocalAddress());//вернет мой ip
+          //  System.out.println(clientSocket.getLocalPort());//вернет порт
+
 
             pathToHistory = System.getProperty("user.home");
             pathToHistory += File.separator + "p2p-chat" + File.separator + gui.k + "history.txt";
@@ -69,19 +75,21 @@ public class P2Pconnection extends Thread implements Runnable {
             e.printStackTrace();
         }
     }
-
+    //метод приема сообщений
     public void get() {
 
         try {
-
             MessageObject mesObject = (MessageObject) ois.readObject();
             System.out.println(mesObject.senderName + ":" + mesObject.message);
-            if(mesObject.message=="File###Transmit###Indeficator")
+            if(mesObject.message=="###Request%For%Contacts###")
             {
                 System.out.print("get workera");
+                shareContacte();
+                System.out.print("get workera close");
+                return;
                // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
                // fileTransmit.start();
-                System.out.print("get workera close");
+
             }
             ////ниже  работа с Gui
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
@@ -98,11 +106,11 @@ public class P2Pconnection extends Thread implements Runnable {
     }
 
     ////метод отправки сообщений
-    public void send() {
+    public void send(String mesasge) {
         try {
 
             MessageObject mesObject = new MessageObject();
-            mesObject.set(gui.jtfMessage.getText());//инициализируем датой, именем и самим сообщением
+            mesObject.set(mesasge);//инициализируем датой, именем и самим сообщением
 
             System.out.println("send class worker");
             oos.writeObject(mesObject);//пишем в поток
@@ -134,7 +142,33 @@ public class P2Pconnection extends Thread implements Runnable {
         }
     }
 
+
+public void shareContacte()
+{
+    List<InetAddress> sharedContacts = new ArrayList<InetAddress>();//создаем лист контактов который отправим
+
+    for(int i = 0 ; i<gui.contacts.size();i++)
+
+    {
+        System.out.println( gui.contacts.get(i).clientSocket.getInetAddress());
+        sharedContacts.add(gui.contacts.get(i).clientSocket.getInetAddress());
+        System.out.println(sharedContacts.toString());
+        send(sharedContacts.toString());
+    }
+
+}
+public void acceptContacts()
+{
+    try {
+        MessageObject mesObject = (MessageObject) ois.readObject();
+        System.out.println(mesObject.message);
+    }catch (Exception x) {
+        x.printStackTrace();
+    }
+}
     public P2Pconnection() {
 
     }
+
+
 }

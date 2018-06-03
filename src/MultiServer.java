@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.net.InetAddress;
 
-public class MultiServer implements Runnable {
+ public class  MultiServer implements Runnable {
     protected static int serverPort = 49005;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
-    private List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
+
     protected Socket socket;
     protected Utility.TypeConection type;
     protected int i = 0;
@@ -38,7 +38,7 @@ public class MultiServer implements Runnable {
             System.out.println("Как сервер.");
             type = Utility.TypeConection.Server;
             P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type);
-            contacts.add(p2pConnection);
+            gui.contacts.add(p2pConnection);
             p2pConnection.start();
 
             ///ниже работа с GUI
@@ -58,7 +58,7 @@ public class MultiServer implements Runnable {
             this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
             System.out.println(gui.jtfIP.getText());
             P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
-            contacts.add(p2pConnection);
+            gui.contacts.add(p2pConnection);
             p2pConnection.start();
 
         } catch (Exception x) {
@@ -104,13 +104,6 @@ public class MultiServer implements Runnable {
         }
     }
 
-    public List<P2Pconnection> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<P2Pconnection> contacts) {
-        this.contacts = contacts;
-    }
 
 
     public MultiServer(int port, MyGUI gui) {
@@ -120,4 +113,16 @@ public class MultiServer implements Runnable {
 
     }
 
+    public void reqContacts()
+    {
+        for(int i=0;i<gui.contacts.size();i++)
+        {
+
+            P2Pconnection p2pConnection = gui.contacts.get(i);
+            p2pConnection.send("###Request%For%Contacts###");
+            p2pConnection.acceptContacts();
+
+        }
+
+    }
 }
