@@ -143,6 +143,7 @@ public class Worker extends Thread implements Runnable {
         }
     }
 
+<<<<<<< HEAD:src/Worker.java
 <<<<<<< HEAD:src/P2Pconnection.java
 
 public void shareContacte()
@@ -169,6 +170,9 @@ public void acceptContacts()
     }
 }
     public P2Pconnection() {
+=======
+    public Worker() {
+>>>>>>> parent of 7bbe32d... test:src/Worker.java
 =======
     public Worker() {
 >>>>>>> parent of 7bbe32d... test:src/Worker.java

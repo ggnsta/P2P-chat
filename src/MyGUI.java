@@ -200,8 +200,13 @@ public class MyGUI extends JFrame {
                 chooser.setMultiSelectionEnabled(true);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
               //  List<P2Pconnection> contacts = server.getContacts();//получаем список подключений
                 P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
+=======
+                List<Worker> contacts = server.getContacts();//получаем список подключений
+                Worker worker = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
+>>>>>>> parent of 7bbe32d... test
 =======
                 List<Worker> contacts = server.getContacts();//получаем список подключений
                 Worker worker = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
@@ -235,6 +240,7 @@ public class MyGUI extends JFrame {
                     if (k == 0) {// если это первое подключение
                         System.out.println("abc");
 <<<<<<< HEAD
+<<<<<<< HEAD
                        // List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
                         P2Pconnection p2pConnection = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
                         p2pConnection.send(chatArea.getText());
@@ -242,6 +248,14 @@ public class MyGUI extends JFrame {
                        // List<P2Pconnection> contacts = server.getContacts();
                         P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
                         p2pConnection.send(chatArea.getText());
+=======
+                        List<Worker> contacts = server.getContacts();//получаем список всех контактов
+                        Worker worker = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
+                    } else {
+                        List<Worker> contacts = server.getContacts();
+                        Worker worker = contacts.get(list.getSelectedIndex());
+                        worker.send();
+>>>>>>> parent of 7bbe32d... test
 =======
                         List<Worker> contacts = server.getContacts();//получаем список всех контактов
                         Worker worker = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
@@ -266,8 +280,13 @@ public class MyGUI extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 chatArea.setText("");//очищаем поле чата
 <<<<<<< HEAD
+<<<<<<< HEAD
                // List<P2Pconnection> contacts = server.getContacts();//получаем список контактов
                 P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
+=======
+                List<Worker> contacts = server.getContacts();//получаем список контактов
+                Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
+>>>>>>> parent of 7bbe32d... test
 =======
                 List<Worker> contacts = server.getContacts();//получаем список контактов
                 Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)

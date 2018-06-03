@@ -7,12 +7,21 @@ import java.util.List;
 import java.net.InetAddress;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
  public class  MultiServer implements Runnable {
     protected static int serverPort = 49005;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
 
+=======
+public class MultiServer implements Runnable {
+    protected static int serverPort=49005 ;
+    protected ServerSocket serverSocket = null;
+    protected boolean isStopped = false;
+    protected MyGUI gui;
+    private List<Worker> contacts = new ArrayList<Worker>();
+>>>>>>> parent of 7bbe32d... test
 =======
 public class MultiServer implements Runnable {
     protected static int serverPort=49005 ;
@@ -46,9 +55,15 @@ public class MultiServer implements Runnable {
             System.out.println("Как сервер.");
             type = Utility.TypeConection.Server;
 <<<<<<< HEAD
+<<<<<<< HEAD
             P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type);
             gui.contacts.add(p2pConnection);
             p2pConnection.start();
+=======
+            Worker worker = new Worker(clientSocket, this.gui, type);
+            contacts.add(worker);
+            worker.start();
+>>>>>>> parent of 7bbe32d... test
 =======
             Worker worker = new Worker(clientSocket, this.gui, type);
             contacts.add(worker);
@@ -70,17 +85,23 @@ public class MultiServer implements Runnable {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
             System.out.println(gui.jtfIP.getText());
             P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
             gui.contacts.add(p2pConnection);
             p2pConnection.start();
 =======
+=======
+>>>>>>> parent of 7bbe32d... test
             this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()),serverPort); // подключаемся к серверу
            System.out.println(gui.jtfIP.getText());
             Worker worker = new Worker(socket, this.gui, type);
             contacts.add(worker);
             worker.start();
+<<<<<<< HEAD
+>>>>>>> parent of 7bbe32d... test
+=======
 >>>>>>> parent of 7bbe32d... test
 
         } catch (Exception x) {
@@ -127,7 +148,10 @@ public class MultiServer implements Runnable {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 7bbe32d... test
     public List<Worker> getContacts() {
         return contacts;
     }
