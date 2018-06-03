@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class P2Pconnection extends Thread implements Runnable {
+public class Worker extends Thread implements Runnable {
 
     protected Socket clientSocket = null;
     protected File history;
@@ -18,7 +18,7 @@ public class P2Pconnection extends Thread implements Runnable {
     protected MyGUI gui;
 
 
-    public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type) {
+    public Worker(Socket clientSocket, MyGUI gui, Utility.TypeConection type) {
         this.clientSocket = clientSocket;
         this.gui = gui;
         this.type = type;
@@ -81,16 +81,17 @@ public class P2Pconnection extends Thread implements Runnable {
         try {
             MessageObject mesObject = (MessageObject) ois.readObject();
             System.out.println(mesObject.senderName + ":" + mesObject.message);
-            if(mesObject.message=="###Request%For%Contacts###")
+<<<<<<< HEAD:src/P2Pconnection.java
+
+=======
+            if(mesObject.message=="File###Transmit###Indeficator")
             {
                 System.out.print("get workera");
-                shareContacte();
+                FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
+                fileTransmit.start();
                 System.out.print("get workera close");
-                return;
-               // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
-               // fileTransmit.start();
-
             }
+>>>>>>> parent of 7bbe32d... test:src/Worker.java
             ////ниже  работа с Gui
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
             gui.chatArea.append(mesObject.senderName + "(" + mesObject.date + ")");//отображаем информацию о полученном сообщении в поле чата
@@ -142,17 +143,18 @@ public class P2Pconnection extends Thread implements Runnable {
         }
     }
 
+<<<<<<< HEAD:src/P2Pconnection.java
 
 public void shareContacte()
 {
-    List<InetAddress> sharedContacts = new ArrayList<InetAddress>();//создаем лист контактов который отправим
+    List<String> sharedContacts = new ArrayList<String>();//создаем лист контактов который отправим
 
     for(int i = 0 ; i<gui.contacts.size();i++)
 
     {
         System.out.println( gui.contacts.get(i).clientSocket.getInetAddress());
-        sharedContacts.add(gui.contacts.get(i).clientSocket.getInetAddress());
-        System.out.println(sharedContacts.toString());
+        sharedContacts.add(gui.contacts.get(i).clientSocket.getInetAddress().toString());
+        System.out.println(sharedContacts.get(i));
         send(sharedContacts.toString());
     }
 
@@ -167,6 +169,9 @@ public void acceptContacts()
     }
 }
     public P2Pconnection() {
+=======
+    public Worker() {
+>>>>>>> parent of 7bbe32d... test:src/Worker.java
 
     }
 
