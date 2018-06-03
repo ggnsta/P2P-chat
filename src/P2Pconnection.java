@@ -3,7 +3,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class Worker extends Thread implements Runnable {
+public class P2Pconnection extends Thread implements Runnable {
 
     protected Socket clientSocket = null;
     protected File history;
@@ -16,7 +16,7 @@ public class Worker extends Thread implements Runnable {
     protected MyGUI gui;
 
 
-    public Worker(Socket clientSocket, MyGUI gui, Utility.TypeConection type) {
+    public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type) {
         this.clientSocket = clientSocket;
         this.gui = gui;
         this.type = type;
@@ -79,8 +79,8 @@ public class Worker extends Thread implements Runnable {
             if(mesObject.message=="File###Transmit###Indeficator")
             {
                 System.out.print("get workera");
-                FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
-                fileTransmit.start();
+               // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
+               // fileTransmit.start();
                 System.out.print("get workera close");
             }
             ////ниже  работа с Gui
@@ -134,7 +134,7 @@ public class Worker extends Thread implements Runnable {
         }
     }
 
-    public Worker() {
+    public P2Pconnection() {
 
     }
 }

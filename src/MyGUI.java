@@ -1,21 +1,11 @@
-import com.sun.prism.shader.Solid_TextureYV12_Loader;
-import javafx.event.ActionEvent;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import java.io.File;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.JTextComponent;
-import javax.swing.text.DefaultCaret;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 import java.io.*;
 
 public class MyGUI extends JFrame {
@@ -192,17 +182,17 @@ public class MyGUI extends JFrame {
                 JFileChooser chooser = new JFileChooser();//объект выбора файлов
                 chooser.setMultiSelectionEnabled(true);
 
-                List<Worker> contacts = server.getContacts();//получаем список подключений
-                Worker worker = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
+                List<P2Pconnection> contacts = server.getContacts();//получаем список подключений
+                P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
 
                 int returnVal = chooser.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File[] file = chooser.getSelectedFiles();
                     for (File directory : file) {// получаем все вложенные объекты в каталоге
-                        FileTransmit filetransmit=new FileTransmit(worker.clientSocket,false);
-                        filetransmit.setFileName(directory + "");
-                        filetransmit.sendFile();//задаем имя отправляемого файла
-                        filetransmit.start();
+                    //    FileTransmit filetransmit=new FileTransmit(p2pConnection,false);
+                       // filetransmit.setFileName(directory + "");
+                       // filetransmit.sendFile();//задаем имя отправляемого файла
+                       // filetransmit.start();
                     }
 
 
@@ -222,12 +212,13 @@ public class MyGUI extends JFrame {
 
                     if (k == 0) {// если это первое подключение
                         System.out.println("abc");
-                        List<Worker> contacts = server.getContacts();//получаем список всех контактов
-                        Worker worker = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
+                        List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
+                        P2Pconnection p2pConnection = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
+                        p2pConnection.send();
                     } else {
-                        List<Worker> contacts = server.getContacts();
-                        Worker worker = contacts.get(list.getSelectedIndex());
-                        worker.send();
+                        List<P2Pconnection> contacts = server.getContacts();
+                        P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
+                        p2pConnection.send();
                     }
 
 
@@ -243,10 +234,10 @@ public class MyGUI extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 chatArea.setText("");//очищаем поле чата
-                List<Worker> contacts = server.getContacts();//получаем список контактов
-                Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
+                List<P2Pconnection> contacts = server.getContacts();//получаем список контактов
+                P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
                 try {
-                    File f =new File(worker.pathToHistory);
+                    File f =new File(p2pConnection.pathToHistory);
                     BufferedReader fileReader = new BufferedReader(new FileReader(f));
                    String line;
                    chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта

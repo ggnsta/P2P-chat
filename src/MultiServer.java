@@ -7,15 +7,16 @@ import java.util.List;
 import java.net.InetAddress;
 
 public class MultiServer implements Runnable {
-    protected static int serverPort=49005 ;
+    protected static int serverPort = 49005;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
-    private List<Worker> contacts = new ArrayList<Worker>();
+    private List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
     protected Socket socket;
     protected Utility.TypeConection type;
-    protected  int i = 0;
+    protected int i = 0;
 
+    //попробую сделать лист сокетов clientsocket  и ассептить их
     @Override
     public void run() {
 
@@ -36,9 +37,9 @@ public class MultiServer implements Runnable {
             }
             System.out.println("Как сервер.");
             type = Utility.TypeConection.Server;
-            Worker worker = new Worker(clientSocket, this.gui, type);
-            contacts.add(worker);
-            worker.start();
+            P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type);
+            contacts.add(p2pConnection);
+            p2pConnection.start();
 
             ///ниже работа с GUI
             gui.listModel.addElement("Элемент списка " + gui.k);
@@ -54,11 +55,11 @@ public class MultiServer implements Runnable {
             type = Utility.TypeConection.Client;
 
 
-            this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()),serverPort); // подключаемся к серверу
-           System.out.println(gui.jtfIP.getText());
-            Worker worker = new Worker(socket, this.gui, type);
-            contacts.add(worker);
-            worker.start();
+            this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
+            System.out.println(gui.jtfIP.getText());
+            P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
+            contacts.add(p2pConnection);
+            p2pConnection.start();
 
         } catch (Exception x) {
             ErrorNotification error = new ErrorNotification();
@@ -87,8 +88,8 @@ public class MultiServer implements Runnable {
 
 
         System.out.println("Opening server socket...");
-        if (i == 0)
-        { try {
+        if (i == 0) {
+            try {
 
                 this.serverSocket = new ServerSocket(this.serverPort);
                 i++;
@@ -100,14 +101,14 @@ public class MultiServer implements Runnable {
 
                 e.printStackTrace();
             }
-    }
+        }
     }
 
-    public List<Worker> getContacts() {
+    public List<P2Pconnection> getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<Worker> contacts) {
+    public void setContacts(List<P2Pconnection> contacts) {
         this.contacts = contacts;
     }
 
