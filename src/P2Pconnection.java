@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
@@ -11,6 +12,8 @@ public class P2Pconnection extends Thread implements Runnable {
     protected ObjectInputStream ois = null;
     protected Utility.TypeConection type; // отвечает за правильный порядок создания oos и ois
     protected String pathToHistory = null;
+    protected InetAddress notMyIp = null;
+    protected InetAddress myIp = null;
 
 
     protected MyGUI gui;
@@ -20,15 +23,19 @@ public class P2Pconnection extends Thread implements Runnable {
         this.clientSocket = clientSocket;
         this.gui = gui;
         this.type = type;
+        this.notMyIp = clientSocket.getInetAddress();
+        this.myIp = clientSocket.getLocalAddress();
+
 
     }
 
     @Override
     public void run() {
         try {
-
+            System.out.println(Thread.currentThread().getName());
             pathToHistory = System.getProperty("user.home");
-            pathToHistory += File.separator + "p2p-chat" + File.separator + gui.k + "history.txt";
+            pathToHistory += File.separator + "p2p-chat" + File.separator + notMyIp.toString()+".txt";
+            System.out.println(File.separator);
             history = new File(pathToHistory);
             history.getParentFile().mkdirs();
             history.createNewFile();
@@ -76,19 +83,13 @@ public class P2Pconnection extends Thread implements Runnable {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
             System.out.println(mesObject.senderName + ":" + mesObject.message);
-            if(mesObject.message=="File###Transmit###Indeficator")
-            {
+            if (mesObject.message == "File###Transmit###Indeficator") {
                 System.out.print("get workera");
-               // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
-               // fileTransmit.start();
+                // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
+                // fileTransmit.start();
                 System.out.print("get workera close");
             }
-            ////ниже  работа с Gui
-            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-            gui.chatArea.append(mesObject.senderName + "(" + mesObject.date + ")");//отображаем информацию о полученном сообщении в поле чата
-
-            gui.chatArea.append(mesObject.message);//отображаем сообщение
-            gui.chatArea.append("\n");
+            gui.updateChatArea(mesObject, null);
 
             writeToHistory(mesObject);//вызов метода записи сообщений в файл
 
@@ -109,10 +110,7 @@ public class P2Pconnection extends Thread implements Runnable {
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
 
-            gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-            gui.chatArea.append("Вы " + "(" + mesObject.date + "):");//вывод даты и нашего имени на экран
-            gui.chatArea.append(mesObject.message);//ыввод нашего сообщения на наш экран
-            gui.chatArea.append("\n");
+            gui.updateChatArea(mesObject, "you");
 
             writeToHistory(mesObject);
 

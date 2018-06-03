@@ -6,6 +6,8 @@ public class Main {
 
 
         MyGUI app =new MyGUI();
+
+
         app.setDefaultCloseOperation(app.EXIT_ON_CLOSE);
         app.setVisible(true);
 

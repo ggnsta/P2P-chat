@@ -21,6 +21,7 @@ public class MultiServer implements Runnable {
     @Override
     public void run() {
 
+        System.out.println(Thread.currentThread().getName());
         while (!isStopped()) {
             openServerSocket();
             Socket clientSocket = null;
@@ -54,13 +55,17 @@ public class MultiServer implements Runnable {
         try {
             System.out.println("Как клиент.");
             type = Utility.TypeConection.Client;
+            if(checkRepeatIp()==true) {
+                this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
 
-
-            this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
-            System.out.println(gui.jtfIP.getText());
-            P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
-            contacts.add(p2pConnection);
-            p2pConnection.start();
+                P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
+                contacts.add(p2pConnection);
+                p2pConnection.start();
+            }
+            else {
+                socket=null;
+                return;
+            }
 
         } catch (Exception x) {
             ErrorNotification error = new ErrorNotification();
@@ -120,4 +125,23 @@ public class MultiServer implements Runnable {
 
     }
 
+//метод проверка на дублирование подключений
+    public boolean checkRepeatIp()
+    {
+        if(Utility.getHostIP().equalsIgnoreCase(gui.jtfIP.getText()))//сравниваем введеный ip с собственным
+        {
+            System.out.println("подключение к самому себе");
+            return false;
+        }
+        for(int i=0;i<contacts.size();i++)
+        {
+           P2Pconnection buf =contacts.get(i);
+           if(buf.myIp.toString()!=gui.jtfIP.getText())//сравниваем введенный ip с ip всех контактов
+           {
+               System.out.println("уже подключен к этому адресу");
+               return false;
+           }
+        }
+        return true;
+    }
 }

@@ -17,7 +17,7 @@ public class MessageObject implements Serializable {
 
     public void set(String message) {
         this.message = message;
-        this.senderName=Utility.getLocalIP();
+        this.senderName=Utility.getHostIP();
         this.date=new Date();
 
 

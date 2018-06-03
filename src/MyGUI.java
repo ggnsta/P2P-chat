@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -82,7 +83,7 @@ public class MyGUI extends JFrame {
         bAddFile.setBounds(630, 560, 30, 100);
         my_panel.add(bAddFile);
 
-        myIP = new JLabel("Ваш IP:" + Utility.getLocalIP());
+        myIP = new JLabel("Ваш IP:" + Utility.getHostIP());
         myIP.setBounds(10, 664, 120, 10);
         myIP.setFont(new Font("Arial", Font.PLAIN, 11)); //задаем шрифт и размер шрифта
         my_panel.add(myIP);
@@ -132,19 +133,19 @@ public class MyGUI extends JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
-                
-                    server.runClient();
-                    listModel.addElement("Элемент списка " + k);
-                    contactList.add(listModel);//добавляем поле в список
-                    k++;
-                    panel2.setVisible(false);
-                    if(server.socket==null)
-                    {
-                        k--;
-                        listModel.remove(k);
-                        contactList.remove(k);
 
-                    }
+                server.runClient();
+                listModel.addElement("Элемент списка " + k);
+                contactList.add(listModel);//добавляем поле в список
+                k++;
+                panel2.setVisible(false);
+                if (server.socket == null) {
+                    k--;
+                    listModel.remove(k);
+                    contactList.remove(k);
+
+                }
+                jtfIP.setText("");
 
             }
         });
@@ -197,10 +198,10 @@ public class MyGUI extends JFrame {
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File[] file = chooser.getSelectedFiles();
                     for (File directory : file) {// получаем все вложенные объекты в каталоге
-                    //    FileTransmit filetransmit=new FileTransmit(p2pConnection,false);
-                       // filetransmit.setFileName(directory + "");
-                       // filetransmit.sendFile();//задаем имя отправляемого файла
-                       // filetransmit.start();
+                        //    FileTransmit filetransmit=new FileTransmit(p2pConnection,false);
+                        // filetransmit.setFileName(directory + "");
+                        // filetransmit.sendFile();//задаем имя отправляемого файла
+                        // filetransmit.start();
                     }
 
 
@@ -245,18 +246,21 @@ public class MyGUI extends JFrame {
                 List<P2Pconnection> contacts = server.getContacts();//получаем список контактов
                 P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
                 try {
-                    File f =new File(p2pConnection.pathToHistory);
-                    BufferedReader fileReader = new BufferedReader(new FileReader(f));
-                   String line;
-                   chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-                    while ((line = fileReader.readLine()) != null) {
-                        System.out.println(line);
-                        chatArea.append(line);
-                        chatArea.append("\r");
+                    File f = new File(p2pConnection.pathToHistory);
+                    //короче надо пройтись по папке считаь имена всех файлов и если есть совпадения отработать вот это
+                    if (f.getName().equals(p2pConnection.pathToHistory)) {
+                        BufferedReader fileReader = new BufferedReader(new FileReader(f));
+                        String line;
+                        chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
+                        while ((line = fileReader.readLine()) != null) {
+                            System.out.println(line);
+                            chatArea.append(line);
+                            chatArea.append("\r");
 
+                        }
+                        chatArea.append("\r\n");
+                        fileReader.close();
                     }
-                    chatArea.append("\r");
-                    fileReader.close();
                 } catch (Exception ex) {
 
                     System.out.println(ex.getMessage());
@@ -266,8 +270,24 @@ public class MyGUI extends JFrame {
             }
         });
 
+
         setSize(680, 720);
         setVisible(true);
+
+
     }
 
+    public void updateChatArea(MessageObject mesObject, String who) {
+
+        chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
+        if (who == null) {
+            chatArea.append(mesObject.senderName + "(" + mesObject.date + "):\r");//вывод даты и нашего имени на экран
+        } else {
+            chatArea.append("Вы " + "(" + mesObject.date + "):\r");//вывод даты и нашего имени на экран
+        }
+        chatArea.append(mesObject.message);//ыввод нашего сообщения на наш экран
+        chatArea.append("\r\n");
+        JScrollBar vertical = chatScroll.getVerticalScrollBar();
+        vertical.setValue(vertical.getMaximum());//прокручиваем окно чата вниз при получении сообщения
+    }
 }

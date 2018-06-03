@@ -4,11 +4,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import java.awt.*;
-import java.io.BufferedReader;
+import java.io.*;
 import java.net.*;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.IOException;
 
 //вспомагательный класс, для получения внешнего IP
 public class Utility {
@@ -31,11 +28,10 @@ public class Utility {
         return ip;
     }
 
-    public static String getLocalIP() {
+    public static String getHostIP() {
         String ip = null;
         try {
             InetAddress inetAddress = InetAddress.getLocalHost();
-            System.out.println("IP Address:- " + inetAddress.getHostAddress());
 
             ip = inetAddress.getHostAddress();
 
