@@ -15,47 +15,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file leaf-file-name="P2Pconnection.java" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="2312">
-                    <caret line="153" column="31" lean-forward="false" selection-start-line="153" selection-start-column="31" selection-end-line="153" selection-end-column="31" />
-                    <folding>
-                      <element signature="imports" expanded="true" />
-                      <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
-                      <element signature="e#5123#5131#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="MessageObject.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MessageObject.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <state relative-caret-position="308">
-              <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-=======
-            <state relative-caret-position="323">
-              <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <state relative-caret-position="323">
-              <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
->>>>>>> parent of 7bbe32d... test
+            <state relative-caret-position="119">
+              <caret line="8" column="50" lean-forward="false" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -66,15 +32,7 @@
       <file leaf-file-name="Utility.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Utility.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <state relative-caret-position="612">
-=======
-            <state relative-caret-position="595">
->>>>>>> parent of 7bbe32d... test
-=======
-            <state relative-caret-position="595">
->>>>>>> parent of 7bbe32d... test
+            <state relative-caret-position="553">
               <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -83,92 +41,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FileTransmit.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FileTransmit.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FileTransmit.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <state relative-caret-position="85">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="17" />
+            <state relative-caret-position="17">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
               <folding />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-            <state relative-caret-position="442">
-              <caret line="51" column="114" lean-forward="false" selection-start-line="51" selection-start-column="114" selection-end-line="51" selection-end-column="114" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#365#366#0" expanded="true" />
-                <element signature="e#405#406#0" expanded="true" />
-              </folding>
->>>>>>> parent of 7bbe32d... test
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <file leaf-file-name="MultiServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
+      <file leaf-file-name="P2Pconnection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1649">
-              <caret line="127" column="1" lean-forward="false" selection-start-line="127" selection-start-column="1" selection-end-line="127" selection-end-column="1" />
+            <state relative-caret-position="481">
+              <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2357#2358#0" expanded="true" />
-                <element signature="e#2394#2395#0" expanded="true" />
-                <element signature="method#stop#0;class#MultiServer#0" expanded="false" />
-                <element signature="method#openServerSocket#0;class#MultiServer#0" expanded="false" />
-                <element signature="method#MultiServer#0;class#MultiServer#0" expanded="false" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-      <file leaf-file-name="Worker.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Worker.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="78" column="34" lean-forward="true" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="65" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+                <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <file leaf-file-name="UDPBroadcaster.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/UDPBroadcaster.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
       <file leaf-file-name="MultiServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="51" column="13" lean-forward="true" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
+            <state relative-caret-position="319">
+              <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2270#2271#0" expanded="true" />
-                <element signature="e#2307#2308#0" expanded="true" />
-                <element signature="e#3111#3112#0" expanded="true" />
-                <element signature="e#3142#3143#0" expanded="true" />
-                <element signature="e#3196#3197#0" expanded="true" />
-                <element signature="e#3236#3237#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+                <element signature="e#2463#2464#0" expanded="true" />
+                <element signature="e#2500#2501#0" expanded="true" />
+                <element signature="e#3319#3320#0" expanded="true" />
+                <element signature="e#3350#3351#0" expanded="true" />
+                <element signature="e#3411#3412#0" expanded="true" />
+                <element signature="e#3451#3452#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -187,8 +95,8 @@
       <file leaf-file-name="ErrorNotification.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ErrorNotification.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+            <state relative-caret-position="306">
+              <caret line="18" column="15" lean-forward="true" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -199,16 +107,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-            <state relative-caret-position="136">
-              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-=======
             <state relative-caret-position="153">
-              <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="29" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+              <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -217,30 +117,12 @@
       <file leaf-file-name="MyGUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MyGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <state relative-caret-position="967">
-              <caret line="99" column="30" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+            <state relative-caret-position="300">
+              <caret line="134" column="16" lean-forward="false" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1398#1413#0" expanded="true" />
-                <element signature="e#1486#1504#0" expanded="true" />
-                <element signature="e#7642#8655#0" expanded="true" />
-                <element signature="e#8654#8655#0" expanded="true" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-            <state relative-caret-position="436">
-              <caret line="248" column="59" lean-forward="true" selection-start-line="248" selection-start-column="59" selection-end-line="248" selection-end-column="59" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1764#1782#0" expanded="true" />
-                <element signature="e#7523#8401#0" expanded="true" />
-                <element signature="e#8400#8401#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+                <element signature="e#7357#8330#0" expanded="true" />
+                <element signature="e#8329#8330#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -257,17 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-      <find>texta</find>
-      <find>pane</find>
-      <find>add</find>
-      <find>layo</find>
-      <find>scrollpan</find>
->>>>>>> parent of 7bbe32d... test
       <find>print</find>
       <find>jtfip</find>
       <find>dime</find>
@@ -280,6 +151,7 @@
       <find>run</find>
       <find>selec</find>
       <find>list</find>
+      <find>send</find>
       <find>k</find>
       <find>buf</find>
       <find>chatarea</find>
@@ -291,21 +163,12 @@
       <find>runcl</find>
       <find>start</find>
       <find>file</find>
-<<<<<<< HEAD
-<<<<<<< HEAD
       <find>close</find>
+      <find>worker</find>
       <find>p2P</find>
-      <find>worker</find>
       <find>delete</find>
-      <find>contacts</find>
-      <find>send</find>
-      <find>request</find>
-=======
-      <find>worker</find>
->>>>>>> parent of 7bbe32d... test
-=======
-      <find>worker</find>
->>>>>>> parent of 7bbe32d... test
+      <find>lis</find>
+      <find>eConnect</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -322,40 +185,21 @@
         <option value="$PROJECT_DIR$/src/MyGui.java" />
         <option value="$PROJECT_DIR$/src/PortMapper.java" />
         <option value="$PROJECT_DIR$/src/UPnPPortMapper.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
         <option value="$PROJECT_DIR$/src/Utility.java" />
         <option value="$PROJECT_DIR$/src/Error.java" />
-        <option value="$PROJECT_DIR$/src/ErrorNotification.java" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <option value="$PROJECT_DIR$/src/FileTransmit.java" />
-        <option value="$PROJECT_DIR$/src/Worker.java" />
-        <option value="$PROJECT_DIR$/src/BroadcastingClient.java" />
-        <option value="$PROJECT_DIR$/src/UDPBroadcaster.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
-=======
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
-        <option value="$PROJECT_DIR$/src/MultiServer.java" />
         <option value="$PROJECT_DIR$/src/MessageObject.java" />
-        <option value="$PROJECT_DIR$/src/P2Pconnection.java" />
-        <option value="$PROJECT_DIR$/src/MyGUI.java" />
-        <option value="$PROJECT_DIR$/src/Worker.java" />
+        <option value="$PROJECT_DIR$/src/ErrorNotification.java" />
         <option value="$PROJECT_DIR$/src/FileTransmit.java" />
+        <option value="$PROJECT_DIR$/src/Worker.java" />
+        <option value="$PROJECT_DIR$/src/P2Pconnection.java" />
+        <option value="$PROJECT_DIR$/src/MultiServer.java" />
+        <option value="$PROJECT_DIR$/src/MyGUI.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <option name="x" value="148" />
-    <option name="y" value="-21" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-    <option name="x" value="459" />
-    <option name="y" value="-11" />
->>>>>>> parent of 7bbe32d... test
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -375,34 +219,24 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-=======
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="P2P-chat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="P2P-chat" type="462c0819:PsiDirectoryNode" />
+              <item name="P2P-chat-7bbe32da2460ff16bca936473973f88db37ff3c5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="P2P-chat-7bbe32da2460ff16bca936473973f88db37ff3c5" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="P2P-chat" type="b2602c69:ProjectViewProjectNode" />
-              <item name="P2P-chat" type="462c0819:PsiDirectoryNode" />
+              <item name="P2P-chat-7bbe32da2460ff16bca936473973f88db37ff3c5" type="b2602c69:ProjectViewProjectNode" />
+              <item name="P2P-chat-7bbe32da2460ff16bca936473973f88db37ff3c5" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
@@ -550,43 +384,29 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 7bbe32d... test
+    <frame x="-7" y="0" width="974" height="1047" extended-state="1" />
     <editor active="true" />
->>>>>>> parent of 7bbe32d... test
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32852387" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.281909" sideWeight="0.5063966" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28079912" sideWeight="0.4936034" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28475335" sideWeight="0.4936034" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.114072494" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.110341154" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32963374" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
->>>>>>> parent of 7bbe32d... test
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19256018" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4017758" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40191898" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -601,19 +421,21 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/MyGUI.java</url>
-          <line>219</line>
-          <properties />
-          <option name="timeStamp" value="14" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="15" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/ErrorNotification.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="1" lean-forward="false" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -628,42 +450,19 @@
           <caret line="66" column="40" lean-forward="false" selection-start-line="66" selection-start-column="40" selection-end-line="66" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#1398#1413#0" expanded="true" />
-            <element signature="e#1486#1504#0" expanded="true" />
-            <element signature="e#7642#8655#0" expanded="true" />
-            <element signature="e#8654#8655#0" expanded="true" />
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#7357#8330#0" expanded="true" />
+            <element signature="e#8329#8330#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Worker.java">
+    <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1207">
           <caret line="78" column="24" lean-forward="true" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
             <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
-            <element signature="e#5123#5131#0" expanded="true" />
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
           </folding>
         </state>
       </provider>
@@ -678,22 +477,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Worker.java">
+    <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="21" lean-forward="false" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
             <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
-            <element signature="e#5123#5131#0" expanded="true" />
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
           </folding>
         </state>
       </provider>
@@ -722,15 +512,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-<<<<<<< HEAD
           <folding />
-=======
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#365#366#0" expanded="true" />
-            <element signature="e#405#406#0" expanded="true" />
-          </folding>
->>>>>>> parent of 7bbe32d... test
         </state>
       </provider>
     </entry>
@@ -740,26 +522,12 @@
           <caret line="32" column="34" lean-forward="true" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#2357#2358#0" expanded="true" />
-            <element signature="e#2394#2395#0" expanded="true" />
-            <element signature="method#stop#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#openServerSocket#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#MultiServer#0;class#MultiServer#0" expanded="false" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-            <element signature="e#2270#2271#0" expanded="true" />
-            <element signature="e#2307#2308#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-            <element signature="e#3196#3197#0" expanded="true" />
-            <element signature="e#3236#3237#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#2463#2464#0" expanded="true" />
+            <element signature="e#2500#2501#0" expanded="true" />
+            <element signature="e#3319#3320#0" expanded="true" />
+            <element signature="e#3350#3351#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -796,42 +564,19 @@
           <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#1398#1413#0" expanded="true" />
-            <element signature="e#1486#1504#0" expanded="true" />
-            <element signature="e#7642#8655#0" expanded="true" />
-            <element signature="e#8654#8655#0" expanded="true" />
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#7357#8330#0" expanded="true" />
+            <element signature="e#8329#8330#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Worker.java">
+    <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1411">
           <caret line="88" column="43" lean-forward="false" selection-start-line="88" selection-start-column="43" selection-end-line="88" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
             <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
-            <element signature="e#5123#5131#0" expanded="true" />
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
           </folding>
         </state>
       </provider>
@@ -850,15 +595,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-<<<<<<< HEAD
           <folding />
-=======
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#365#366#0" expanded="true" />
-            <element signature="e#405#406#0" expanded="true" />
-          </folding>
->>>>>>> parent of 7bbe32d... test
         </state>
       </provider>
     </entry>
@@ -868,26 +605,12 @@
           <caret line="98" column="12" lean-forward="true" selection-start-line="98" selection-start-column="12" selection-end-line="99" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#2357#2358#0" expanded="true" />
-            <element signature="e#2394#2395#0" expanded="true" />
-            <element signature="method#stop#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#openServerSocket#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#MultiServer#0;class#MultiServer#0" expanded="false" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-            <element signature="e#2270#2271#0" expanded="true" />
-            <element signature="e#2307#2308#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-            <element signature="e#3196#3197#0" expanded="true" />
-            <element signature="e#3236#3237#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#2463#2464#0" expanded="true" />
+            <element signature="e#2500#2501#0" expanded="true" />
+            <element signature="e#3319#3320#0" expanded="true" />
+            <element signature="e#3350#3351#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -906,22 +629,8 @@
           <caret line="75" column="8" lean-forward="true" selection-start-line="75" selection-start-column="8" selection-end-line="75" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#1398#1413#0" expanded="true" />
-            <element signature="e#1486#1504#0" expanded="true" />
-            <element signature="e#7642#8655#0" expanded="true" />
-            <element signature="e#8654#8655#0" expanded="true" />
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#7357#8330#0" expanded="true" />
+            <element signature="e#8329#8330#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -954,22 +663,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Worker.java">
+    <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1411">
           <caret line="88" column="13" lean-forward="false" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
             <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
-            <element signature="e#5123#5131#0" expanded="true" />
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
           </folding>
         </state>
       </provider>
@@ -1000,26 +700,12 @@
           <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#2357#2358#0" expanded="true" />
-            <element signature="e#2394#2395#0" expanded="true" />
-            <element signature="method#stop#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#openServerSocket#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#MultiServer#0;class#MultiServer#0" expanded="false" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-            <element signature="e#2270#2271#0" expanded="true" />
-            <element signature="e#2307#2308#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-            <element signature="e#3196#3197#0" expanded="true" />
-            <element signature="e#3236#3237#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#2463#2464#0" expanded="true" />
+            <element signature="e#2500#2501#0" expanded="true" />
+            <element signature="e#3319#3320#0" expanded="true" />
+            <element signature="e#3350#3351#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1038,22 +724,8 @@
           <caret line="122" column="47" lean-forward="false" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#1398#1413#0" expanded="true" />
-            <element signature="e#1486#1504#0" expanded="true" />
-            <element signature="e#7642#8655#0" expanded="true" />
-            <element signature="e#8654#8655#0" expanded="true" />
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#7357#8330#0" expanded="true" />
+            <element signature="e#8329#8330#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1080,34 +752,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="53" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-<<<<<<< HEAD
           <folding />
-=======
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#365#366#0" expanded="true" />
-            <element signature="e#405#406#0" expanded="true" />
-          </folding>
->>>>>>> parent of 7bbe32d... test
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Worker.java">
+    <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
             <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
-            <element signature="e#5123#5131#0" expanded="true" />
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
->>>>>>> parent of 7bbe32d... test
           </folding>
         </state>
       </provider>
@@ -1136,15 +791,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
           <caret line="54" column="25" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="25" />
-<<<<<<< HEAD
           <folding />
-=======
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#365#366#0" expanded="true" />
-            <element signature="e#405#406#0" expanded="true" />
-          </folding>
->>>>>>> parent of 7bbe32d... test
         </state>
       </provider>
     </entry>
@@ -1154,26 +801,12 @@
           <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#2357#2358#0" expanded="true" />
-            <element signature="e#2394#2395#0" expanded="true" />
-            <element signature="method#stop#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#openServerSocket#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#MultiServer#0;class#MultiServer#0" expanded="false" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-            <element signature="e#2270#2271#0" expanded="true" />
-            <element signature="e#2307#2308#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-            <element signature="e#3196#3197#0" expanded="true" />
-            <element signature="e#3236#3237#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#2463#2464#0" expanded="true" />
+            <element signature="e#2500#2501#0" expanded="true" />
+            <element signature="e#3319#3320#0" expanded="true" />
+            <element signature="e#3350#3351#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1184,22 +817,8 @@
           <caret line="122" column="47" lean-forward="true" selection-start-line="122" selection-start-column="47" selection-end-line="122" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <element signature="e#1398#1413#0" expanded="true" />
-            <element signature="e#1486#1504#0" expanded="true" />
-            <element signature="e#7642#8655#0" expanded="true" />
-            <element signature="e#8654#8655#0" expanded="true" />
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
-=======
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#7357#8330#0" expanded="true" />
+            <element signature="e#8329#8330#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1224,22 +843,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PortMapper.java" />
     <entry file="file://$PROJECT_DIR$/src/UPnPPortMapper.java" />
-    <entry file="file://$PROJECT_DIR$/src/ErrorNotification.java">
+    <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FileTransmit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="29" lean-forward="false" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MessageObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="50" lean-forward="false" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/ErrorNotification.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="30" column="18" lean-forward="false" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+        <state relative-caret-position="306">
+          <caret line="18" column="15" lean-forward="true" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1248,217 +889,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Utility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
+        <state relative-caret-position="553">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MessageObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
->>>>>>> parent of 7bbe32d... test
-=======
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MessageObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="45" lean-forward="true" selection-start-line="19" selection-start-column="45" selection-end-line="19" selection-end-column="45" />
->>>>>>> parent of 7bbe32d... test
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/src/FileTransmit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-=======
-    <entry file="file://$PROJECT_DIR$/.gitattributes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
->>>>>>> parent of 7bbe32d... test
-=======
-    <entry file="file://$PROJECT_DIR$/.gitattributes">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
->>>>>>> parent of 7bbe32d... test
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/UDPBroadcaster.java">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <state relative-caret-position="85">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-        <state relative-caret-position="595">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
->>>>>>> parent of 7bbe32d... test
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="127" column="1" lean-forward="false" selection-start-line="127" selection-start-column="1" selection-end-line="127" selection-end-column="1" />
+        <state relative-caret-position="319">
+          <caret line="67" column="29" lean-forward="false" selection-start-line="67" selection-start-column="29" selection-end-line="67" selection-end-column="29" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2357#2358#0" expanded="true" />
-            <element signature="e#2394#2395#0" expanded="true" />
-            <element signature="method#stop#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#openServerSocket#0;class#MultiServer#0" expanded="false" />
-            <element signature="method#MultiServer#0;class#MultiServer#0" expanded="false" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/MyGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-=======
-    <entry file="file://$PROJECT_DIR$/src/MyGUI.java">
-      <provider selected="true" editor-type-id="text-editor">
->>>>>>> parent of 7bbe32d... test
-        <state relative-caret-position="436">
-          <caret line="248" column="59" lean-forward="true" selection-start-line="248" selection-start-column="59" selection-end-line="248" selection-end-column="59" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1764#1782#0" expanded="true" />
-            <element signature="e#7523#8401#0" expanded="true" />
-            <element signature="e#8400#8401#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#2463#2464#0" expanded="true" />
+            <element signature="e#2500#2501#0" expanded="true" />
+            <element signature="e#3319#3320#0" expanded="true" />
+            <element signature="e#3350#3351#0" expanded="true" />
+            <element signature="e#3411#3412#0" expanded="true" />
+            <element signature="e#3451#3452#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/src/MessageObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="19" column="29" lean-forward="true" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="51" column="13" lean-forward="true" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-=======
-    <entry file="file://$PROJECT_DIR$/src/MultiServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="51" column="13" lean-forward="true" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
->>>>>>> parent of 7bbe32d... test
-            <element signature="e#2270#2271#0" expanded="true" />
-            <element signature="e#2307#2308#0" expanded="true" />
-            <element signature="e#3111#3112#0" expanded="true" />
-            <element signature="e#3142#3143#0" expanded="true" />
-            <element signature="e#3196#3197#0" expanded="true" />
-            <element signature="e#3236#3237#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
-          </folding>
-        </state>
-      </provider>
-    </entry>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/P2Pconnection.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2312">
-          <caret line="153" column="31" lean-forward="false" selection-start-line="153" selection-start-column="31" selection-end-line="153" selection-end-column="31" />
+        <state relative-caret-position="481">
+          <caret line="96" column="0" lean-forward="false" selection-start-line="96" selection-start-column="0" selection-end-line="96" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#writeToHistory#0;class#P2Pconnection#0" expanded="false" />
-            <element signature="e#5123#5131#0" expanded="true" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-    <entry file="file://$PROJECT_DIR$/src/Worker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="78" column="34" lean-forward="true" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="65" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#writeToHistory#0;class#Worker#0" expanded="false" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
           </folding>
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/MyGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="967">
-          <caret line="99" column="30" lean-forward="true" selection-start-line="99" selection-start-column="30" selection-end-line="99" selection-end-column="30" />
+        <state relative-caret-position="300">
+          <caret line="134" column="16" lean-forward="false" selection-start-line="134" selection-start-column="16" selection-end-line="134" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1398#1413#0" expanded="true" />
-            <element signature="e#1486#1504#0" expanded="true" />
-            <element signature="e#7642#8655#0" expanded="true" />
-            <element signature="e#8654#8655#0" expanded="true" />
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-    <entry file="file://$PROJECT_DIR$/src/FileTransmit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="51" column="114" lean-forward="false" selection-start-line="51" selection-start-column="114" selection-end-line="51" selection-end-column="114" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#365#366#0" expanded="true" />
-            <element signature="e#405#406#0" expanded="true" />
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
+            <element signature="e#7357#8330#0" expanded="true" />
+            <element signature="e#8329#8330#0" expanded="true" />
           </folding>
         </state>
       </provider>

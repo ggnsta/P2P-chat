@@ -1,21 +1,11 @@
-import com.sun.prism.shader.Solid_TextureYV12_Loader;
-import javafx.event.ActionEvent;
-
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 import java.io.File;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.JTextComponent;
-import javax.swing.text.DefaultCaret;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
 import java.io.*;
 
 public class MyGUI extends JFrame {
@@ -47,7 +37,7 @@ public class MyGUI extends JFrame {
     protected boolean firstclick = false;
     DefaultListModel listModel = new DefaultListModel();
 
-    protected List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
+
     protected ArrayList<DefaultListModel> contactList = new ArrayList<DefaultListModel>();
 
 
@@ -85,10 +75,9 @@ public class MyGUI extends JFrame {
         list.setFont(new Font("Monospaced", Font.PLAIN, 15)); //задаем шрифт и размер шрифта
         list.setComponentPopupMenu(editContact);//!!!!!!!!!!!!!!!!!!!!!
 
-        JMenuItem deleteItem = new JMenuItem("Удалить");//пункт всплывающего меню
+        JMenuItem deleteItem = new JMenuItem("Удалить");
         editContact.add(deleteItem);
-        JMenuItem requestContacts = new JMenuItem("Запросить контакты");//пункт всплывающего меню
-        editContact.add(requestContacts);
+
 
         bAddFile.setBounds(630, 560, 30, 100);
         my_panel.add(bAddFile);
@@ -110,13 +99,7 @@ public class MyGUI extends JFrame {
                 //worker.close
             }
         });
-      /*  requestContacts.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            server.reqContacts();
-            }
-        });
-*/
+
         contactsScroll = (new JScrollPane(list));
         contactsScroll.setBounds(10, 30, 201, 630);
         my_panel.add(contactsScroll);
@@ -149,12 +132,20 @@ public class MyGUI extends JFrame {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
-                //пофиксить то что даже если тайм аут строка все равно добавляется
-                server.runClient();
-                listModel.addElement("Элемент списка " + k);
-                contactList.add(listModel);//добавляем поле в список
-                k++;
-                panel2.setVisible(false);
+                
+                    server.runClient();
+                    listModel.addElement("Элемент списка " + k);
+                    contactList.add(listModel);//добавляем поле в список
+                    k++;
+                    panel2.setVisible(false);
+                    if(server.socket==null)
+                    {
+                        k--;
+                        listModel.remove(k);
+                        contactList.remove(k);
+
+                    }
+
             }
         });
 
@@ -199,27 +190,17 @@ public class MyGUI extends JFrame {
                 JFileChooser chooser = new JFileChooser();//объект выбора файлов
                 chooser.setMultiSelectionEnabled(true);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-              //  List<P2Pconnection> contacts = server.getContacts();//получаем список подключений
+                List<P2Pconnection> contacts = server.getContacts();//получаем список подключений
                 P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
-=======
-                List<Worker> contacts = server.getContacts();//получаем список подключений
-                Worker worker = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
->>>>>>> parent of 7bbe32d... test
-=======
-                List<Worker> contacts = server.getContacts();//получаем список подключений
-                Worker worker = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
->>>>>>> parent of 7bbe32d... test
 
                 int returnVal = chooser.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     File[] file = chooser.getSelectedFiles();
                     for (File directory : file) {// получаем все вложенные объекты в каталоге
-                        FileTransmit filetransmit=new FileTransmit(worker.clientSocket,false);
-                        filetransmit.setFileName(directory + "");
-                        filetransmit.sendFile();//задаем имя отправляемого файла
-                        filetransmit.start();
+                    //    FileTransmit filetransmit=new FileTransmit(p2pConnection,false);
+                       // filetransmit.setFileName(directory + "");
+                       // filetransmit.sendFile();//задаем имя отправляемого файла
+                       // filetransmit.start();
                     }
 
 
@@ -239,31 +220,13 @@ public class MyGUI extends JFrame {
 
                     if (k == 0) {// если это первое подключение
                         System.out.println("abc");
-<<<<<<< HEAD
-<<<<<<< HEAD
-                       // List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
+                        List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
                         P2Pconnection p2pConnection = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
-                        p2pConnection.send(chatArea.getText());
+                        p2pConnection.send();
                     } else {
-                       // List<P2Pconnection> contacts = server.getContacts();
+                        List<P2Pconnection> contacts = server.getContacts();
                         P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
-                        p2pConnection.send(chatArea.getText());
-=======
-                        List<Worker> contacts = server.getContacts();//получаем список всех контактов
-                        Worker worker = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
-                    } else {
-                        List<Worker> contacts = server.getContacts();
-                        Worker worker = contacts.get(list.getSelectedIndex());
-                        worker.send();
->>>>>>> parent of 7bbe32d... test
-=======
-                        List<Worker> contacts = server.getContacts();//получаем список всех контактов
-                        Worker worker = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
-                    } else {
-                        List<Worker> contacts = server.getContacts();
-                        Worker worker = contacts.get(list.getSelectedIndex());
-                        worker.send();
->>>>>>> parent of 7bbe32d... test
+                        p2pConnection.send();
                     }
 
 
@@ -279,20 +242,10 @@ public class MyGUI extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 chatArea.setText("");//очищаем поле чата
-<<<<<<< HEAD
-<<<<<<< HEAD
-               // List<P2Pconnection> contacts = server.getContacts();//получаем список контактов
+                List<P2Pconnection> contacts = server.getContacts();//получаем список контактов
                 P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
-=======
-                List<Worker> contacts = server.getContacts();//получаем список контактов
-                Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
->>>>>>> parent of 7bbe32d... test
-=======
-                List<Worker> contacts = server.getContacts();//получаем список контактов
-                Worker worker = contacts.get(list.getSelectedIndex());//выбираем нужный (эксепшен)
->>>>>>> parent of 7bbe32d... test
                 try {
-                    File f =new File(worker.pathToHistory);
+                    File f =new File(p2pConnection.pathToHistory);
                     BufferedReader fileReader = new BufferedReader(new FileReader(f));
                    String line;
                    chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта

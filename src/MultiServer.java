@@ -5,35 +5,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.net.InetAddress;
+import java.util.concurrent.TimeoutException;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
- public class  MultiServer implements Runnable {
+public class MultiServer implements Runnable {
     protected static int serverPort = 49005;
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
-
-=======
-public class MultiServer implements Runnable {
-    protected static int serverPort=49005 ;
-    protected ServerSocket serverSocket = null;
-    protected boolean isStopped = false;
-    protected MyGUI gui;
-    private List<Worker> contacts = new ArrayList<Worker>();
->>>>>>> parent of 7bbe32d... test
-=======
-public class MultiServer implements Runnable {
-    protected static int serverPort=49005 ;
-    protected ServerSocket serverSocket = null;
-    protected boolean isStopped = false;
-    protected MyGUI gui;
-    private List<Worker> contacts = new ArrayList<Worker>();
->>>>>>> parent of 7bbe32d... test
+    private List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
     protected Socket socket;
     protected Utility.TypeConection type;
-    protected  int i = 0;
+    protected int i = 0;
 
+    //попробую сделать лист сокетов clientsocket  и ассептить их
     @Override
     public void run() {
 
@@ -54,21 +38,9 @@ public class MultiServer implements Runnable {
             }
             System.out.println("Как сервер.");
             type = Utility.TypeConection.Server;
-<<<<<<< HEAD
-<<<<<<< HEAD
             P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type);
-            gui.contacts.add(p2pConnection);
+            contacts.add(p2pConnection);
             p2pConnection.start();
-=======
-            Worker worker = new Worker(clientSocket, this.gui, type);
-            contacts.add(worker);
-            worker.start();
->>>>>>> parent of 7bbe32d... test
-=======
-            Worker worker = new Worker(clientSocket, this.gui, type);
-            contacts.add(worker);
-            worker.start();
->>>>>>> parent of 7bbe32d... test
 
             ///ниже работа с GUI
             gui.listModel.addElement("Элемент списка " + gui.k);
@@ -84,31 +56,16 @@ public class MultiServer implements Runnable {
             type = Utility.TypeConection.Client;
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
             this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
             System.out.println(gui.jtfIP.getText());
             P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
-            gui.contacts.add(p2pConnection);
+            contacts.add(p2pConnection);
             p2pConnection.start();
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-            this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()),serverPort); // подключаемся к серверу
-           System.out.println(gui.jtfIP.getText());
-            Worker worker = new Worker(socket, this.gui, type);
-            contacts.add(worker);
-            worker.start();
-<<<<<<< HEAD
->>>>>>> parent of 7bbe32d... test
-=======
->>>>>>> parent of 7bbe32d... test
 
         } catch (Exception x) {
             ErrorNotification error = new ErrorNotification();
             error.eConnect();
-            x.printStackTrace();
-
+            this.socket=null;
         }
 
     }
@@ -131,8 +88,8 @@ public class MultiServer implements Runnable {
 
 
         System.out.println("Opening server socket...");
-        if (i == 0)
-        { try {
+        if (i == 0) {
+            try {
 
                 this.serverSocket = new ServerSocket(this.serverPort);
                 i++;
@@ -144,22 +101,16 @@ public class MultiServer implements Runnable {
 
                 e.printStackTrace();
             }
-    }
+        }
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 7bbe32d... test
-    public List<Worker> getContacts() {
+    public List<P2Pconnection> getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<Worker> contacts) {
+    public void setContacts(List<P2Pconnection> contacts) {
         this.contacts = contacts;
     }
->>>>>>> parent of 7bbe32d... test
 
 
     public MultiServer(int port, MyGUI gui) {
@@ -169,16 +120,4 @@ public class MultiServer implements Runnable {
 
     }
 
-    public void reqContacts()
-    {
-        for(int i=0;i<gui.contacts.size();i++)
-        {
-
-            P2Pconnection p2pConnection = gui.contacts.get(i);
-            p2pConnection.send("###Request%For%Contacts###");
-            p2pConnection.acceptContacts();
-
-        }
-
-    }
 }

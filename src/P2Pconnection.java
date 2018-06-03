@@ -2,10 +2,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Worker extends Thread implements Runnable {
+public class P2Pconnection extends Thread implements Runnable {
 
     protected Socket clientSocket = null;
     protected File history;
@@ -18,7 +16,7 @@ public class Worker extends Thread implements Runnable {
     protected MyGUI gui;
 
 
-    public Worker(Socket clientSocket, MyGUI gui, Utility.TypeConection type) {
+    public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type) {
         this.clientSocket = clientSocket;
         this.gui = gui;
         this.type = type;
@@ -28,10 +26,6 @@ public class Worker extends Thread implements Runnable {
     @Override
     public void run() {
         try {
-          //  System.out.println(clientSocket.getInetAddress());//вернет не мой ip
-           // System.out.println(clientSocket.getLocalAddress());//вернет мой ip
-          //  System.out.println(clientSocket.getLocalPort());//вернет порт
-
 
             pathToHistory = System.getProperty("user.home");
             pathToHistory += File.separator + "p2p-chat" + File.separator + gui.k + "history.txt";
@@ -75,23 +69,20 @@ public class Worker extends Thread implements Runnable {
             e.printStackTrace();
         }
     }
-    //метод приема сообщений
+
     public void get() {
 
         try {
+
             MessageObject mesObject = (MessageObject) ois.readObject();
             System.out.println(mesObject.senderName + ":" + mesObject.message);
-<<<<<<< HEAD:src/P2Pconnection.java
-
-=======
             if(mesObject.message=="File###Transmit###Indeficator")
             {
                 System.out.print("get workera");
-                FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
-                fileTransmit.start();
+               // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
+               // fileTransmit.start();
                 System.out.print("get workera close");
             }
->>>>>>> parent of 7bbe32d... test:src/Worker.java
             ////ниже  работа с Gui
             gui.chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
             gui.chatArea.append(mesObject.senderName + "(" + mesObject.date + ")");//отображаем информацию о полученном сообщении в поле чата
@@ -103,15 +94,16 @@ public class Worker extends Thread implements Runnable {
 
         } catch (Exception x) {
             x.printStackTrace();
+
         }
     }
 
     ////метод отправки сообщений
-    public void send(String mesasge) {
+    public void send() {
         try {
 
             MessageObject mesObject = new MessageObject();
-            mesObject.set(mesasge);//инициализируем датой, именем и самим сообщением
+            mesObject.set(gui.jtfMessage.getText());//инициализируем датой, именем и самим сообщением
 
             System.out.println("send class worker");
             oos.writeObject(mesObject);//пишем в поток
@@ -143,41 +135,7 @@ public class Worker extends Thread implements Runnable {
         }
     }
 
-<<<<<<< HEAD:src/Worker.java
-<<<<<<< HEAD:src/P2Pconnection.java
-
-public void shareContacte()
-{
-    List<String> sharedContacts = new ArrayList<String>();//создаем лист контактов который отправим
-
-    for(int i = 0 ; i<gui.contacts.size();i++)
-
-    {
-        System.out.println( gui.contacts.get(i).clientSocket.getInetAddress());
-        sharedContacts.add(gui.contacts.get(i).clientSocket.getInetAddress().toString());
-        System.out.println(sharedContacts.get(i));
-        send(sharedContacts.toString());
-    }
-
-}
-public void acceptContacts()
-{
-    try {
-        MessageObject mesObject = (MessageObject) ois.readObject();
-        System.out.println(mesObject.message);
-    }catch (Exception x) {
-        x.printStackTrace();
-    }
-}
     public P2Pconnection() {
-=======
-    public Worker() {
->>>>>>> parent of 7bbe32d... test:src/Worker.java
-=======
-    public Worker() {
->>>>>>> parent of 7bbe32d... test:src/Worker.java
 
     }
-
-
 }
