@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuperNode implements Runnable {
+public class SuperNode extends Thread {
     protected MultiServer ms;
 
 
-    public SuperNode(MultiServer multiServer) {
+    public SuperNode(MultiServer ms) {
         this.ms = ms;
     }
 
@@ -15,17 +15,37 @@ public class SuperNode implements Runnable {
 
         while (true) {
             listenContacts();
-            System.out.println(Thread.currentThread().getName());
+
         }
 
     }
 
-    public void listenContacts() {
+    public synchronized void listenContacts() {
+
         List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
         contacts.addAll(0, ms.getContacts());
-
         for (int i = 0; i < contacts.size(); i++) {
-            contacts.get(i).get();
+            if (contacts.get(i).isReady) {
+                contacts.get(i).getMessage();
+            } else return;
+        }
+
+
+    }
+
+    public void transmitOverNat(MessageObject mesobj) {
+        if (mesobj.recieverName != Utility.getHostIP()) {
+            List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
+            contacts.addAll(0, ms.getContacts());
+            for (int i = 0; i < contacts.size(); i++) {
+                if (contacts.get(i).myIp.toString().equals(mesobj.recieverName)) {
+                    P2Pconnection p2p = contacts.get(i);
+                    p2p.send(mesobj.message);
+                }
+
+
+            }
+
         }
     }
 }

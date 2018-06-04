@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 
-public class P2Pconnection extends Thread implements Runnable {
+public class P2Pconnection  {
 
     protected Socket clientSocket = null;
     protected File history;
@@ -14,6 +14,7 @@ public class P2Pconnection extends Thread implements Runnable {
     protected String pathToHistory = null;
     protected InetAddress notMyIp = null;
     protected InetAddress myIp = null;
+    protected boolean isReady=false;
 
 
     protected MyGUI gui;
@@ -29,12 +30,12 @@ public class P2Pconnection extends Thread implements Runnable {
 
     }
 
-    @Override
-    public void run() {
+
+    public void connect() {
         try {
             System.out.println(Thread.currentThread().getName());
             pathToHistory = System.getProperty("user.home");
-            pathToHistory += File.separator + "p2p-chat" + File.separator + notMyIp.toString()+".txt";
+            pathToHistory += File.separator + "p2p-chat" + File.separator + notMyIp.toString() + ".txt";
             System.out.println(File.separator);
             history = new File(pathToHistory);
             history.getParentFile().mkdirs();
@@ -66,14 +67,16 @@ public class P2Pconnection extends Thread implements Runnable {
             } else {
                 notification.nOutConnect();// выводим сообщение о успешном исходящем подключении
             }
-            System.out.println(Thread.currentThread().getName()+"завершен");
+            System.out.println(Thread.currentThread().getName() + "завершен");
 
+            isReady=true;
+            System.out.println(isReady);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void get() {
+    public void getMessage() {
 
         try {
 
@@ -101,7 +104,8 @@ public class P2Pconnection extends Thread implements Runnable {
 
             MessageObject mesObject = new MessageObject();
             mesObject.set(mes);//инициализируем датой, именем и самим сообщением
-
+            mesObject.recieverName=clientSocket.getInetAddress().toString();
+            System.out.println("имя получателя"+mesObject.recieverName);
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
 

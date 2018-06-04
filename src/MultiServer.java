@@ -16,20 +16,23 @@ public class MultiServer implements Runnable {
     protected Socket socket;
     protected Utility.TypeConection type;
     protected int i = 0;
+    Object sync = new Object();
 
     //попробую сделать лист сокетов clientsocket  и ассептить их
     @Override
     public void run() {
 
         System.out.println(Thread.currentThread().getName());
+        openServerSocket();
+         SuperNode supernode= new SuperNode(this);
+        supernode.start();
+
         while (!isStopped()) {
-            openServerSocket();
+
             Socket clientSocket = null;
             try {
-
-                System.out.println("chert");
-                clientSocket = this.serverSocket.accept(); // ждем клиента
                 System.out.println("Waiting.");
+                clientSocket = this.serverSocket.accept(); // ждем клиента
 
             } catch (IOException e) {
                 if (isStopped()) {
@@ -42,7 +45,7 @@ public class MultiServer implements Runnable {
             type = Utility.TypeConection.Server;
             P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type);
             contacts.add(p2pConnection);
-            p2pConnection.start();
+            p2pConnection.connect();
 
             gui.updateContactList();
         }
@@ -58,7 +61,7 @@ public class MultiServer implements Runnable {
 
                 P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
                 contacts.add(p2pConnection);
-                p2pConnection.start();
+                p2pConnection.connect();
             }
             else {
                 socket=null;
@@ -66,9 +69,10 @@ public class MultiServer implements Runnable {
             }
 
         } catch (Exception x) {
-            ErrorNotification error = new ErrorNotification();
-            error.eConnect();
-            this.socket=null;
+            x.printStackTrace();
+            //ErrorNotification error = new ErrorNotification();
+         //   error.eConnect();
+           // this.socket=null;
         }
 
     }
@@ -105,6 +109,7 @@ public class MultiServer implements Runnable {
 
 
     public List<P2Pconnection> getContacts() {
+
         return contacts;
     }
 

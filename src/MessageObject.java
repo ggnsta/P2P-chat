@@ -7,6 +7,7 @@ import java.util.Date;
 public class MessageObject implements Serializable {
     protected String message;//само сообщение;
     protected String senderName;//имя отправителя;
+    protected String recieverName;
     protected Date date;// дата, время;
     protected boolean isFile=false;// является ли передаваемое сообщение файлом.
     protected String fileName;// имя файла, если передаём файл
