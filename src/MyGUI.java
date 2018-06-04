@@ -78,6 +78,8 @@ public class MyGUI extends JFrame {
 
         JMenuItem deleteItem = new JMenuItem("Удалить");
         editContact.add(deleteItem);
+        JMenuItem reqContacrs = new JMenuItem("Запросить контакты");
+        editContact.add(reqContacrs);
 
 
         bAddFile.setBounds(630, 560, 30, 100);
@@ -220,7 +222,6 @@ public class MyGUI extends JFrame {
 
 
                     if (k == 0) {// если это первое подключение
-                        System.out.println("abc");
                         List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
                         P2Pconnection p2pConnection = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
                         p2pConnection.send(jtfMessage.getText());
@@ -236,9 +237,15 @@ public class MyGUI extends JFrame {
                 }
             }
         });
-
+        reqContacrs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<P2Pconnection> contacts = server.getContacts();
+                P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
+                server.superNode.requestContacts(p2pConnection);
+            }
+        });
         //обработчик выбора контакта
-
         list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -296,4 +303,5 @@ public class MyGUI extends JFrame {
         contactList.add(listModel);//добавляем поле в список
         k++;
     }
+
 }

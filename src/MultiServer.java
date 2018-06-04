@@ -13,10 +13,11 @@ public class MultiServer implements Runnable {
     protected boolean isStopped = false;
     protected MyGUI gui;
     private List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
+    protected SuperNode superNode;
     protected Socket socket;
     protected Utility.TypeConection type;
     protected int i = 0;
-    Object sync = new Object();
+
 
     //попробую сделать лист сокетов clientsocket  и ассептить их
     @Override
@@ -24,8 +25,8 @@ public class MultiServer implements Runnable {
 
         System.out.println(Thread.currentThread().getName());
         openServerSocket();
-         SuperNode supernode= new SuperNode(this);
-        supernode.start();
+         this.superNode= new SuperNode(this);
+        superNode.start();
 
         while (!isStopped()) {
 
@@ -126,7 +127,7 @@ public class MultiServer implements Runnable {
 //метод проверка на дублирование подключений
     public boolean checkRepeatIp()
     {
-        if(Utility.getHostIP().equalsIgnoreCase(gui.jtfIP.getText()))//сравниваем введеный ip с собственным
+        if(Utility.getHostIP().equals(gui.jtfIP.getText()))//сравниваем введеный ip с собственным
         {
             System.out.println("подключение к самому себе");
             return false;
@@ -142,5 +143,6 @@ public class MultiServer implements Runnable {
         }
         return true;
     }
+
 
 }

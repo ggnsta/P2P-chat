@@ -15,18 +15,19 @@ public class P2Pconnection  {
     protected InetAddress notMyIp = null;
     protected InetAddress myIp = null;
     protected boolean isReady=false;
+    protected SuperNode superNode;
 
 
     protected MyGUI gui;
 
 
-    public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type) {
+    public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type,SuperNode sn) {
         this.clientSocket = clientSocket;
         this.gui = gui;
         this.type = type;
         this.notMyIp = clientSocket.getInetAddress();
         this.myIp = clientSocket.getLocalAddress();
-
+        this.superNode=sn;
 
     }
 
@@ -82,8 +83,9 @@ public class P2Pconnection  {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
             System.out.println(mesObject.senderName + ":" + mesObject.message);
-            if (mesObject.message == "File###Transmit###Indeficator") {
+            if (mesObject.message == "#%#Request#For#contacts#%#") {
                 System.out.print("get workera");
+                superNode.shareContacts(this);
                 // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
                 // fileTransmit.start();
                 System.out.print("get workera close");
@@ -105,7 +107,7 @@ public class P2Pconnection  {
             MessageObject mesObject = new MessageObject();
             mesObject.set(mes);//инициализируем датой, именем и самим сообщением
             mesObject.recieverName=clientSocket.getInetAddress().toString();
-            System.out.println("имя получателя"+mesObject.recieverName);
+           // System.out.println("имя получателя"+mesObject.recieverName);
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
 

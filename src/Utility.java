@@ -6,6 +6,9 @@ import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+import java.net.InetAddress;
+import java.util.List;
 
 //вспомагательный класс, для получения внешнего IP
 public class Utility {
@@ -40,6 +43,7 @@ public class Utility {
         }
         return ip;
     }
+
 
 }
 
