@@ -12,6 +12,7 @@ public class MessageObject implements Serializable {
     protected String recieverName;
     protected Date date;// дата, время;
     protected List<InetAddress> ipList=null;
+    protected boolean ifShared=false;
 
     //System.out.printf("%1$s %2$td %2$tB %2$tY", "Дата:", date);
 
@@ -20,6 +21,10 @@ public class MessageObject implements Serializable {
         this.senderName=Utility.getHostIP();
         this.date=new Date();
 
+    }
+
+    public void setIfShared(boolean ifShared) {
+        this.ifShared = ifShared;
     }
 
     public void setIpList(List<InetAddress> ipList) {

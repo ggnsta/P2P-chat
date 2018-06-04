@@ -61,13 +61,14 @@ public class SuperNode extends Thread {
         }
         MessageObject mesObj=new MessageObject();
         mesObj.setIpList(ipToshare);
+        mesObj.setIfShared(true);
         mesObj.set("Ip list:");
     }
 
     public void requestContacts(P2Pconnection p2p) {
 
         MessageObject messageObject=new MessageObject();
-        messageObject.set("#%#Request#For#contacts#%#");
+        messageObject.setIfShared(true);
         p2p.send(messageObject);
 
     }

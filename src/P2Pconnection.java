@@ -83,8 +83,9 @@ public class P2Pconnection  {
         try {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
+            System.out.println("check");
             System.out.println(mesObject.senderName + ":" + mesObject.message);
-            if (mesObject.message != "#%#Request#For#contacts#%#") {
+            if (mesObject.ifShared==true) {
                 System.out.print("get workera");
                 superNode.shareContacts(this);
                 // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
@@ -105,14 +106,10 @@ public class P2Pconnection  {
     public void send(MessageObject mesObject) {
         try {
 
-
             mesObject.recieverName=clientSocket.getInetAddress().toString();
-
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
-
             gui.updateChatArea(mesObject, "you");
-
             writeToHistory(mesObject);
 
         } catch (Exception x) {
