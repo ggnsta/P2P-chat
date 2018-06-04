@@ -80,6 +80,8 @@ public class MyGUI extends JFrame {
         editContact.add(deleteItem);
         JMenuItem reqContacrs = new JMenuItem("Запросить контакты");
         editContact.add(reqContacrs);
+        JMenuItem deleteHistory= new JMenuItem("Удалить историю");
+        editContact.add(deleteHistory);
 
 
         bAddFile.setBounds(630, 560, 30, 100);
@@ -241,6 +243,22 @@ public class MyGUI extends JFrame {
                 }
             }
         });
+        //обработчик пунтка меню удалить историю сообщений
+        deleteHistory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<P2Pconnection> contacts = server.getContacts();
+                P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
+                try {
+                    FileWriter fstream1 = new FileWriter(p2pConnection.pathToHistory);// конструктор с одним параметром - для перезаписи
+                    BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
+                    out1.write(""); // очищаем, перезаписав поверх пустую строку
+                    out1.close(); // закрываем
+                } catch (Exception ex)
+                {System.err.println("Error in file cleaning: " + ex.getMessage());}
+            }
+        });
+        //обработчик пунтка меню запросить контакты
         reqContacrs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -303,7 +321,7 @@ public class MyGUI extends JFrame {
     }
     public void updateContactList(){
         ///ниже работа с GUI
-        listModel.addElement("Элемент списка " + k);
+        listModel.addElement("Подлкючение №" + k);
         contactList.add(listModel);//добавляем поле в список
         k++;
     }

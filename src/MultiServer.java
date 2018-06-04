@@ -46,7 +46,7 @@ public class MultiServer implements Runnable {
             type = Utility.TypeConection.Server;
             P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type,superNode);
             contacts.add(p2pConnection);
-            p2pConnection.connect();
+            p2pConnection.start();
 
             gui.updateContactList();
         }
@@ -62,7 +62,7 @@ public class MultiServer implements Runnable {
 
                 P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type,superNode);
                 contacts.add(p2pConnection);
-                p2pConnection.connect();
+                p2pConnection.start();
             }
             else {
                 socket=null;

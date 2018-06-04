@@ -5,7 +5,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class P2Pconnection  {
+public class P2Pconnection extends Thread  {
 
     protected Socket clientSocket = null;
     protected File history;
@@ -15,7 +15,6 @@ public class P2Pconnection  {
     protected String pathToHistory = null;
     protected InetAddress notMyIp = null;
     protected InetAddress myIp = null;
-    protected boolean isReady=false;
     protected SuperNode superNode;
 
 
@@ -33,7 +32,7 @@ public class P2Pconnection  {
     }
 
 
-    public void connect() {
+    public void run() {
         try {
             System.out.println(Thread.currentThread().getName());
             pathToHistory = System.getProperty("user.home");
@@ -69,10 +68,13 @@ public class P2Pconnection  {
             } else {
                 notification.nOutConnect();// выводим сообщение о успешном исходящем подключении
             }
-            System.out.println(Thread.currentThread().getName() + "завершен");
 
-            isReady=true;
-            System.out.println(isReady);
+            while (true) {
+
+                this.getMessage();// собственно эти потоки создаются только для того, чтобы постоянно ожидать сообщения
+
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -16,24 +16,24 @@ public class SuperNode extends Thread {
     public void run() {
 
         while (true) {
-            listenContacts();
 
         }
 
     }
 
-    public synchronized void listenContacts() {
+   /* public  void listenContacts() {
 
         List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
         contacts.addAll(0, ms.getContacts());
         for (int i = 0; i < contacts.size(); i++) {
             if (contacts.get(i).isReady) {
-                contacts.get(i).getMessage();
+                contacts.get(i).getMessage();//чета надо делать с этим циклическим опросом
             } else return;
         }
+            }
 
+*/
 
-    }
 
     public void transmitOverNat(MessageObject mesobj) {
         if (mesobj.recieverName != Utility.getHostIP()) {
@@ -57,12 +57,13 @@ public class SuperNode extends Thread {
         contacts.addAll(0, ms.getContacts());
         for (int i = 0; i < contacts.size(); i++) {
             P2Pconnection buf = contacts.get(i);
-            ipToshare.set(i,buf.notMyIp);
+            ipToshare.add(i,buf.notMyIp);
         }
         MessageObject mesObj=new MessageObject();
         mesObj.setIpList(ipToshare);
-        mesObj.setIfShared(true);
+        mesObj.setIfShared(false);
         mesObj.set("Ip list:");
+        p2p.send(mesObj);
     }
 
     public void requestContacts(P2Pconnection p2p) {
