@@ -3,6 +3,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class P2Pconnection  {
 
@@ -83,7 +84,7 @@ public class P2Pconnection  {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
             System.out.println(mesObject.senderName + ":" + mesObject.message);
-            if (mesObject.message == "#%#Request#For#contacts#%#") {
+            if (mesObject.message != "#%#Request#For#contacts#%#") {
                 System.out.print("get workera");
                 superNode.shareContacts(this);
                 // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
@@ -101,13 +102,12 @@ public class P2Pconnection  {
     }
 
     ////метод отправки сообщений
-    public void send(String mes) {
+    public void send(MessageObject mesObject) {
         try {
 
-            MessageObject mesObject = new MessageObject();
-            mesObject.set(mes);//инициализируем датой, именем и самим сообщением
+
             mesObject.recieverName=clientSocket.getInetAddress().toString();
-           // System.out.println("имя получателя"+mesObject.recieverName);
+
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
 

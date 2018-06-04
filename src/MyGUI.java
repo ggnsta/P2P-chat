@@ -224,11 +224,15 @@ public class MyGUI extends JFrame {
                     if (k == 0) {// если это первое подключение
                         List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
                         P2Pconnection p2pConnection = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
-                        p2pConnection.send(jtfMessage.getText());
+                        MessageObject mesObject = new MessageObject();
+                        mesObject.set(jtfMessage.getText());//инициализируем датой, именем и самим сообщением
+                        p2pConnection.send(mesObject);
                     } else {
                         List<P2Pconnection> contacts = server.getContacts();
                         P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
-                        p2pConnection.send(jtfMessage.getText());
+                        MessageObject mesObject = new MessageObject();
+                        mesObject.set(jtfMessage.getText());//инициализируем датой, именем и самим сообщением
+                        p2pConnection.send(mesObject);
                     }
 
 
@@ -255,7 +259,7 @@ public class MyGUI extends JFrame {
                 try {
                     File f = new File(p2pConnection.pathToHistory);
                     //короче надо пройтись по папке считаь имена всех файлов и если есть совпадения отработать вот это
-                    if (f.getName().equals(p2pConnection.pathToHistory)) {
+                    //if (f.getName().equals(p2pConnection.pathToHistory)) {
                         BufferedReader fileReader = new BufferedReader(new FileReader(f));
                         String line;
                         chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
@@ -267,7 +271,7 @@ public class MyGUI extends JFrame {
                         }
                         chatArea.append("\r\n");
                         fileReader.close();
-                    }
+
                 } catch (Exception ex) {
 
                     System.out.println(ex.getMessage());

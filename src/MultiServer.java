@@ -44,7 +44,7 @@ public class MultiServer implements Runnable {
             }
             System.out.println("Как сервер.");
             type = Utility.TypeConection.Server;
-            P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type);
+            P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type,superNode);
             contacts.add(p2pConnection);
             p2pConnection.connect();
 
@@ -60,7 +60,7 @@ public class MultiServer implements Runnable {
             if(checkRepeatIp()==true) {
                 this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
 
-                P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type);
+                P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type,superNode);
                 contacts.add(p2pConnection);
                 p2pConnection.connect();
             }
