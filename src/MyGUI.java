@@ -139,7 +139,7 @@ public class MyGUI extends JFrame {
 
 
                 server.runClient();
-                listModel.addElement("Элемент списка " + k);
+                listModel.addElement("Подключение " + k);
                 contactList.add(listModel);//добавляем поле в список
                 k++;
                 panel2.setVisible(false);
@@ -254,6 +254,7 @@ public class MyGUI extends JFrame {
                     BufferedWriter out1 = new BufferedWriter(fstream1); //  создаём буферезированный поток
                     out1.write(""); // очищаем, перезаписав поверх пустую строку
                     out1.close(); // закрываем
+                    chatArea.setText("");
                 } catch (Exception ex)
                 {System.err.println("Error in file cleaning: " + ex.getMessage());}
             }
@@ -282,7 +283,6 @@ public class MyGUI extends JFrame {
                         String line;
                         chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
                         while ((line = fileReader.readLine()) != null) {
-                            System.out.println(line);
                             chatArea.append(line);
                             chatArea.append("\r");
 

@@ -50,7 +50,7 @@ public class SuperNode extends Thread {
 
         }
     }
-
+    //функция  раздачи своих контактов другой стороне
     public void shareContacts(P2Pconnection p2p) {
         List<InetAddress> ipToshare = new ArrayList<InetAddress>();
         List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
@@ -65,7 +65,7 @@ public class SuperNode extends Thread {
         mesObj.set("Ip list:");
         p2p.send(mesObj);
     }
-
+    //функция запроса контактов, у другой стороны
     public void requestContacts(P2Pconnection p2p) {
 
         MessageObject messageObject=new MessageObject();
@@ -73,4 +73,39 @@ public class SuperNode extends Thread {
         p2p.send(messageObject);
 
     }
+
+    //функция передачи полученных контактов в multiserver
+    public void transferContacts(List<InetAddress> sharedIP)
+    {
+        List<P2Pconnection> buf = new ArrayList<P2Pconnection>();//заводим список
+        buf.addAll(0, ms.getContacts());//копирем в него список контактов
+        for(int i=0;i<sharedIP.size();i++)
+        {
+            int k=0;
+           for(int j=0; j<sharedIP.size();j++)
+           {
+               P2Pconnection p2p = buf.get(j);
+               if(sharedIP.get(i).equals(p2p.notMyIp)==true)
+               {
+                    System.out.println("есть дубликаты");
+                    break;
+               }
+               else {
+                   k++;
+                   if (k == buf.size())
+                   {
+                       P2Pconnection bufp2p=new P2Pconnection();
+                       bufp2p.notMyIp=sharedIP.get(i);
+                       buf.add(buf.size(),bufp2p);
+                       System.out.println("новый контакт?");
+
+                   }
+               }
+           }
+        }
+        ms.setContacts(buf);
+        ms.gui.updateContactList();
+        System.out.println("обновил список");
+    }
+
 }

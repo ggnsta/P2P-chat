@@ -88,11 +88,16 @@ public class P2Pconnection extends Thread  {
             System.out.println("check");
             System.out.println(mesObject.senderName + ":" + mesObject.message);
             if (mesObject.ifShared==true) {
-                System.out.print("get workera");
+
                 superNode.shareContacts(this);
                 // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
                 // fileTransmit.start();
-                System.out.print("get workera close");
+
+            }
+            if(mesObject.ipList!=null)
+            {
+                System.out.print("get workera");
+                superNode.transferContacts(mesObject.ipList);
             }
             gui.updateChatArea(mesObject, null);
 
