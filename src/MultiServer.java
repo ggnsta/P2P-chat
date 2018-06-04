@@ -27,6 +27,7 @@ public class MultiServer implements Runnable {
             Socket clientSocket = null;
             try {
 
+                System.out.println("chert");
                 clientSocket = this.serverSocket.accept(); // ждем клиента
                 System.out.println("Waiting.");
 
@@ -43,10 +44,7 @@ public class MultiServer implements Runnable {
             contacts.add(p2pConnection);
             p2pConnection.start();
 
-            ///ниже работа с GUI
-            gui.listModel.addElement("Элемент списка " + gui.k);
-            gui.contactList.add(gui.listModel);//добавляем поле в список
-            gui.k++;
+            gui.updateContactList();
         }
         System.out.println("Server Stopped.");
     }
@@ -91,23 +89,20 @@ public class MultiServer implements Runnable {
 
     private void openServerSocket() {
 
-
         System.out.println("Opening server socket...");
-        if (i == 0) {
             try {
 
                 this.serverSocket = new ServerSocket(this.serverPort);
-                i++;
+
             } catch (ConnectException e) {
                 ErrorNotification error = new ErrorNotification();
                 error.eOS();
             } catch (IOException e)// (включает в себя SocketTimeoutException )
             {
-
                 e.printStackTrace();
             }
         }
-    }
+
 
     public List<P2Pconnection> getContacts() {
         return contacts;
@@ -117,14 +112,12 @@ public class MultiServer implements Runnable {
         this.contacts = contacts;
     }
 
-
     public MultiServer(int port, MyGUI gui) {
 
         this.serverPort = port;
         this.gui = gui;
 
     }
-
 //метод проверка на дублирование подключений
     public boolean checkRepeatIp()
     {
@@ -144,4 +137,5 @@ public class MultiServer implements Runnable {
         }
         return true;
     }
+
 }

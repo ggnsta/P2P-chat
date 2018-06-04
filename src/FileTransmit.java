@@ -1,4 +1,3 @@
-/*
 
 import sun.misc.IOUtils;
 import sun.nio.ch.IOUtil;
@@ -11,7 +10,7 @@ import java.util.Properties;
 
 import static java.lang.Math.toIntExact;
 
-public class FileTransmit extends Worker {
+public class FileTransmit extends P2Pconnection {
 
 protected boolean type;
 protected String fileName;
@@ -20,15 +19,13 @@ protected String fileName;
         this.fileName = fileName;
     }
 
-    public FileTransmit(Worker worker, boolean type) {
-        try {
+    public FileTransmit(P2Pconnection p2Pconnection, boolean type) {
+
             this.type=type;
-            this.clientSocket = new Socket(worker.clientSocket.getInetAddress(), MultiServer.serverPort);//получаем из уже имеющегося сокета, ip и создаем второй сокет по которому будут передаваться только файлы
-            this.oos=worker.oos;
-            System.out.println("сокет для передачи файлов");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            this.clientSocket = p2Pconnection.clientSocket;
+            this.oos=p2Pconnection.oos;
+            this.ois=p2Pconnection.ois;
+
     }
     @Override
     public void run() {
@@ -130,5 +127,3 @@ protected String fileName;
 
 }
 
-
-*/

@@ -223,11 +223,11 @@ public class MyGUI extends JFrame {
                         System.out.println("abc");
                         List<P2Pconnection> contacts = server.getContacts();//получаем список всех контактов
                         P2Pconnection p2pConnection = contacts.get(0);//берем последнее(и единственное), сделано для удобства, чтобы не надо было нажимать лишний раз
-                        p2pConnection.send();
+                        p2pConnection.send(jtfMessage.getText());
                     } else {
                         List<P2Pconnection> contacts = server.getContacts();
                         P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
-                        p2pConnection.send();
+                        p2pConnection.send(jtfMessage.getText());
                     }
 
 
@@ -289,5 +289,11 @@ public class MyGUI extends JFrame {
         chatArea.append("\r\n");
         JScrollBar vertical = chatScroll.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());//прокручиваем окно чата вниз при получении сообщения
+    }
+    public void updateContactList(){
+        ///ниже работа с GUI
+        listModel.addElement("Элемент списка " + k);
+        contactList.add(listModel);//добавляем поле в список
+        k++;
     }
 }

@@ -66,11 +66,7 @@ public class P2Pconnection extends Thread implements Runnable {
             } else {
                 notification.nOutConnect();// выводим сообщение о успешном исходящем подключении
             }
-            while (true) {
-
-                this.get();// собственно эти потоки создаются только для того, чтобы постоянно ожидать сообщения
-
-            }
+            System.out.println(Thread.currentThread().getName()+"завершен");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,13 +96,12 @@ public class P2Pconnection extends Thread implements Runnable {
     }
 
     ////метод отправки сообщений
-    public void send() {
+    public void send(String mes) {
         try {
 
             MessageObject mesObject = new MessageObject();
-            mesObject.set(gui.jtfMessage.getText());//инициализируем датой, именем и самим сообщением
+            mesObject.set(mes);//инициализируем датой, именем и самим сообщением
 
-            System.out.println("send class worker");
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
 
