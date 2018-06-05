@@ -16,11 +16,11 @@ public class P2Pconnection extends Thread {
     protected InetAddress notMyIp = null;
     protected InetAddress myIp = null;
     protected SuperNode superNode;
-    protected boolean isDirect=true;
+    protected boolean isDirect = true;
     protected InetAddress superNodeIP = null;
     protected MyGUI gui;
 
-//конструктор прямых подключений
+    //конструктор прямых подключений
     public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type, SuperNode sn) {
         this.clientSocket = clientSocket;
         this.gui = gui;
@@ -30,10 +30,11 @@ public class P2Pconnection extends Thread {
         this.superNode = sn;
 
     }
+
     //конструктор подключений через суперузел
     public P2Pconnection(InetAddress superNodeIP) {
-            this.isDirect=false;
-            this.superNodeIP=superNodeIP;
+        this.isDirect = false;
+        this.superNodeIP = superNodeIP;
     }
 
     public void run() {
@@ -76,7 +77,12 @@ public class P2Pconnection extends Thread {
             while (true) {
 
                 this.getMessage();// собственно эти потоки создаются только для того, чтобы постоянно ожидать сообщения
-
+                if(this.clientSocket.isClosed())
+                {
+                    gui.informAboutclosing();
+                    return;
+                }
+                System.out.println(Thread.currentThread().getName()+"завершен");
             }
 
         } catch (IOException e) {
@@ -102,14 +108,18 @@ public class P2Pconnection extends Thread {
                 System.out.print("get workera");
                 this.clientSocket.getInetAddress();
                 //передаем полученный список ip, и ip того, кто нам этот список отправил
-                superNode.transferContacts(mesObject.ipList,   this.clientSocket.getInetAddress());
+                superNode.transferContacts(mesObject.ipList, this.clientSocket.getInetAddress());
             }
-            if (!(mesObject.senderName.equals(clientSocket.getInetAddress())))//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение
+            if ((mesObject.senderName.equals(clientSocket.getInetAddress())))//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение
             {
                 System.out.print("check check check");
                 gui.updateContactList();
             }
-                System.out.println(mesObject.senderName + ":" + mesObject.message);
+            if (mesObject.recieverName != Utility.getHostIP())
+            {
+                superNode.transmitOverNat(mesObject);
+            }
+            System.out.println(mesObject.senderName + ":" + mesObject.message);
             gui.updateChatArea(mesObject, null);
 
             writeToHistory(mesObject);//вызов метода записи сообщений в файл
@@ -149,5 +159,8 @@ public class P2Pconnection extends Thread {
         }
     }
 
+public P2Pconnection()
+{
 
+}
 }

@@ -25,8 +25,7 @@ public class MultiServer implements Runnable {
 
         System.out.println(Thread.currentThread().getName());
         openServerSocket();
-         this.superNode= new SuperNode(this);
-        superNode.start();
+        this.superNode = new SuperNode(this);
 
         while (!isStopped()) {
 
@@ -44,7 +43,7 @@ public class MultiServer implements Runnable {
             }
             System.out.println("Как сервер.");
             type = Utility.TypeConection.Server;
-            P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type,superNode);
+            P2Pconnection p2pConnection = new P2Pconnection(clientSocket, this.gui, type, superNode);
             contacts.add(p2pConnection);
             p2pConnection.start();
 
@@ -57,29 +56,28 @@ public class MultiServer implements Runnable {
         try {
             System.out.println("Как клиент.");
             type = Utility.TypeConection.Client;
-            if(checkRepeatIp()==true) {
+            if (checkRepeatIp() == true) {
                 this.socket = new Socket(InetAddress.getByName(gui.jtfIP.getText()), serverPort); // подключаемся к серверу
 
-                P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type,superNode);
+                P2Pconnection p2pConnection = new P2Pconnection(socket, this.gui, type, superNode);
                 contacts.add(p2pConnection);
                 p2pConnection.start();
-            }
-            else {
-                socket=null;
+            } else {
+                socket = null;
                 return;
             }
 
         } catch (Exception x) {
             x.printStackTrace();
             //ErrorNotification error = new ErrorNotification();
-         //   error.eConnect();
-           // this.socket=null;
+            //   error.eConnect();
+            // this.socket=null;
         }
 
     }
 
 
-    private synchronized boolean isStopped() {
+    private boolean isStopped() {
         return this.isStopped;
     }
 
@@ -95,18 +93,18 @@ public class MultiServer implements Runnable {
     private void openServerSocket() {
 
         System.out.println("Opening server socket...");
-            try {
+        try {
 
-                this.serverSocket = new ServerSocket(this.serverPort);
+            this.serverSocket = new ServerSocket(this.serverPort);
 
-            } catch (ConnectException e) {
-                ErrorNotification error = new ErrorNotification();
-                error.eOS();
-            } catch (IOException e)// (включает в себя SocketTimeoutException )
-            {
-                e.printStackTrace();
-            }
+        } catch (ConnectException e) {
+            ErrorNotification error = new ErrorNotification();
+            error.eOS();
+        } catch (IOException e)// (включает в себя SocketTimeoutException )
+        {
+            e.printStackTrace();
         }
+    }
 
 
     public List<P2Pconnection> getContacts() {
@@ -124,22 +122,21 @@ public class MultiServer implements Runnable {
         this.gui = gui;
 
     }
-//метод проверка на дублирование подключений
-    public boolean checkRepeatIp()
-    {
-        if(Utility.getHostIP().equals(gui.jtfIP.getText()))//сравниваем введеный ip с собственным
+
+    //метод проверка на дублирование подключений
+    public boolean checkRepeatIp() {
+        if (Utility.getHostIP().equals(gui.jtfIP.getText()))//сравниваем введеный ip с собственным
         {
             System.out.println("подключение к самому себе");
             return false;
         }
-        for(int i=0;i<contacts.size();i++)
-        {
-           P2Pconnection buf =contacts.get(i);
-           if(buf.myIp.toString()!=gui.jtfIP.getText())//сравниваем введенный ip с ip всех контактов
-           {
-               System.out.println("уже подключен к этому адресу");
-               return false;
-           }
+        for (int i = 0; i < contacts.size(); i++) {
+            P2Pconnection buf = contacts.get(i);
+            if (buf.myIp.toString() != gui.jtfIP.getText())//сравниваем введенный ip с ip всех контактов
+            {
+                System.out.println("уже подключен к этому адресу");
+                return false;
+            }
         }
         return true;
     }

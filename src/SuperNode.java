@@ -3,7 +3,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuperNode extends Thread {
+public class SuperNode  {
     protected MultiServer ms;
 
 
@@ -12,14 +12,6 @@ public class SuperNode extends Thread {
     }
 
 
-    @Override
-    public void run() {
-
-        while (true) {
-
-        }
-
-    }
 
    /* public  void listenContacts() {
 
@@ -36,7 +28,7 @@ public class SuperNode extends Thread {
 
 
     public void transmitOverNat(MessageObject mesobj) {
-        if (mesobj.recieverName != Utility.getHostIP()) {
+
             List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
             contacts.addAll(0, ms.getContacts());
             for (int i = 0; i < contacts.size(); i++) {
@@ -48,7 +40,6 @@ public class SuperNode extends Thread {
 
             }
 
-        }
     }
     //функция  раздачи своих контактов другой стороне
     public void shareContacts(P2Pconnection p2p) {

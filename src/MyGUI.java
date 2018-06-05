@@ -80,7 +80,7 @@ public class MyGUI extends JFrame {
         editContact.add(deleteItem);
         JMenuItem reqContacrs = new JMenuItem("Запросить контакты");
         editContact.add(reqContacrs);
-        JMenuItem deleteHistory= new JMenuItem("Удалить историю");
+        JMenuItem deleteHistory = new JMenuItem("Удалить историю");
         editContact.add(deleteHistory);
 
 
@@ -101,6 +101,7 @@ public class MyGUI extends JFrame {
                 //словить тут эксшепшен
                 listModel.remove(list.getSelectedIndex());
                 contactList.remove(list.getSelectedIndex());
+                list.remove(list.getSelectedIndex());
                 //worker.close
             }
         });
@@ -139,7 +140,7 @@ public class MyGUI extends JFrame {
 
 
                 server.runClient();
-                listModel.addElement("Подключение " + k);
+                listModel.addElement("Подлкючение № " + k);
                 contactList.add(listModel);//добавляем поле в список
                 k++;
                 panel2.setVisible(false);
@@ -234,6 +235,17 @@ public class MyGUI extends JFrame {
                         P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
                         MessageObject mesObject = new MessageObject();
                         mesObject.set(jtfMessage.getText());//инициализируем датой, именем и самим сообщением
+
+                        if (p2pConnection.isDirect == false)//если подключение не прямое то будем вызывать метод send другого экземпляра
+                        {
+                            for (int i = 0; i < contacts.size(); i++) {
+                                P2Pconnection buf = new P2Pconnection();
+                                buf = contacts.get(i);
+                                if (buf.myIp.equals(p2pConnection.superNodeIP)) {
+                                    buf.send(mesObject);
+                                }
+                            }
+                        }
                         p2pConnection.send(mesObject);
                     }
 
@@ -255,8 +267,9 @@ public class MyGUI extends JFrame {
                     out1.write(""); // очищаем, перезаписав поверх пустую строку
                     out1.close(); // закрываем
                     chatArea.setText("");
-                } catch (Exception ex)
-                {System.err.println("Error in file cleaning: " + ex.getMessage());}
+                } catch (Exception ex) {
+                    System.err.println("Error in file cleaning: " + ex.getMessage());
+                }
             }
         });
         //обработчик пунтка меню запросить контакты
@@ -279,16 +292,16 @@ public class MyGUI extends JFrame {
                     File f = new File(p2pConnection.pathToHistory);
                     //короче надо пройтись по папке считаь имена всех файлов и если есть совпадения отработать вот это
                     //if (f.getName().equals(p2pConnection.pathToHistory)) {
-                        BufferedReader fileReader = new BufferedReader(new FileReader(f));
-                        String line;
-                        chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
-                        while ((line = fileReader.readLine()) != null) {
-                            chatArea.append(line);
-                            chatArea.append("\r");
+                    BufferedReader fileReader = new BufferedReader(new FileReader(f));
+                    String line;
+                    chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
+                    while ((line = fileReader.readLine()) != null) {
+                        chatArea.append(line);
+                        chatArea.append("\r");
 
-                        }
-                        chatArea.append("\r\n");
-                        fileReader.close();
+                    }
+                    chatArea.append("\r\n");
+                    fileReader.close();
 
                 } catch (Exception ex) {
 
@@ -319,11 +332,17 @@ public class MyGUI extends JFrame {
         JScrollBar vertical = chatScroll.getVerticalScrollBar();
         vertical.setValue(vertical.getMaximum());//прокручиваем окно чата вниз при получении сообщения
     }
-    public void updateContactList(){
+
+    public void updateContactList() {
         ///ниже работа с GUI
         listModel.addElement("Подлкючение №" + k);
         contactList.add(listModel);//добавляем поле в список
         k++;
     }
 
+    public void informAboutclosing()
+    {
+        chatArea.append("Пользователь вышел");
+        chatArea.append("\r\n");
+    }
 }
