@@ -74,12 +74,12 @@ public class SuperNode extends Thread {
 
     }
 
-    //функция передачи полученных контактов в multiserver
-    public void transferContacts(List<InetAddress> sharedIP)
+    //функция получения и применения запрошенного списка контактов в multiserver
+    public void transferContacts(List<InetAddress> sharedIP, InetAddress ownerOfThisList)
     {
         List<P2Pconnection> buf = new ArrayList<P2Pconnection>();//заводим список
         buf.addAll(0, ms.getContacts());//копирем в него список контактов
-        for(int i=0;i<sharedIP.size();i++)
+        for(int i=0;i<sharedIP.size();i++)//прозодим по обоим листам в поисках уникальных адрессов(которых у нас не было)
         {
             int k=0;
            for(int j=0; j<sharedIP.size();j++)
@@ -94,9 +94,9 @@ public class SuperNode extends Thread {
                    k++;
                    if (k == buf.size())
                    {
-                       P2Pconnection bufp2p=new P2Pconnection();
-                       bufp2p.notMyIp=sharedIP.get(i);
-                       buf.add(buf.size(),bufp2p);
+                       P2Pconnection bufp2p=new P2Pconnection(ownerOfThisList);//создаем через конструктор c 1 параметром(тогда isDirect=false)
+                       bufp2p.notMyIp=sharedIP.get(i);//записываем уникальный ip, которого у нас раньше не было
+                       buf.add(buf.size(),bufp2p);//добавляем в список контактов
                        System.out.println("новый контакт?");
 
                    }

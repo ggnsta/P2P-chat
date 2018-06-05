@@ -5,7 +5,7 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class P2Pconnection extends Thread  {
+public class P2Pconnection extends Thread {
 
     protected Socket clientSocket = null;
     protected File history;
@@ -16,21 +16,25 @@ public class P2Pconnection extends Thread  {
     protected InetAddress notMyIp = null;
     protected InetAddress myIp = null;
     protected SuperNode superNode;
-
-
+    protected boolean isDirect=true;
+    protected InetAddress superNodeIP = null;
     protected MyGUI gui;
 
-
-    public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type,SuperNode sn) {
+//конструктор прямых подключений
+    public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type, SuperNode sn) {
         this.clientSocket = clientSocket;
         this.gui = gui;
         this.type = type;
         this.notMyIp = clientSocket.getInetAddress();
         this.myIp = clientSocket.getLocalAddress();
-        this.superNode=sn;
+        this.superNode = sn;
 
     }
-
+    //конструктор подключений через суперузел
+    public P2Pconnection(InetAddress superNodeIP) {
+            this.isDirect=false;
+            this.superNodeIP=superNodeIP;
+    }
 
     public void run() {
         try {
@@ -85,20 +89,27 @@ public class P2Pconnection extends Thread  {
         try {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
-            System.out.println("check");
-            System.out.println(mesObject.senderName + ":" + mesObject.message);
-            if (mesObject.ifShared==true) {
 
+            if (mesObject.ifShared == true) {
+                //если флаг установлен, значит вторая сторона хочет получить наш спсиок контактов
                 superNode.shareContacts(this);
                 // FileTransmit fileTransmit= new FileTransmit(this, true);// передаем текущий сокет и true, означающий что будем принимать файл
                 // fileTransmit.start();
 
             }
-            if(mesObject.ipList!=null)
+            if (mesObject.ipList != null)//есои данный спсисок не пустой,значит нам передали список контактов
             {
                 System.out.print("get workera");
-                superNode.transferContacts(mesObject.ipList);
+                this.clientSocket.getInetAddress();
+                //передаем полученный список ip, и ip того, кто нам этот список отправил
+                superNode.transferContacts(mesObject.ipList,   this.clientSocket.getInetAddress());
             }
+            if (!(mesObject.senderName.equals(clientSocket.getInetAddress())))//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение
+            {
+                System.out.print("check check check");
+                gui.updateContactList();
+            }
+                System.out.println(mesObject.senderName + ":" + mesObject.message);
             gui.updateChatArea(mesObject, null);
 
             writeToHistory(mesObject);//вызов метода записи сообщений в файл
@@ -113,10 +124,10 @@ public class P2Pconnection extends Thread  {
     public void send(MessageObject mesObject) {
         try {
 
-            mesObject.recieverName=clientSocket.getInetAddress().toString();
+            mesObject.recieverName = clientSocket.getInetAddress().toString();
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
-            gui.updateChatArea(mesObject, "you");
+            gui.updateChatArea(mesObject, "Вы:");
             writeToHistory(mesObject);
 
         } catch (Exception x) {
@@ -138,7 +149,5 @@ public class P2Pconnection extends Thread  {
         }
     }
 
-    public P2Pconnection() {
 
-    }
 }

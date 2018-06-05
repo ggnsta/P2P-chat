@@ -9,10 +9,11 @@ import java.util.List;
 public class MessageObject implements Serializable {
     protected String message;//само сообщение;
     protected String senderName;//имя отправителя;
-    protected String recieverName;
+    protected String recieverName;//имя получателя
     protected Date date;// дата, время;
-    protected List<InetAddress> ipList=null;
-    protected boolean ifShared=false;
+    protected List<InetAddress> ipList=null;//лист адрессов, которым будем делиться при запросе
+    protected boolean ifShared=false;// флаг запроса на получения ipList
+
 
     //System.out.printf("%1$s %2$td %2$tB %2$tY", "Дата:", date);
 
