@@ -296,6 +296,7 @@ public class MyGUI extends JFrame {
                     String line;
                     chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
                     while ((line = fileReader.readLine()) != null) {
+                        System.out.println(line);
                         chatArea.append(line);
                         chatArea.append("\r");
 
@@ -340,8 +341,7 @@ public class MyGUI extends JFrame {
         k++;
     }
 
-    public void informAboutclosing()
-    {
+    public void informAboutclosing() {
         chatArea.append("Пользователь вышел");
         chatArea.append("\r\n");
     }

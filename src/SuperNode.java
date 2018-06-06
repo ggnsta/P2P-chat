@@ -66,37 +66,50 @@ public class SuperNode  {
     }
 
     //функция получения и применения запрошенного списка контактов в multiserver
-    public void transferContacts(List<InetAddress> sharedIP, InetAddress ownerOfThisList)
-    {
+    public void transferContacts(List<InetAddress> sharedIP, InetAddress ownerOfThisList) {
         List<P2Pconnection> buf = new ArrayList<P2Pconnection>();//заводим список
         buf.addAll(0, ms.getContacts());//копирем в него список контактов
-        for(int i=0;i<sharedIP.size();i++)//прозодим по обоим листам в поисках уникальных адрессов(которых у нас не было)
+        for (int i = 0; i < sharedIP.size(); i++)//прозодим по обоим листам в поисках уникальных адрессов(которых у нас не было)
         {
-            int k=0;
-           for(int j=0; j<sharedIP.size();j++)
-           {
-               P2Pconnection p2p = buf.get(j);
-               if(sharedIP.get(i).equals(p2p.notMyIp)==true)
-               {
+            int k = 0;
+            for (int j = 0; j < sharedIP.size(); j++) {
+                P2Pconnection p2p = buf.get(j);
+                if (sharedIP.get(i).equals(p2p.notMyIp) == true) {
                     System.out.println("есть дубликаты");
                     break;
-               }
-               else {
-                   k++;
-                   if (k == buf.size())
-                   {
-                       P2Pconnection bufp2p=new P2Pconnection(ownerOfThisList);//создаем через конструктор c 1 параметром(тогда isDirect=false)
-                       bufp2p.notMyIp=sharedIP.get(i);//записываем уникальный ip, которого у нас раньше не было
-                       buf.add(buf.size(),bufp2p);//добавляем в список контактов
-                       System.out.println("новый контакт?");
+                } else {
+                    k++;
+                    if (k == buf.size()) {
+                        P2Pconnection bufp2p = new P2Pconnection(ownerOfThisList);//создаем через конструктор c 1 параметром(тогда isDirect=false)
+                        bufp2p.notMyIp = sharedIP.get(i);//записываем уникальный ip, которого у нас раньше не было
+                        buf.add(buf.size(), bufp2p);//добавляем в список контактов
+                        System.out.println("новый контакт?");
 
-                   }
-               }
-           }
+                    }
+                }
+            }
         }
-        ms.setContacts(buf);
-        ms.gui.updateContactList();
-        System.out.println("обновил список");
+        if (buf.size() > 1)
+        {
+         updateContacts(buf,null);
+    }
+    }
+
+    public void updateContacts(List contacts, P2Pconnection contact) // 2 параметра, 1 - если передаем список соединений, 2 - если одно соединение
+    {
+        if (contact==null) {
+            ms.setContacts(contacts);
+            ms.gui.updateContactList();
+            System.out.println("обновил список");
+        }
+        else {
+            List<P2Pconnection> buf = new ArrayList<P2Pconnection>();
+           buf= ms.getContacts();
+           buf.add(buf.size(),contact);
+           ms.setContacts(buf);
+            ms.gui.updateContactList();
+            System.out.println("обновил список одним контактом");
+        }
     }
 
 }

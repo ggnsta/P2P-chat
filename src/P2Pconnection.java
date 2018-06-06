@@ -3,32 +3,36 @@ import java.awt.*;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 
 public class P2Pconnection extends Thread {
 
     protected Socket clientSocket = null;
-    protected File history;
-    protected ObjectOutputStream oos = null;
-    protected ObjectInputStream ois = null;
+    protected File history;//файл в котором хранится история сообщений
+    protected ObjectOutputStream oos = null;//выходной
+    protected ObjectInputStream ois = null;//входной поток
     protected Utility.TypeConection type; // отвечает за правильный порядок создания oos и ois
-    protected String pathToHistory = null;
-    protected InetAddress notMyIp = null;
-    protected InetAddress myIp = null;
-    protected SuperNode superNode;
-    protected boolean isDirect = true;
-    protected InetAddress superNodeIP = null;
+    protected String pathToHistory = null;//путь до истории сообщений
+    protected InetAddress notMyIp;//ip второй стороны
+    protected InetAddress myIp = null;//мой ip
+    protected SuperNode superNode;//экземпляр класса SuperNode (для пересылки сообщений адрессованных не нам и раздачи контактов)
+    protected boolean isDirect = true;//флаг, является ли соединенеи прямым (не через суперузел)
+    protected InetAddress superNodeIP = null;//если сообщение пересылаются через супер узел, то здесь будет его ip
     protected MyGUI gui;
+
 
     //конструктор прямых подключений
     public P2Pconnection(Socket clientSocket, MyGUI gui, Utility.TypeConection type, SuperNode sn) {
-        this.clientSocket = clientSocket;
-        this.gui = gui;
-        this.type = type;
-        this.notMyIp = clientSocket.getInetAddress();
-        this.myIp = clientSocket.getLocalAddress();
-        this.superNode = sn;
-
+        try {
+            this.clientSocket = clientSocket;
+            this.gui = gui;
+            this.type = type;
+            this.myIp = clientSocket.getLocalAddress();
+            this.superNode = sn;
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
     }
 
     //конструктор подключений через суперузел
@@ -39,6 +43,7 @@ public class P2Pconnection extends Thread {
 
     public void run() {
         try {
+
             System.out.println(Thread.currentThread().getName());
             pathToHistory = System.getProperty("user.home");
             pathToHistory += File.separator + "p2p-chat" + File.separator + notMyIp.toString() + ".txt";
@@ -77,17 +82,13 @@ public class P2Pconnection extends Thread {
             while (true) {
 
                 this.getMessage();// собственно эти потоки создаются только для того, чтобы постоянно ожидать сообщения
-                if(this.clientSocket.isClosed())
-                {
-                    gui.informAboutclosing();
-                    return;
-                }
-                System.out.println(Thread.currentThread().getName()+"завершен");
+
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(Thread.currentThread().getName() + "завершен");
     }
 
     public void getMessage() {
@@ -95,6 +96,12 @@ public class P2Pconnection extends Thread {
         try {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
+            if(this.notMyIp==null)
+            {
+                System.out.println("proverka");
+                getSenderIp(mesObject);
+
+            }
 
             if (mesObject.ifShared == true) {
                 //если флаг установлен, значит вторая сторона хочет получить наш спсиок контактов
@@ -103,30 +110,32 @@ public class P2Pconnection extends Thread {
                 // fileTransmit.start();
 
             }
-            if (mesObject.ipList != null)//есои данный спсисок не пустой,значит нам передали список контактов
+            if (mesObject.ipList != null)//если данный спсисок не пустой,значит нам передали список контактов
             {
                 System.out.print("get workera");
                 this.clientSocket.getInetAddress();
                 //передаем полученный список ip, и ip того, кто нам этот список отправил
                 superNode.transferContacts(mesObject.ipList, this.clientSocket.getInetAddress());
+                return;
             }
             if ((mesObject.senderName.equals(clientSocket.getInetAddress())))//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение
-            {
+            {  //этот иф добавляет в спсиок контактов фейковый контакт
                 System.out.print("check check check");
-                gui.updateContactList();
-            }
-            if (mesObject.recieverName != Utility.getHostIP())
-            {
-                superNode.transmitOverNat(mesObject);
-            }
-            System.out.println(mesObject.senderName + ":" + mesObject.message);
-            gui.updateChatArea(mesObject, null);
+                P2Pconnection buf = new P2Pconnection(clientSocket.getInetAddress());//создаем объект в конструктор которого передаем Ip суперзула
+                superNode.updateContacts(null,buf);
 
-            writeToHistory(mesObject);//вызов метода записи сообщений в файл
+            }
+            if (mesObject.recieverName == Utility.getHostIP()) {
+                superNode.transmitOverNat(mesObject);
+            } else {
+                System.out.println(mesObject.senderName + ":" + mesObject.message);
+                gui.updateChatArea(mesObject, null);
+                writeToHistory(mesObject);//вызов метода записи сообщений в файл
+            }
 
         } catch (Exception x) {
             x.printStackTrace();
-
+            ///вот тут
         }
     }
 
@@ -159,8 +168,18 @@ public class P2Pconnection extends Thread {
         }
     }
 
-public P2Pconnection()
-{
+    public InetAddress getSenderIp(MessageObject mesObj) {
+        try {
+            notMyIp = InetAddress.getByName(mesObj.senderName);
+            System.out.println(notMyIp);
 
-}
+        } catch (Exception x) {
+            x.printStackTrace();
+        }
+        return notMyIp;
+    }
+
+    public P2Pconnection() {
+
+    }
 }

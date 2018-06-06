@@ -35,7 +35,6 @@ public class Utility {
         String ip = null;
         try {
             InetAddress inetAddress = InetAddress.getLocalHost();
-
             ip = inetAddress.getHostAddress();
 
         } catch (UnknownHostException e) {
