@@ -34,6 +34,19 @@ public class MessageObject implements Serializable {
 
     public MessageObject()
     {
+        this.senderName=Utility.getHostIP();
+    }
+
+    public void show()
+    {
+        System.out.println(this.message);
+        System.out.println(this.senderName);
+        System.out.println(this.recieverName);
+        System.out.println(this.date);
+        System.out.println(this.ipList);
+        System.out.println(this.ifShared);
+
+
 
     }
 

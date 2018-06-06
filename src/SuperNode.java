@@ -43,6 +43,7 @@ public class SuperNode  {
     }
     //функция  раздачи своих контактов другой стороне
     public void shareContacts(P2Pconnection p2p) {
+        System.out.println("Раздаю контакты");
         List<InetAddress> ipToshare = new ArrayList<InetAddress>();
         List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
         contacts.addAll(0, ms.getContacts());
@@ -55,6 +56,7 @@ public class SuperNode  {
         mesObj.setIfShared(false);
         mesObj.set("Ip list:");
         p2p.send(mesObj);
+        System.out.println("Раздал контакты");
     }
     //функция запроса контактов, у другой стороны
     public void requestContacts(P2Pconnection p2p) {
@@ -62,6 +64,7 @@ public class SuperNode  {
         MessageObject messageObject=new MessageObject();
         messageObject.setIfShared(true);
         p2p.send(messageObject);
+        System.out.println("запросил контакты");
 
     }
 
@@ -89,7 +92,7 @@ public class SuperNode  {
                 }
             }
         }
-        if (buf.size() > 1)
+        if (buf.size() > 0)
         {
          updateContacts(buf,null);
     }

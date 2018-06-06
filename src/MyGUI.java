@@ -241,13 +241,16 @@ public class MyGUI extends JFrame {
                             for (int i = 0; i < contacts.size(); i++) {
                                 P2Pconnection buf = new P2Pconnection();
                                 buf = contacts.get(i);
-                                if (buf.myIp.equals(p2pConnection.superNodeIP)) {
-                                    buf.send(mesObject);
+                                if (p2pConnection.superNode != null) {
+                                    if (buf.myIp.equals(p2pConnection.superNodeIP)) {
+                                        buf.send(mesObject);
+                                    }
                                 }
                             }
                         }
+                        else{
                         p2pConnection.send(mesObject);
-                    }
+                    }}
 
 
                     jtfMessage.setText("");
@@ -296,7 +299,7 @@ public class MyGUI extends JFrame {
                     String line;
                     chatArea.setFont(new Font("Monospaced", Font.PLAIN, 14)); //задаем шрифт и размер шрифта
                     while ((line = fileReader.readLine()) != null) {
-                        System.out.println(line);
+
                         chatArea.append(line);
                         chatArea.append("\r");
 

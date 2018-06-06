@@ -46,7 +46,7 @@ public class P2Pconnection extends Thread {
 
             System.out.println(Thread.currentThread().getName());
             pathToHistory = System.getProperty("user.home");
-            pathToHistory += File.separator + "p2p-chat" + File.separator + notMyIp.toString() + ".txt";
+            pathToHistory += File.separator + "p2p-chat" + Thread.currentThread().getName()+ ".txt";
             System.out.println(File.separator);
             history = new File(pathToHistory);
             history.getParentFile().mkdirs();
@@ -78,6 +78,8 @@ public class P2Pconnection extends Thread {
             } else {
                 notification.nOutConnect();// выводим сообщение о успешном исходящем подключении
             }
+            tradeIp();
+            getIP();
 
             while (true) {
 
@@ -96,10 +98,12 @@ public class P2Pconnection extends Thread {
         try {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
-            if(this.notMyIp==null)
-            {
-                System.out.println("proverka");
-                getSenderIp(mesObject);
+
+            if ((mesObject.senderName.equals(clientSocket.getInetAddress())))//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение
+            {  //этот иф добавляет в спсиок контактов фейковый контакт
+                System.out.print("check check check");
+                P2Pconnection buf = new P2Pconnection(clientSocket.getInetAddress());//создаем объект в конструктор которого передаем Ip суперзула
+                superNode.updateContacts(null,buf);
 
             }
 
@@ -113,20 +117,20 @@ public class P2Pconnection extends Thread {
             if (mesObject.ipList != null)//если данный спсисок не пустой,значит нам передали список контактов
             {
                 System.out.print("get workera");
-                this.clientSocket.getInetAddress();
                 //передаем полученный список ip, и ip того, кто нам этот список отправил
-                superNode.transferContacts(mesObject.ipList, this.clientSocket.getInetAddress());
+                superNode.transferContacts(mesObject.ipList, this.notMyIp);
+                System.out.println("get workera 2");
                 return;
-            }
-            if ((mesObject.senderName.equals(clientSocket.getInetAddress())))//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение
-            {  //этот иф добавляет в спсиок контактов фейковый контакт
-                System.out.print("check check check");
-                P2Pconnection buf = new P2Pconnection(clientSocket.getInetAddress());//создаем объект в конструктор которого передаем Ip суперзула
-                superNode.updateContacts(null,buf);
 
             }
-            if (mesObject.recieverName == Utility.getHostIP()) {
+
+            System.out.println(mesObject.senderName);
+            System.out.println(Utility.getHostIP());
+            System.out.println(Utility.getCurrentIP());
+            if (mesObject.recieverName == Utility.getHostIP() || mesObject.recieverName==Utility.getCurrentIP()) {
+                System.out.println("проверка");
                 superNode.transmitOverNat(mesObject);
+                System.out.println("tut");
             } else {
                 System.out.println(mesObject.senderName + ":" + mesObject.message);
                 gui.updateChatArea(mesObject, null);
@@ -143,7 +147,7 @@ public class P2Pconnection extends Thread {
     public void send(MessageObject mesObject) {
         try {
 
-            mesObject.recieverName = clientSocket.getInetAddress().toString();
+            //mesObject.recieverName = clientSocket.getInetAddress().toString();
             oos.writeObject(mesObject);//пишем в поток
             oos.flush();
             gui.updateChatArea(mesObject, "Вы:");
@@ -168,15 +172,31 @@ public class P2Pconnection extends Thread {
         }
     }
 
-    public InetAddress getSenderIp(MessageObject mesObj) {
-        try {
-            notMyIp = InetAddress.getByName(mesObj.senderName);
-            System.out.println(notMyIp);
 
-        } catch (Exception x) {
-            x.printStackTrace();
+    public void tradeIp()
+    {
+        try {
+            MessageObject mesObject=new MessageObject();
+            mesObject.set("Подключение произошло");
+            oos.writeObject(mesObject);//пишем в поток
+            oos.flush();
         }
-        return notMyIp;
+       catch (Exception x)
+       {
+           x.printStackTrace();
+       }
+    }
+    public void getIP()
+    {
+        try{
+        MessageObject mesObject = (MessageObject) ois.readObject();
+        this.notMyIp=InetAddress.getByName(mesObject.senderName);
+            System.out.println(notMyIp);
+    }
+       catch (Exception x)
+    {
+        x.printStackTrace();
+    }
     }
 
     public P2Pconnection() {
