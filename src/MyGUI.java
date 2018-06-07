@@ -232,25 +232,26 @@ public class MyGUI extends JFrame {
                         p2pConnection.send(mesObject);
                     } else {
                         List<P2Pconnection> contacts = server.getContacts();
+
                         P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());
                         MessageObject mesObject = new MessageObject();
                         mesObject.set(jtfMessage.getText());//инициализируем датой, именем и самим сообщением
+                        mesObject.recieverName = p2pConnection.notMyIp.toString();//////////////////////////// вот тут чета сделать
 
                         if (p2pConnection.isDirect == false)//если подключение не прямое то будем вызывать метод send другого экземпляра
                         {
                             for (int i = 0; i < contacts.size(); i++) {
                                 P2Pconnection buf = new P2Pconnection();
                                 buf = contacts.get(i);
-                                if (p2pConnection.superNode != null) {
-                                    if (buf.myIp.equals(p2pConnection.superNodeIP)) {
-                                        buf.send(mesObject);
-                                    }
+                                if (buf.notMyIp == p2pConnection.superNodeIP) {
+                                    System.out.println("nat");
+                                    buf.send(mesObject);
                                 }
                             }
+                        } else {
+                            p2pConnection.send(mesObject);
                         }
-                        else{
-                        p2pConnection.send(mesObject);
-                    }}
+                    }
 
 
                     jtfMessage.setText("");
