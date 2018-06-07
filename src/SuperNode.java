@@ -40,6 +40,7 @@ contacts.get(i).getMessage();//чета надо делать с этим цик
             if (contacts.get(i).notMyIp.toString().equals(mesobj.recieverName)) {
                 P2Pconnection p2p = contacts.get(i);
                 p2p.send(mesobj);
+                return;
             }
 
 
@@ -50,17 +51,18 @@ contacts.get(i).getMessage();//чета надо делать с этим цик
     //функция раздачи своих контактов другой стороне
     public void shareContacts(P2Pconnection p2p) {
         System.out.println("Раздаю контакты");
-        List<InetAddress> ipToshare = new ArrayList<InetAddress>();
-        List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
-        contacts.addAll(0, ms.getContacts());
-        for (int i = 0; i < contacts.size(); i++) {
-            P2Pconnection buf = contacts.get(i);
+        List<String> ipToshare = new ArrayList<String>();
+        List<P2Pconnection> bufContacts = new ArrayList<P2Pconnection>();
+        bufContacts.addAll(0, ms.getContacts());
+       // bufContacts.remove(p2p);//достаем из списка наше соединение, чтобы не отпавлять второй стороне самого осебя
+        for (int i = 0; i < bufContacts.size(); i++) {
+            P2Pconnection buf = bufContacts.get(i);
             ipToshare.add(i, buf.notMyIp);
         }
         MessageObject mesObj = new MessageObject();
         mesObj.setIpList(ipToshare);
         mesObj.setIfShared(false);
-        mesObj.set("Ip list:");
+        mesObj.set(ipToshare.toString());
         p2p.send(mesObj);
         System.out.println("Раздал контакты");
     }
@@ -76,7 +78,7 @@ contacts.get(i).getMessage();//чета надо делать с этим цик
     }
 
     //функция получения и применения запрошенного списка контактов в multiserver
-    public void transferContacts(List<InetAddress> sharedIP, InetAddress ownerOfThisList) {
+    public void transferContacts(List<String> sharedIP, String ownerOfThisList) {
         List<P2Pconnection> buf = new ArrayList<P2Pconnection>();//заводим список
         buf.addAll(0, ms.getContacts());//копирем в него список контактов
         for (int i = 0; i < sharedIP.size(); i++)//прозодим по обоим листам в поисках уникальных адрессов(которых у нас не было)
@@ -86,7 +88,6 @@ contacts.get(i).getMessage();//чета надо делать с этим цик
                 P2Pconnection p2p = buf.get(j);
                 if (sharedIP.get(j).equals(p2p.notMyIp) == true) {
                     System.out.println("есть дубликаты");
-                    break;
                 } else {
                     k++;
                     if (k == buf.size()) {
@@ -100,6 +101,7 @@ contacts.get(i).getMessage();//чета надо делать с этим цик
             }
         }
         if (buf.size() > 0) {
+
             updateContacts(buf, null);
         }
     }
@@ -107,7 +109,10 @@ contacts.get(i).getMessage();//чета надо делать с этим цик
     public void updateContacts(List contacts, P2Pconnection contact) // 2 параметра, 1 - если передаем список соединений, 2 - если одно соединение
     {
         if (contact == null) {
-            ms.setContacts(contacts);
+            List<P2Pconnection> bufList =ms.getContacts();
+            contacts.removeAll(bufList);//удаляем повторы
+            bufList.addAll(bufList.size(),contacts);
+            ms.setContacts(bufList);
             ms.gui.updateContactList();
             System.out.println("обновил список");
         } else {

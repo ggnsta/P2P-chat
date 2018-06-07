@@ -11,7 +11,7 @@ public class MessageObject implements Serializable {
     protected String senderName;//имя отправителя;
     protected String recieverName;//имя получателя
     protected Date date;// дата, время;
-    protected List<InetAddress> ipList=null;//лист адрессов, которым будем делиться при запросе
+    protected List<String> ipList=null;//лист адрессов, которым будем делиться при запросе
     protected boolean ifShared=false;// флаг запроса на получения ipList
 
 
@@ -28,7 +28,7 @@ public class MessageObject implements Serializable {
         this.ifShared = ifShared;
     }
 
-    public void setIpList(List<InetAddress> ipList) {
+    public void setIpList(List<String> ipList) {
         this.ipList = ipList;
     }
 

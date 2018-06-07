@@ -14,11 +14,11 @@ public class P2Pconnection extends Thread {
     protected ObjectInputStream ois = null;//входной поток
     protected Utility.TypeConection type; // отвечает за правильный порядок создания oos и ois
     protected String pathToHistory = null;//путь до истории сообщений
-    protected InetAddress notMyIp;//ip второй стороны
-    protected InetAddress myIp = null;//мой ip
+    protected String notMyIp;//ip второй стороны
+    protected String myIp = null;//мой ip
     protected SuperNode superNode;//экземпляр класса SuperNode (для пересылки сообщений адрессованных не нам и раздачи контактов)
     protected boolean isDirect = true;//флаг, является ли соединенеи прямым (не через суперузел)
-    protected InetAddress superNodeIP = null;//если сообщение пересылаются через супер узел, то здесь будет его ip
+    protected String superNodeIP = null;//если сообщение пересылаются через супер узел, то здесь будет его ip
     protected MyGUI gui;
 
 
@@ -28,7 +28,7 @@ public class P2Pconnection extends Thread {
             this.clientSocket = clientSocket;
             this.gui = gui;
             this.type = type;
-            this.myIp = clientSocket.getLocalAddress();
+            this.myIp = clientSocket.getLocalAddress().toString();
             this.superNode = sn;
         } catch (Exception x) {
             x.printStackTrace();
@@ -36,11 +36,11 @@ public class P2Pconnection extends Thread {
     }
 
     //конструктор подключений через суперузел
-    public P2Pconnection(InetAddress superNodeIP) {
+    public P2Pconnection(String SuperNodeIP) {
         this.isDirect = false;
         this.superNodeIP = superNodeIP;
         try {
-            this.myIp = InetAddress.getByName(Utility.getHostIP());
+            this.myIp = InetAddress.getByName(Utility.getHostIP()).toString();
 
         } catch (Exception x) {
             x.printStackTrace();
@@ -58,15 +58,15 @@ public class P2Pconnection extends Thread {
             history.getParentFile().mkdirs();
             history.createNewFile();
 
+            /*ObjectInputStream, читает из указанного InputStream. Заголовок
+            потока сериализации считывается из потока и проверяется.
+            Этот конструктор будет блокироваться до тех пор, пока соответствующий
+            objectOutputStream не запишет и не сбросит заголовок.
+            В итоге, если и у клиента и у сервера будет одинаковый порядок создания
+            OOS и OIS, они оба будут ждать друг от друга заголовка потока и заблокируют
+            друг друга.
+            */
 
-/*ObjectInputStream, читает из указанного InputStream. Заголовок
-потока сериализации считывается из потока и проверяется.
-Этот конструктор будет блокироваться до тех пор, пока соответствующий
-objectOutputStream не запишет и не сбросит заголовок.
-В итоге, если и у клиента и у сервера будет одинаковый порядок создания
-OOS и OIS, они оба будут ждать друг от друга заголовка потока и заблокируют
-друг друга.
-*/
             if (type == Utility.TypeConection.Server) {
 
                 oos = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -78,12 +78,6 @@ OOS и OIS, они оба будут ждать друг от друга заг�
                 oos = new ObjectOutputStream(clientSocket.getOutputStream());
             }
 
-            ErrorNotification notification = new ErrorNotification();
-            if (type == Utility.TypeConection.Server) {
-                notification.nInConnect();// выводим сообщение о успешном входящем подключении
-            } else {
-                notification.nOutConnect();// выводим сообщение о успешном исходящем подключении
-            }
             tradeIp();
             getIP();
 
@@ -111,7 +105,7 @@ OOS и OIS, они оба будут ждать друг от друга заг�
                 System.out.print("check check check");
                 ErrorNotification er=new ErrorNotification();
                 er.eConnect();
-                P2Pconnection buf = new P2Pconnection(clientSocket.getInetAddress());//создаем объект в конструктор которого передаем Ip суперзула
+                P2Pconnection buf = new P2Pconnection(clientSocket.getInetAddress().toString());//создаем объект в конструктор которого передаем Ip суперзула
                 superNode.updateContacts(null, buf);
 
             }
@@ -133,15 +127,22 @@ OOS и OIS, они оба будут ждать друг от друга заг�
                 return;
 
             }
-
+            System.out.println("reciver "+mesObject.recieverName);
             System.out.println("sender " + mesObject.senderName);
             System.out.println("host " + Utility.getHostIP());
             System.out.println("cur " + Utility.getCurrentIP());
             System.out.println("myip " + myIp.toString());
-            if (!(mesObject.recieverName.equals(myIp.toString()))) {
-                System.out.println("проверка");
-                superNode.transmitOverNat(mesObject);
-                System.out.println("tut");
+            if (!(mesObject.recieverName.equals(this.myIp.toString())))
+            {
+                if(!(mesObject.recieverName.equals(Utility.getCurrentIP()))){
+                    if(!(mesObject.recieverName.equals(Utility.getHostIP().toString())))
+                    {
+                    //вот тут нул поинтер валится, скорее всего объект приходит пустым
+                        System.out.println("проверка");
+                        superNode.transmitOverNat(mesObject);
+                        System.out.println("tut");
+                    }
+                }
             } else {
                 System.out.println(mesObject.senderName + ":" + mesObject.message);
                 gui.updateChatArea(mesObject, null);
@@ -198,7 +199,7 @@ OOS и OIS, они оба будут ждать друг от друга заг�
     public void getIP() {
         try {
             MessageObject mesObject = (MessageObject) ois.readObject();
-            this.notMyIp = InetAddress.getByName(mesObject.senderName);
+            this.notMyIp = InetAddress.getByName(mesObject.senderName).toString();
             System.out.println(notMyIp);
         } catch (Exception x) {
             x.printStackTrace();
