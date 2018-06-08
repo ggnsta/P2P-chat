@@ -15,21 +15,13 @@ public class MyGUI extends JFrame {
     protected JFrame panel2;
     protected JLabel myIP;
     protected JTextArea jtfMessage;
-    protected JTextField jtfName;
     protected JTextArea chatArea;// поле чата
     protected JTextField jtfIP = new JTextField("");
-    protected JTextField jtfport;
     protected JButton bAdd;
-    protected JButton jb3;
     protected JScrollPane chatScroll;
     protected JScrollPane messageScroll;
-    protected JLabel readyLabel;
     protected JLabel labelIP = new JLabel("Введите IP");
     protected JButton bAddFile = new JButton("Ф");
-    protected JProgressBar transmitProgress;
-    protected BoundedRangeModel model = new DefaultBoundedRangeModel(0, 0, 0, 100);
-    protected JPanel mainPanel;
-    protected JLabel lblMain;
     protected JScrollPane contactsScroll;
     protected JList list;
     protected JPopupMenu editContact = new JPopupMenu();

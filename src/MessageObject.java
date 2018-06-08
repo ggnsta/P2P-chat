@@ -15,7 +15,6 @@ public class MessageObject implements Serializable {
     protected boolean ifShared=false;// флаг запроса на получения ipList
 
 
-    //System.out.printf("%1$s %2$td %2$tB %2$tY", "Дата:", date);
 
     public void set(String message) {
         this.message = message;
@@ -37,18 +36,7 @@ public class MessageObject implements Serializable {
         this.senderName=Utility.getHostIP();
     }
 
-    public void show()
-    {
-        System.out.println(this.message);
-        System.out.println(this.senderName);
-        System.out.println(this.recieverName);
-        System.out.println(this.date);
-        System.out.println(this.ipList);
-        System.out.println(this.ifShared);
 
-
-
-    }
 
 
 }

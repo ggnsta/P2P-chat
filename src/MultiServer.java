@@ -12,11 +12,11 @@ public class MultiServer implements Runnable {
     protected ServerSocket serverSocket = null;
     protected boolean isStopped = false;
     protected MyGUI gui;
-    private List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
+    protected List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
     protected SuperNode superNode;
     protected Socket socket;
     protected Utility.TypeConection type;
-    protected int i = 0;
+
 
 
     //попробую сделать лист сокетов clientsocket  и ассептить их
@@ -81,7 +81,7 @@ public class MultiServer implements Runnable {
         return this.isStopped;
     }
 
-    public synchronized void stop() {
+    public  void stop() {
         this.isStopped = true;
         try {
             this.serverSocket.close();

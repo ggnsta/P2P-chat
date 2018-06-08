@@ -12,21 +12,6 @@ public class SuperNode {
     }
 
 
-
-/* public void listenContacts() {
-
-List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();
-contacts.addAll(0, ms.getContacts());
-for (int i = 0; i < contacts.size(); i++) {
-if (contacts.get(i).isReady) {
-contacts.get(i).getMessage();//чета надо делать с этим циклическим опросом
-} else return;
-}
-}
-
-*/
-
-
     public void transmitOverNat(MessageObject mesobj) {
 
         List<P2Pconnection> contacts = new ArrayList<P2Pconnection>();

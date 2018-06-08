@@ -28,7 +28,7 @@ public class P2Pconnection extends Thread {
             this.clientSocket = clientSocket;
             this.gui = gui;
             this.type = type;
-            this.myIp = clientSocket.getLocalAddress().toString();
+            this.myIp = Utility.getHostIP();;
             this.superNode = sn;
         } catch (Exception x) {
             x.printStackTrace();
@@ -53,7 +53,6 @@ public class P2Pconnection extends Thread {
             System.out.println(Thread.currentThread().getName());
             pathToHistory = System.getProperty("user.home");
             pathToHistory += File.separator + "p2p-chat" + Thread.currentThread().getName() + ".txt";
-            System.out.println(File.separator);
             history = new File(pathToHistory);
             history.getParentFile().mkdirs();
             history.createNewFile();
@@ -98,7 +97,7 @@ public class P2Pconnection extends Thread {
         try {
 
             MessageObject mesObject = (MessageObject) ois.readObject();
-            mesObject.show();
+
 
             if ((mesObject.senderName.equals(this.notMyIp.toString()))) {//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение//вот тут что-то
                 //этот иф добавляет в спсиок контактов фейковый контакт
@@ -127,27 +126,25 @@ public class P2Pconnection extends Thread {
                 return;
 
             }
-            System.out.println("reciver "+mesObject.recieverName);
+           /* System.out.println("reciver "+mesObject.recieverName);
             System.out.println("sender " + mesObject.senderName);
             System.out.println("host " + Utility.getHostIP());
             System.out.println("cur " + Utility.getCurrentIP());
             System.out.println("myip " + myIp.toString());
             if (!(mesObject.recieverName.equals(this.myIp.toString())))
             {
-                if(!(mesObject.recieverName.equals(Utility.getCurrentIP()))){
-                    if(!(mesObject.recieverName.equals(Utility.getHostIP().toString())))
-                    {
                     //вот тут нул поинтер валится, скорее всего объект приходит пустым
                         System.out.println("проверка");
                         superNode.transmitOverNat(mesObject);
                         System.out.println("tut");
-                    }
-                }
-            } else {
+
+
+            } else {*/
+
                 System.out.println(mesObject.senderName + ":" + mesObject.message);
                 gui.updateChatArea(mesObject, null);
                 writeToHistory(mesObject);//вызов метода записи сообщений в файл
-            }
+           // }
 
         } catch (Exception x) {
             x.printStackTrace();
@@ -210,9 +207,5 @@ public class P2Pconnection extends Thread {
 
     }
 
-    public void show() {
-        System.out.println("myip " + this.myIp);
-        System.out.println("not main " + this.notMyIp);
-        System.out.println("super " + this.superNodeIP);
-    }
+
 }
