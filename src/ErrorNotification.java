@@ -32,4 +32,8 @@ public class ErrorNotification {
     {
         JOptionPane.showMessageDialog(null,"Есть подключение","Уведомление",JOptionPane.PLAIN_MESSAGE );
     }
+    public void nodeOut()
+    {
+        JOptionPane.showMessageDialog(null,"Пользователь вышел","Уведомление",JOptionPane.PLAIN_MESSAGE );
+    }
 }

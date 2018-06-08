@@ -28,7 +28,8 @@ public class P2Pconnection extends Thread {
             this.clientSocket = clientSocket;
             this.gui = gui;
             this.type = type;
-            this.myIp = Utility.getHostIP();;
+            this.myIp = clientSocket.getLocalAddress().toString();
+            this.notMyIp=clientSocket.getInetAddress().toString();
             this.superNode = sn;
         } catch (Exception x) {
             x.printStackTrace();
@@ -50,12 +51,6 @@ public class P2Pconnection extends Thread {
     public void run() {
         try {
 
-            System.out.println(Thread.currentThread().getName());
-            pathToHistory = System.getProperty("user.home");
-            pathToHistory += File.separator + "p2p-chat" + Thread.currentThread().getName() + ".txt";
-            history = new File(pathToHistory);
-            history.getParentFile().mkdirs();
-            history.createNewFile();
 
             /*ObjectInputStream, читает из указанного InputStream. Заголовок
             потока сериализации считывается из потока и проверяется.
@@ -77,15 +72,17 @@ public class P2Pconnection extends Thread {
                 oos = new ObjectOutputStream(clientSocket.getOutputStream());
             }
 
-            tradeIp();
-            getIP();
 
-            while (true) {
-
+            pathToHistory = System.getProperty("user.home");
+            pathToHistory += File.separator + "p2p-chat" + this.notMyIp + ".txt";
+            history = new File(pathToHistory);
+            history.getParentFile().mkdirs();
+            history.createNewFile();
+            while (!(Thread.currentThread().isInterrupted())) {
                 this.getMessage();// собственно эти потоки создаются только для того, чтобы постоянно ожидать сообщения
-
             }
 
+            gui.chatArea.append("Пользователь вышел");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -96,6 +93,8 @@ public class P2Pconnection extends Thread {
 
         try {
 
+            System.out.println("LOCAL"+clientSocket.getLocalAddress());
+            System.out.println("INET"+clientSocket.getInetAddress());
             MessageObject mesObject = (MessageObject) ois.readObject();
 
 
@@ -147,8 +146,9 @@ public class P2Pconnection extends Thread {
            // }
 
         } catch (Exception x) {
-            x.printStackTrace();
-            //вот тут
+            ErrorNotification notif = new ErrorNotification();
+            notif.nodeOut();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -182,26 +182,6 @@ public class P2Pconnection extends Thread {
     }
 
 
-    public void tradeIp() {
-        try {
-            MessageObject mesObject = new MessageObject();
-            mesObject.set("Подключение произошло");
-            oos.writeObject(mesObject);//пишем в поток
-            oos.flush();
-        } catch (Exception x) {
-            x.printStackTrace();
-        }
-    }
-
-    public void getIP() {
-        try {
-            MessageObject mesObject = (MessageObject) ois.readObject();
-            this.notMyIp = InetAddress.getByName(mesObject.senderName).toString();
-            System.out.println(notMyIp);
-        } catch (Exception x) {
-            x.printStackTrace();
-        }
-    }
 
     public P2Pconnection() {
 

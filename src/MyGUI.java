@@ -21,7 +21,6 @@ public class MyGUI extends JFrame {
     protected JScrollPane chatScroll;
     protected JScrollPane messageScroll;
     protected JLabel labelIP = new JLabel("Введите IP");
-    protected JButton bAddFile = new JButton("Ф");
     protected JScrollPane contactsScroll;
     protected JList list;
     protected JPopupMenu editContact = new JPopupMenu();
@@ -58,7 +57,7 @@ public class MyGUI extends JFrame {
         jtfMessage.setEditable(true);
         jtfMessage.setLineWrap(true);
         jtfMessage.setWrapStyleWord(true);
-        messageScroll.setBounds(215, 560, 415, 100);
+        messageScroll.setBounds(215, 560, 445, 100);
         my_panel.add(messageScroll);
 
 
@@ -76,8 +75,6 @@ public class MyGUI extends JFrame {
         editContact.add(deleteHistory);
 
 
-        bAddFile.setBounds(630, 560, 30, 100);
-        my_panel.add(bAddFile);
 
         myIP = new JLabel("Ваш IP:" + Utility.getHostIP());
         myIP.setBounds(10, 664, 120, 10);
@@ -181,32 +178,7 @@ public class MyGUI extends JFrame {
             }
         });
 
-        //обработка нажатия на кнопку добавление файла
-        bAddFile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                JFileChooser chooser = new JFileChooser();//объект выбора файлов
-                chooser.setMultiSelectionEnabled(true);
 
-                List<P2Pconnection> contacts = server.getContacts();//получаем список подключений
-                P2Pconnection p2pConnection = contacts.get(list.getSelectedIndex());//получаем  нужное подключение( выбранное слева из списка контактов)
-
-                int returnVal = chooser.showOpenDialog(null);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File[] file = chooser.getSelectedFiles();
-                    for (File directory : file) {// получаем все вложенные объекты в каталоге
-                        //    FileTransmit filetransmit=new FileTransmit(p2pConnection,false);
-                        // filetransmit.setFileName(directory + "");
-                        // filetransmit.sendFile();//задаем имя отправляемого файла
-                        // filetransmit.start();
-                    }
-
-
-                    //  System.out.print(selectedFiles.size());
-                }
-            }
-
-        });
 
         //обработчик клавиши enter(отпраква сообщений)
         jtfMessage.addKeyListener(new KeyAdapter() {

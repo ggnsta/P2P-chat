@@ -69,9 +69,9 @@ public class MultiServer implements Runnable {
 
         } catch (Exception x) {
             x.printStackTrace();
-            //ErrorNotification error = new ErrorNotification();
-            //   error.eConnect();
-            // this.socket=null;
+            ErrorNotification error = new ErrorNotification();
+               error.eConnect();
+             this.socket=null;
         }
 
     }
