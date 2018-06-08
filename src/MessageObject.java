@@ -6,7 +6,7 @@ import java.util.List;
 
 
 
-public class MessageObject implements Serializable {
+public class MessageObject {
     protected String message;//само сообщение;
     protected String senderName;//имя отправителя;
     protected String recieverName;//имя получателя

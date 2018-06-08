@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 
-public class P2Pconnection extends Thread {
+public class P2Pconnection {
 
     protected Socket clientSocket = null;
     protected File history;//файл в котором хранится история сообщений
@@ -101,8 +101,6 @@ public class P2Pconnection extends Thread {
             if ((mesObject.senderName.equals(this.notMyIp.toString()))) {//если имя отправителя сообщения != имени второй стороны, значит вторая сторона - суперузел и пересылает нам это сообщение//вот тут что-то
                 //этот иф добавляет в спсиок контактов фейковый контакт
                 System.out.print("check check check");
-                ErrorNotification er=new ErrorNotification();
-                er.eConnect();
                 P2Pconnection buf = new P2Pconnection(clientSocket.getInetAddress().toString());//создаем объект в конструктор которого передаем Ip суперзула
                 superNode.updateContacts(null, buf);
 

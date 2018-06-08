@@ -9,7 +9,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.io.*;
 
-public class MyGUI extends JFrame {
+public class MyGUI  {
 
     //объекты gui'a
     protected JFrame panel2;

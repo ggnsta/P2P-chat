@@ -19,7 +19,6 @@ public class MultiServer implements Runnable {
 
 
 
-    //попробую сделать лист сокетов clientsocket  и ассептить их
     @Override
     public void run() {
 
